@@ -36,6 +36,7 @@ const config = {
 			'images.unsplash.com',
 		],
 		unoptimized: true,
+		loader: 'custom',
 	},
 	// Inspired by: https://github.com/leerob/leerob.io/blob/main/next.config.js#L44-L81
 	async headers() {
