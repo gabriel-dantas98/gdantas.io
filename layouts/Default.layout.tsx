@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 import Particles from 'react-particles';
 import { loadFull } from 'tsparticles';
-import particlesOptions from '../data/particles.json';
 import { Navbar } from '~/components';
 import { usePersistantState, useSeoProps } from '~/lib';
 
@@ -25,9 +24,6 @@ export function DefaultLayout({
 }: DefaultLayoutProps) {
 	const { animations: background } = usePersistantState().get();
 	const showBackground = overrideBackground ?? background;
-	// const particlesInit = useCallback((main) => {
-	// 	loadFull(main);
-	// }, []);
 
 	const seo = useSeoProps(customSeo);
 
@@ -36,7 +32,6 @@ export function DefaultLayout({
 			<NextSeo {...seo} />
 			<Navbar.Standard />
 			<main className="flex flex-col justify-center px-8">
-				{/* <Particles options={particlesOptions} init={particlesInit} /> */}
 				{showBackground && <Background />}
 				{children}
 			</main>
