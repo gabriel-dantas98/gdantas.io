@@ -1,0 +1,48 @@
+{
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"version": 2,
+	"alias": "gdantas.dev",
+	"cleanUrls": true,
+	"public": true,
+	"regions": [
+		"lhr1"
+	],
+	"redirects": [
+		{
+			"source": "/calendar",
+			"destination": "https://cal.com/gdantasdev"
+		},
+		{
+			"source": "/cv",
+			"destination": "https://read.cv/gdantas"
+		},
+		{
+			"source": "/github",
+			"destination": "https://github.com/gdantasdev"
+		},
+		{
+			"source": "/linkedin",
+			"destination": "https://www.linkedin.com/in/gdantasdev"
+		},
+		{
+			"source": "/meeting",
+			"destination": "https://cal.com/gdantasdev"
+		},
+		{
+			"source": "/portfolio",
+			"destination": "/projects"
+		},
+		{
+			"source": "/resume",
+			"destination": "https://read.cv/gdantas"
+		},
+		{
+			"source": "/schedule",
+			"destination": "https://cal.com/gdantasdev"
+		},
+		{
+			"source": "/twitter",
+			"destination": "https://twitter.com/gdantasdev"
+		}
+	]
+}
