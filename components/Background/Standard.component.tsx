@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import Particles from 'react-particles';
 import { loadFull } from 'tsparticles';
 import { RecursivePartial, IOptions } from 'tsparticles-engine';
-import particlesOptions from '../../data/particles.json';
 import { Engine } from 'tsparticles-engine';
 
 export function Standard() {
