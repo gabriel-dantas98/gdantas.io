@@ -46,9 +46,16 @@ const staticMenuItems: Array<Array<NavigationItem>> = [
 		},
 		{
 			type: NavigationItemType.LINK,
+			icon: 'feather:youtube',
+			text: 'Talks',
+			href: 'https://instagram.com/_g_dantas',
+			external: true,
+		},
+		{
+			type: NavigationItemType.LINK,
 			icon: 'feather:github',
 			text: 'GitHub',
-			href: 'https://github.com/gdantasdev',
+			href: 'https://github.com/gabriel-dantas98',
 			external: true,
 		},
 	],

@@ -1,69 +1,76 @@
 [
 	{
-		"date": "03-14-2022",
-		"title": "Partner @ Helix IoT Platform",
-		"description": "Joined the Wander team",
+		"date": "12-01-2020",
+		"title": "Site Reliability Engineer - QuintoAndar",
+		"description": "SRE focando em observabilidade (Grafana, Prometheus, ELK) e developer experience (Backstage.io)",
 		"icon": "feather:briefcase",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
+		"link": {
+			"text": "QuintoAndar",
+			"url": "https://quintoandar.com.br/"
+		}
+	},
+	{
+		"date": "10-16-2019",
+		"title": "Estágio Software Engineer - QuintoAndar",
+		"description": "Estágio no time de SRE utilizando IaC, Kubernetes, AWS e Drone CI",
+		"icon": "feather:briefcase",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
+		"link": {
+			"text": "QuintoAndar",
+			"url": "https://quintoandar.com.br/"
+		}
+	},
+	{
+		"date": "09-01-2019",
+		"title": "Partner @ Helix IoT Platform",
+		"description": "Uma plataforma resiliente e orientada a microsserviços, com uma maneira intuitiva e fácil de implantar seus aplicativos de IoT.",
+		"icon": "feather:briefcase",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
 			"text": "Helix IoT Platform",
 			"url": "https://gethelix.org/"
 		}
 	},
 	{
-		"date": "03-15-2021",
-		"title": "Site Reliability Enginner - QuintoAndar",
-		"description": "Joined the Attio team",
-		"icon": "feather:briefcase",
-		"link": {
-			"text": "QuintoAndar",
-			"url": "https://quintoandar.com.br/"
-		}
-	},
-	{
-		"date": "11-16-2020",
-		"title": "Estágio Software Enginner - QuintoAndar",
-		"description": "Joined the Aiming.pro team",
-		"icon": "feather:briefcase",
-		"link": {
-			"text": "QuintoAndar",
-			"url": "https://quintoandar.com.br/"
-		}
-	},
-	{
-		"date": "07-15-2020",
+		"date": "09-01-2018",
 		"title": "Estágio em DevOps - Mandic/Rivendel",
-		"description": "Successfully completed my Bachelor's Degree",
-		"icon": "feather:award",
+		"description": "- Sustentação de múltiplos ambientes \n- Implementação de Pipelines de CI/CD \n- Melhoria continua de arquiteturas utilizando IaC",
+		"icon": "feather:briefcase",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
 			"text": "Mandic/Rivendel",
 			"url": "https://www.mandic.com.br/empresa/"
 		}
 	},
 	{
-		"date": "10-11-2018",
+		"date": "09-01-2017",
 		"title": "Estágio de TI - B4A",
-		"description": "Began an internship as a junior developer working at Stink Studios",
+		"description": "- Acompanhamento e gerenciamento de duas infraestruturas AWS distintas. \n- Configuração de jobs do Jenkins para deploy na AWS. \n- Desenvolvimento de tasks para diferentes plataformas da empresa. \n- Uso de Docker para Conteinerização de ambientes de DEV/PROD.",
 		"icon": "feather:briefcase",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
 			"text": "Beauty for All",
 			"url": "https://b4a.com.br/"
 		}
 	},
 	{
-		"date": "11-04-2016",
+		"date": "08-01-2016",
 		"title": "Estágio de Infraestrutura - Glambox",
-		"description": "Began my first part-time job as a junior service desk analyist at CreeperHost",
+		"description": "- Gerenciamento e manutenção da infraestrutura de rede. \n- Administração de contas emails, grupos e funcionalidades GSuite. \n- Suporte a colaboradores da empresa.",
 		"icon": "feather:briefcase",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
 			"text": "Glambox",
 			"url": "https://glambox.com.br/"
 		}
 	},
 	{
-		"date": "02-02-2016",
-		"title": "Estudante de Engenharia da Computação na FIAP",
-		"description": "Comecei a estudar engenharia da Computação na FIAP participando de diversas atividades interdciplinates",
+		"date": "07-01-2016",
+		"title": "Faculdade Engenharia da Computação - FIAP",
+		"description": "Comecei a estudar engenharia da Computação na FIAP participando de diversas atividades interdisciplinares",
 		"icon": "feather:book",
+		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
 			"text": "Faculdade de Informática e Administração Paulista",
 			"url": "https://fiap.com.br/"

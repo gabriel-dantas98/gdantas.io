@@ -35,7 +35,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 	return (
 		<Layout.Default seo={{ title: 'gdantas ─ timeline' }}>
 			<div className="flex flex-grow min-h-screen pt-16 pb-12">
-				<div className="flex-grow flex flex-col justify-center max-w-sm sm:max-w-2xl w-full mx-auto px-0 sm:px-16">
+				<div className="flex flex-col justify-center flex-grow w-full max-w-sm px-0 mx-auto sm:max-w-3xl sm:px-16">
 					<ul className="-mb-8" role="list">
 						{timeline.map((event, index) => (
 							<li className="my-1" key={event.title}>
@@ -47,8 +47,8 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 										/>
 									)}
 
-									<div className="relative flex items-center space-x-3 bg-gray-50 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 backdrop-filter backdrop-blur-sm px-2 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg">
-										<div className="relative flex items-center justify-center w-12 h-12 bg-primary-500 bg-opacity-15 backdrop-filter backdrop-blur-sm saturate-200 mx-2 px-1 rounded-full">
+									<div className="relative flex items-center px-2 py-3 space-x-3 bg-opacity-75 border-2 border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-900 dark:bg-opacity-75 backdrop-filter backdrop-blur-sm dark:border-gray-600">
+										<div className="relative items-center justify-center hidden w-12 h-12 px-1 mx-2 rounded-full bg-primary-500 bg-opacity-15 backdrop-filter backdrop-blur-sm saturate-200">
 											<Icon
 												aria-hidden="true"
 												className="w-6 h-6 text-primary-500"
@@ -56,16 +56,16 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 											/>
 										</div>
 
-										<div className="min-w-0 flex-1">
-											<h1 className="flex flex-wrap justify-between mb-2 text-gray-500 dark:text-white text-lg tracking-tight font-bold">
+										<div className="flex-1 min-w-0">
+											<h1 className="flex flex-wrap justify-between mb-2 text-lg font-bold tracking-tight text-gray-500 dark:text-white">
 												<span>{event.title}</span>
 												<span className="flex-1 sm:hidden" />
 												<Pill.Date className="mt-2 sm:mt-0" small={true}>
-													{format(event.date, 'PPP')}
+													{format(event.date, 'yyyy')}
 												</Pill.Date>
 											</h1>
 
-											<p className="my-2 text-gray-300 text-base">
+											<p className="my-2 text-base text-gray-300 whitespace-pre-line">
 												{event.description}
 											</p>
 

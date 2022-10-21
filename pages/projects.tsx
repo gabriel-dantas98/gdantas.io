@@ -27,7 +27,7 @@ export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 
 	return (
 		<Layout.Default seo={{ title: 'gdantas ─ projects' }}>
-			<div className="my-24 mx-2 sm:mx-6 lg:mb-28 lg:mx-8">
+			<div className="mx-2 my-24 sm:mx-6 lg:mb-28 lg:mx-8">
 				<div className="relative max-w-xl mx-auto">
 					<List.Container>
 						{projects.map((project, index) => (

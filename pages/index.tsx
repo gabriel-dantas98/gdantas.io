@@ -20,7 +20,7 @@ const ACTIONS: Array<NavigationItem> = [
 	{
 		type: NavigationItemType.LINK,
 		external: true,
-		href: 'https://github.com/gdantasdev',
+		href: 'https://github.com/gabriel-dantas98',
 		icon: <Icon className="mr-3" icon="feather:github" />,
 		text: 'GitHub',
 	},
@@ -44,16 +44,16 @@ export default function HomePage() {
 	return (
 		<Layout.Default>
 			<div className="flex items-center justify-center min-h-screen py-12">
-				<div className="w-full max-w-lg space-y-8 text-center sm:max-w-lg md:sm:max-w-2xl lg:sm:max-w-7xl">
+				<div className="w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
 					<Animate
 						as="h1"
 						animation={{
 							opacity: [0, 1],
 							scale: [0.75, 1],
 						}}
-						className="font-extrabold tracking-tight text-gray-500 text-1xl dark:text-white sm:text-6xl md:text-6xl lg:text-7xl">
+						className="text-4xl font-extrabold tracking-tight text-gray-500 dark:text-white sm:text-6xl md:text-6xl lg:text-7xl">
 						Eae! Sou Gabriel Dantas 🚀 <br className="hidden sm:block" />{' '}
-						<Pill.Standard className="mt-4 text-4xl font-semibold">
+						<Pill.Standard className="mt-4 text-2xl font-semibold sm:text-4xl">
 							Site Reliability Engineer
 						</Pill.Standard>
 					</Animate>
@@ -86,7 +86,7 @@ export default function HomePage() {
 									transition={{
 										delay: 0.1 * (index + 2) + 0.5,
 									}}>
-									<Button.Outline href={action.href}>
+									<Button.Outline target="_blank" href={action.href}>
 										{action.icon}
 										<span>{action.text}</span>
 									</Button.Outline>
