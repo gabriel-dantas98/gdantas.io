@@ -17,6 +17,7 @@ const ContentSecurityPolicy = `
  * @type {import('next').NextConfig}
  */
 const config = {
+	assetPrefix: './',
 	images: {
 		domains: [
 			// Discord assets
