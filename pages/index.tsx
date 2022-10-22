@@ -96,6 +96,59 @@ export default function HomePage() {
 					</div>
 				</div>
 			</div>
+			<div className="flex items-center justify-center min-h-screen py-12">
+				<div className="w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
+					<Animate
+						as="h1"
+						animation={{
+							opacity: [0, 1],
+							scale: [0.75, 1],
+						}}
+						className="text-4xl font-extrabold tracking-tight text-gray-500 dark:text-white sm:text-6xl md:text-6xl lg:text-7xl">
+						Eae! Sou Gabriel Dantas 🚀 <br className="hidden sm:block" />{' '}
+						<Pill.Standard className="mt-4 text-2xl font-semibold sm:text-4xl">
+							Site Reliability Engineer
+						</Pill.Standard>
+					</Animate>
+
+					<Animate
+						as="p"
+						animation={{
+							opacity: [0, 1],
+							scale: [0.75, 1],
+						}}
+						className="max-w-xs mx-auto mt-4 text-base text-gray-300 md:mt-8 sm:text-lg md:text-2xl md:max-w-3xl"
+						transition={{
+							delay: 0.5,
+						}}>
+						{description}
+					</Animate>
+
+					<div className="flex flex-col items-center justify-center w-full mt-8 space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mt-4">
+						{ACTIONS.map((action, index) => {
+							if (action.type !== NavigationItemType.LINK) return null;
+
+							return (
+								<Animate
+									animation={{
+										y: [50, 0],
+										opacity: [0, 1],
+									}}
+									className="w-full sm:w-auto"
+									key={index}
+									transition={{
+										delay: 0.1 * (index + 2) + 0.5,
+									}}>
+									<Button.Outline target="_blank" href={action.href}>
+										{action.icon}
+										<span>{action.text}</span>
+									</Button.Outline>
+								</Animate>
+							);
+						})}
+					</div>
+				</div>
+			</div>
 		</Layout.Default>
 	);
 }

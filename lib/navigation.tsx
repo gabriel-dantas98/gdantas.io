@@ -28,6 +28,12 @@ const staticMenuItems: Array<Array<NavigationItem>> = [
 			text: 'Projetos',
 			href: '/projects',
 		},
+		{
+			type: NavigationItemType.LINK,
+			icon: 'feather:youtube',
+			text: 'Talks',
+			href: '/talks',
+		},
 	],
 	[
 		{
@@ -39,23 +45,16 @@ const staticMenuItems: Array<Array<NavigationItem>> = [
 		},
 		{
 			type: NavigationItemType.LINK,
-			icon: 'feather:instagram',
-			text: 'Instagram',
-			href: 'https://instagram.com/_g_dantas',
-			external: true,
-		},
-		{
-			type: NavigationItemType.LINK,
-			icon: 'feather:youtube',
-			text: 'Talks',
-			href: 'https://instagram.com/_g_dantas',
-			external: true,
-		},
-		{
-			type: NavigationItemType.LINK,
 			icon: 'feather:github',
 			text: 'GitHub',
 			href: 'https://github.com/gabriel-dantas98',
+			external: true,
+		},
+		{
+			type: NavigationItemType.LINK,
+			icon: 'feather:instagram',
+			text: 'Instagram',
+			href: 'https://instagram.com/_g_dantas',
 			external: true,
 		},
 	],

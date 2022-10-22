@@ -3,28 +3,28 @@
         "title": "Talks e Apresentações",
         "icon": "feather:youtube",
         "color": "#c4302b",
-        "description": "Blogueiro sqn",
-        "url": "https: //github.com/gabriel-dantas98"
+        "description": "",
+        "url": "/talks"
     },
     {
         "title": "Github",
         "icon": "feather:github",
         "color": "",
-        "description": "Onde guardo os meus codigos do dia-a-dia",
+        "description": "",
         "url": "https://github.com/gabriel-dantas98"
     },
     {
-        "title": "Medium",
+        "title": "Medium Blog",
         "icon": "feather:book",
         "color": "",
-        "description": "My blog",
+        "description": "",
         "url": "https://medium.com/@_gdantas"
     },
     {
         "title": "LinkedIn",
         "icon": "feather:linkedin",
         "color": "#286db9",
-        "description": "Contato profissional",
+        "description": "",
         "url": "https://www.linkedin.com/in/gabrieldantasg/"
     }
 ]

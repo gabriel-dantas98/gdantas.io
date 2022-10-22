@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Tech Talk -  Como desenvolvemos o developer portal usando o Backstage.io",
+        "icon": "feather:youtube",
+        "color": "#c4302b",
+        "description": "Tech Talk no canal do QuintoAndar onde apresentamos um pouco sobre o uso do Backstage.io no QuintoAndar",
+        "url": "https://www.youtube.com/watch?v=Y57gUwb1v3g"
+    },
+    {
+        "title": "Carreira SRE: com Daniel Requena SRE no Ifood, Gabriel Dantas SRE no Quinto Andar e Bruno Pereira",
+        "icon": "feather:youtube",
+        "color": "#c4302b",
+        "description": "Um bate-papo sobre Carreira de SRE",
+        "url": "https://www.youtube.com/watch?v=3Y396fXecpE"
+    }
+]
