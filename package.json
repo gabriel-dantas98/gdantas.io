@@ -3,7 +3,7 @@
 	"name": "gdantas.dev",
 	"version": "2.1.1",
 	"description": "Personal Website for gdantas.dev",
-	"repository": "https://github.com/gdantasdev/gdantas.dev.git",
+	"repository": "https://github.com/gabriel-dantas98/gdantas.io",
 	"author": "gdantasdev <me@gdantas.dev>",
 	"license": "MIT",
 	"packageManager": "yarn@3.2.0",

@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production';
-const domain = isProduction ? 'gdantas.dev' : 'localhost:3000';
+const domain = isProduction ? 'gabriel-dantas98.github.io/gdantas.io' : 'localhost:3000';
 const protocol = isProduction ? 'https' : 'http';
 
 /**
