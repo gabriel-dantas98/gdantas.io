@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	});
 
 	return (
-		<ThemeProvider attribute="class" defaultTheme={Theme.SYSTEM} themes={Object.values(Theme)}>
+		<ThemeProvider attribute="class" defaultTheme={Theme.DARK} themes={Object.values(Theme)}>
 			<Component {...pageProps} />
 			<style jsx global>{`
 				#nprogress .bar {

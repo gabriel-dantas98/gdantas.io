@@ -114,14 +114,14 @@ export function useNavigation() {
 				icon: 'feather:monitor',
 				endIcon: theme === Theme.SYSTEM ? 'feather:check-circle' : undefined,
 				text: 'System Theme',
-				onClick: () => setTheme(Theme.SYSTEM),
+				onClick: () => setTheme(Theme.DARK),
 			},
 			{
 				type: NavigationItemType.ACTION,
 				icon: 'feather:sun',
 				endIcon: theme === Theme.LIGHT ? 'feather:check-circle' : undefined,
 				text: 'Light Theme',
-				onClick: () => setTheme(Theme.LIGHT),
+				onClick: () => setTheme(Theme.DARK),
 			},
 			{
 				type: NavigationItemType.ACTION,
