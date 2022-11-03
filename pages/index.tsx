@@ -124,12 +124,12 @@ export default function HomePage() {
 							<br />
 							Desde então sempre tento estar atualizado tanto área Dev quanto Ops,
 							adoro desenvolver, mas também gosto da complexidade que a infraestrutura
-							trás. Atualmente sou SRE e ajudo times de desenvolvimento a criar
+							traz. Atualmente sou SRE e ajudo times de desenvolvimento a criar
 							serviços escaláveis, observáveis e resilientes com as ferramentas certas
 							:)
 							<br />
 							<br />
-							Adoro ficar favoritando repositórios no Github em buscas de novos
+							Adoro ficar favoritando repositórios no Github em busca de novos
 							projetos e ideias!
 						</Animate>
 					</div>
