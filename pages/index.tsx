@@ -4,12 +4,16 @@ import { Icon } from '@iconify/react';
 import Image from 'next/image';
 
 import { Animate, Button, Pill } from '~/components';
-import { EventType, NavigationItemType } from '~/types';
+import { NavigationItemType } from '~/types';
 import { Layout } from '~/layouts';
 
 import type { EventProps } from '~/components/Event.component';
 import type { NavigationItem } from '~/types';
 
+import ProfilePicture from '../public/profile-photo.jpg';
+const myLoader = ({ src, width, quality }) => {
+	return `${src}?w=${width}&q=${quality || 75}`;
+};
 const Event = dynamic<EventProps>(
 	() => import('~/components/Event.component').then(({ Event }) => Event),
 	{
@@ -132,9 +136,10 @@ export default function HomePage() {
 					<div className="flex items-center justify-center w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
 						<div className="relative w-[20rem] h-[30rem] md:h-[40rem] md:w-[30rem]">
 							<Image
-								src="/profile-photo.jpg"
+								src={ProfilePicture}
 								alt="Logo"
 								layout="fill"
+								loader={myLoader}
 								objectFit="cover"
 								className="rounded" // you can use other classes here too
 							/>
