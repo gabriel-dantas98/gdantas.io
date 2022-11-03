@@ -95,6 +95,7 @@ export default function HomePage() {
 						})}
 					</div>
 				</div>
+<<<<<<< Updated upstream
 			</div>
 			<div className="flex items-center justify-center min-h-screen py-12">
 				<div className="w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
@@ -146,6 +147,49 @@ export default function HomePage() {
 								</Animate>
 							);
 						})}
+=======
+				<div className="grid items-center justify-center min-h-screen py-12 md:grid-cols-2 gap-04">
+					<div className="w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
+						<Animate
+							as="p"
+							animation={{
+								opacity: [0, 1],
+								scale: [0.75, 1],
+							}}
+							className="max-w-xs mx-auto mt-4 text-base text-white whitespace-pre-line md:mt-8 sm:text-lg md:text-2xl md:max-w-3xl"
+							transition={{
+								delay: 0.5,
+							}}>
+							Sou de Jandira - São Paulo, comecei no mundo da tecnologia estudando
+							redes de computadores ainda no ensino médio. <br />
+							Me formei em Engenharia da Computação na FIAP, onde tive a oportunidade
+							de participar de diversos projetos desde a criação de robôs, aplicativos
+							e ideias de startups.
+							<br />
+							<br />
+							Desde então sempre tento estar atualizado tanto área Dev quanto Ops,
+							adoro desenvolver, mas também gosto da complexidade que a infraestrutura
+							tráz. Atualmente sou SRE e ajudo times de desenvolvimento a criar
+							serviços escaláveis, observáveis e resilientes com as ferramentas certas
+							:)
+							<br />
+							<br />
+							Adoro ficar favoritando repositórios no Github em busca de novos
+							projetos e ideias!
+						</Animate>
+					</div>
+					<div className="flex items-center justify-center w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
+						<div className="relative w-[20rem] h-[30rem] md:h-[40rem] md:w-[30rem]">
+							<Image
+								src={ProfilePicture}
+								alt="Logo"
+								layout="fill"
+								loader={myLoader}
+								objectFit="cover"
+								className="rounded" // you can use other classes here too
+							/>
+						</div>
+>>>>>>> Stashed changes
 					</div>
 				</div>
 			</div>
