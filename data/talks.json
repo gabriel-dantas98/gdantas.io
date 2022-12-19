@@ -12,5 +12,12 @@
         "color": "#c4302b",
         "description": "Um bate-papo sobre Carreira de SRE",
         "url": "https://www.youtube.com/watch?v=3Y396fXecpE"
+    },
+    {
+        "title": "QuintoCast - Backstage: Tornando a Engenharia do QuintoAndar navegável",
+        "icon": "feather:headphones",
+        "color": "#1ed760",
+        "description": "O podcast dos times de tecnologia do QuintoAndar. Onde compartilhamos um pouco da jornada de criar um portal para nossa engenharia usando Backstage.io",
+        "url": "https://open.spotify.com/episode/5VUnjZGGIHBqiD8HHKHyd0?si=lxiCal3yTUm-huSh5b7Acw"
     }
 ]
