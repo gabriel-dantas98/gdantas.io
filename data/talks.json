@@ -19,5 +19,12 @@
         "color": "#1ed760",
         "description": "O podcast dos times de tecnologia do QuintoAndar. Onde compartilhamos um pouco da jornada de criar um portal para nossa engenharia usando Backstage.io",
         "url": "https://open.spotify.com/episode/5VUnjZGGIHBqiD8HHKHyd0?si=lxiCal3yTUm-huSh5b7Acw"
+    },
+    {
+        "title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
+        "icon": "feather:book",
+        "color": "#ffba00",
+        "description": "Slides da apresentação que fiz no DevopsDays SP 2024",
+        "url": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit?usp=sharing"
     }
 ]
