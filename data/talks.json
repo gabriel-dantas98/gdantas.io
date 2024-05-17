@@ -21,6 +21,13 @@
         "url": "https://open.spotify.com/episode/5VUnjZGGIHBqiD8HHKHyd0?si=lxiCal3yTUm-huSh5b7Acw"
     },
     {
+        "title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
+        "icon": "feather:headphones",
+        "color": "#1ed760",
+        "description": "Episódio que compartilho junto com o Victor Fonseca, Leo Vieira e Caio Queiroz sobre o case de criação de uma plataforma para desenvolvedores com o Backstage no QuintoAndar.",
+        "url": "https://techleadership.rocks/2023/10/22/plataforma-de-desenvolvedores-com-victor-fonseca-gabriel-dantas-leo-vieira-e-caio-queiroz/"
+    },
+    {
         "title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
         "icon": "feather:book",
         "color": "#ffba00",
