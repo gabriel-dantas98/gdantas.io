@@ -33,5 +33,12 @@
         "color": "#ffba00",
         "description": "Slides da apresentação que fiz no DevopsDays SP 2024",
         "url": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit?usp=sharing"
+    },
+    {
+        "title": "Jornada DevOps: História e Prática",
+        "icon": "feather:book",
+        "color": "#ffba00",
+        "description": "Slides da apresentação que fiz para alunos do Senac, sobre Cultura DevOps e Engenharia de Plataforma",
+        "url": "https://www.canva.com/design/DAGRQj47Z0k/19PvBT5qAvg8glBwc6dHCA/edit?utm_content=DAGRQj47Z0k&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
     }
 ]
