@@ -1,5 +1,19 @@
 [
     {
+        "title": "Platform Days 2025 - Construindo um RAG com dados do seu Internal Developer Portal",
+        "icon": "feather:book",
+        "color": "#51f086",
+        "description": "Slides da apresentação que fiz no Platform Days SP 2025",
+        "url": "https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk/edit?usp=sharing"
+    },
+    {
+        "title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
+        "icon": "feather:book",
+        "color": "#ffba00",
+        "description": "Slides da apresentação que fiz no DevopsDays SP 2024",
+        "url": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit?usp=sharing"
+    },
+    {
         "title": "Tech Talk -  Como desenvolvemos o developer portal usando o Backstage.io",
         "icon": "feather:youtube",
         "color": "#c4302b",
@@ -26,13 +40,6 @@
         "color": "#1ed760",
         "description": "Episódio que compartilho junto com o Victor Fonseca, Leo Vieira e Caio Queiroz sobre o case de criação de uma plataforma para desenvolvedores com o Backstage no QuintoAndar.",
         "url": "https://techleadership.rocks/2023/10/22/plataforma-de-desenvolvedores-com-victor-fonseca-gabriel-dantas-leo-vieira-e-caio-queiroz/"
-    },
-    {
-        "title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
-        "icon": "feather:book",
-        "color": "#ffba00",
-        "description": "Slides da apresentação que fiz no DevopsDays SP 2024",
-        "url": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit?usp=sharing"
     },
     {
         "title": "Jornada DevOps: História e Prática",
