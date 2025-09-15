@@ -1,5 +1,12 @@
 [
     {
+        "title": "DevPR Config 2025 - especial 10 anos - Criando seu Assistente de Incidentes com MCP's",
+        "icon": "feather:book",
+        "color": "#15a04d",
+        "description": "Código & Slides da apresentação que fiz no DevPR Config 2025 no Paraná",
+        "url": "https://github.com/gabriel-dantas98/devparana-incident-agent-mcps"
+    },
+    {
         "title": "Platform Days 2025 - Construindo um RAG com dados do seu Internal Developer Portal",
         "icon": "feather:book",
         "color": "#51f086",
