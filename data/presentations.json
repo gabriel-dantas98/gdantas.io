@@ -1,0 +1,102 @@
+[
+	{
+		"title": "DevPR Config 2025 - especial 10 anos - Criando seu Assistente de Incidentes com MCP's",
+		"icon": "feather:book",
+		"color": "#15a04d",
+		"description": "Código & Slides da apresentação que fiz no DevPR Config 2025 no Paraná",
+		"githubUrl": "https://github.com/gabriel-dantas98/devparana-incident-agent-mcps",
+		"contentUrl": "https://docs.google.com/presentation/d/1caZhQFIXv2K4e1ljIR9I85Xv51vegV3-S64tanx4Q4M",
+		"date": "2025-08-24",
+		"location": "Maringá, PR",
+		"preview": {
+			"type": "google-slides",
+			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1caZhQFIXv2K4e1ljIR9I85Xv51vegV3-S64tanx4Q4M/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
+		"title": "Platform Days 2025 - Construindo um RAG com dados do seu Internal Developer Portal",
+		"icon": "feather:book",
+		"color": "#51f086",
+		"description": "Slides da apresentação que fiz no Platform Days SP 2025",
+		"githubUrl": "https://github.com/gabriel-dantas98/platform-talks-rag-idp",
+		"contentUrl": "https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk/edit?usp=sharing",
+		"date": "2025-06-10",
+		"location": "São Paulo, SP",
+		"preview": {
+			"type": "google-slides",
+			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
+		"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
+		"icon": "feather:book",
+		"color": "#ffba00",
+		"description": "Slides da apresentação que fiz no DevopsDays SP 2024",
+		"contentUrl": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit?usp=sharing",
+		"date": "2024-10-01",
+		"location": "São Paulo, SP",
+		"preview": {
+			"type": "google-slides",
+			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
+		"title": "Tech Talk -  Como desenvolvemos o developer portal usando o Backstage.io",
+		"icon": "feather:youtube",
+		"color": "#c4302b",
+		"description": "Tech Talk no canal do QuintoAndar onde apresentamos um pouco sobre o uso do Backstage.io no QuintoAndar",
+		"contentUrl": "https://www.youtube.com/watch?v=Y57gUwb1v3g",
+		"date": "2023-07-12",
+		"location": "Online",
+		"preview": {
+			"type": "youtube",
+			"youtubeId": "Y57gUwb1v3g"
+		}
+	},
+	{
+		"title": "Carreira SRE: com Daniel Requena SRE no Ifood, Gabriel Dantas SRE no Quinto Andar e Bruno Pereira",
+		"icon": "feather:youtube",
+		"color": "#c4302b",
+		"description": "Um bate-papo sobre Carreira de SRE",
+		"contentUrl": "https://www.youtube.com/watch?v=3Y396fXecpE",
+		"date": "2022-08-01",
+		"location": "Online",
+		"preview": {
+			"type": "youtube",
+			"youtubeId": "3Y396fXecpE"
+		}
+	},
+	{
+		"title": "QuintoCast - Backstage: Tornando a Engenharia do QuintoAndar navegável",
+		"icon": "feather:headphones",
+		"color": "#1ed760",
+		"description": "O podcast dos times de tecnologia do QuintoAndar. Onde compartilhamos um pouco da jornada de criar um portal para nossa engenharia usando Backstage.io",
+		"contentUrl": "https://open.spotify.com/episode/5VUnjZGGIHBqiD8HHKHyd0?si=lxiCal3yTUm-huSh5b7Acw",
+		"preview": {
+			"type": "spotify",
+			"spotifyEmbedUrl": "https://open.spotify.com/embed/episode/5VUnjZGGIHBqiD8HHKHyd0"
+		}
+	},
+	{
+		"title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
+		"icon": "feather:headphones",
+		"color": "#1ed760",
+		"description": "Episódio que compartilho junto com o Victor Fonseca, Leo Vieira e Caio Queiroz sobre o case de criação de uma plataforma para desenvolvedores com o Backstage no QuintoAndar.",
+		"contentUrl": "https://techleadership.rocks/2023/10/22/plataforma-de-desenvolvedores-com-victor-fonseca-gabriel-dantas-leo-vieira-e-caio-queiroz/",
+		"preview": {
+			"type": "spotify",
+			"spotifyEmbedUrl": "https://open.spotify.com/embed/episode/5VUnjZGGIHBqiD8HHKHyd0"
+		}
+	},
+	{
+		"title": "Jornada DevOps: História e Prática",
+		"icon": "feather:book",
+		"color": "#ffba00",
+		"description": "Slides da apresentação que fiz para alunos do Senac, sobre Cultura DevOps e Engenharia de Plataforma",
+		"contentUrl": "https://www.canva.com/design/DAGRQj47Z0k/19PvBT5qAvg8glBwc6dHCA/edit?utm_content=DAGRQj47Z0k&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+		"preview": {
+			"type": "canva",
+			"canvaEmbedUrl": "https://www.canva.com/design/DAGRQj47Z0k/VEidx9XPoMZk6Sx3M8VgeA/view"
+		}
+	}
+]

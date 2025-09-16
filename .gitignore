@@ -45,3 +45,6 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+# Cursor Short-term Memory (not shared)
+.cursor/memory/short-term/

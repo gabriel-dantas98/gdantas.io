@@ -6,6 +6,7 @@
 
 [![Website](https://img.shields.io/badge/%20%F0%9F%8F%A1%20website-0072ff.svg?longCache=true&style=for-the-badge)](https://gdantas.com.br)
 [![License](https://img.shields.io/badge/-mit-red.svg?longCache=true&style=for-the-badge)](https://github.com/tdemapp/website/blob/master/LICENSE)
+
 </div>
 
 ## 🛠 Development
@@ -53,3 +54,40 @@ MIT © [Ben Dixon](https://github.com/gabriel-dantas98/gdantas.io/blob/main/LICE
 ## Credits
 
 This project is inspired by [nuro.dev](https://github.com/NuroDev/nuro.dev)
+
+## Presentations
+
+Add entries to `data/presentations.json` to manage the `/presentations` page.
+
+Each item supports:
+
+-   `title` (string)
+-   `description` (string)
+-   `icon` (string, iconify id)
+-   `color` (string, hex)
+-   `url` (string, canonical link, optional; prefer `contentUrl`)
+-   `contentUrl` (string, optional; link do conteúdo para o botão principal)
+-   `githubUrl` (string, opcional; link do repositório)
+-   `date` (string, optional)
+-   `location` (string, optional)
+-   `preview` (optional object):
+    -   Google Slides:
+        ```json
+        {
+        	"type": "google-slides",
+        	"slidesEmbedUrl": "https://docs.google.com/presentation/.../embed?start=false&loop=false&delayms=3000"
+        }
+        ```
+    -   YouTube:
+        ```json
+        { "type": "youtube", "youtubeId": "Y57gUwb1v3g" }
+        ```
+    -   GitHub README snippet (rendered with MDX styles):
+        ```json
+        { "type": "github-readme", "readmeMarkdown": "# Title\nSome markdown..." }
+        ```
+
+Notes:
+
+-   We render README markdown at build time using `next-mdx-remote` with the same blog remark/rehype plugins.
+-   If you want to fetch README from GitHub dynamically, wire a serverless API or fetch during `getStaticProps` with a token and put the markdown into `readmeMarkdown`.
