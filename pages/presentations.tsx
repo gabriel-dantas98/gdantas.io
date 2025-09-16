@@ -173,7 +173,7 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 			}
 		}
 		if (item.preview.type === 'canva') {
-			const canvaEmbedUrl = item.preview.canvaEmbedUrl || toCanvaEmbed(contentLink);
+			const canvaEmbedUrl = toCanvaEmbed(item.preview.canvaEmbedUrl || contentLink);
 			if (canvaEmbedUrl) {
 				presentations.push({ ...item, preview: { type: 'canva', canvaEmbedUrl } });
 				continue;
@@ -227,9 +227,9 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	if (presentation.preview.type === 'spotify') {
 		return (
 			<div className="mt-4 w-full">
-				<div className="w-full" style={{ height: 352 }}>
+				<div className="w-full h-64 sm:h-80 md:h-96">
 					<iframe
-						className="w-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
 						src={presentation.preview.spotifyEmbedUrl}
 						title={`${presentation.title} - Spotify embed`}
 						frameBorder={0}
