@@ -41,6 +41,12 @@ const ACTIONS: Array<NavigationItem> = [
 		icon: <Icon className="mr-3" icon="feather:copy" />,
 		text: 'Projects',
 	},
+	{
+		type: NavigationItemType.LINK,
+		href: '/presentations',
+		icon: <Icon className="mr-3" icon="feather:youtube" />,
+		text: 'Talks',
+	},
 ];
 
 export default function HomePage() {
@@ -50,8 +56,8 @@ export default function HomePage() {
 	return (
 		<Layout.Default>
 			<div className="">
-				<div className="flex items-center justify-center min-h-screen py-12">
-					<div className="w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
+				<div className="flex justify-center items-center py-12 min-h-screen">
+					<div className="space-y-8 w-full max-w-lg text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
 						<Animate
 							as="h1"
 							animation={{
@@ -71,14 +77,14 @@ export default function HomePage() {
 								opacity: [0, 1],
 								scale: [0.75, 1],
 							}}
-							className="max-w-xs mx-auto mt-4 text-base text-gray-300 md:mt-8 sm:text-lg md:text-2xl md:max-w-3xl"
+							className="mx-auto mt-4 max-w-xs text-base text-gray-300 md:mt-8 sm:text-lg md:text-2xl md:max-w-3xl"
 							transition={{
 								delay: 0.5,
 							}}>
 							{description}
 						</Animate>
 
-						<div className="flex flex-col items-center justify-center w-full mt-8 space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mt-4">
+						<div className="flex flex-col justify-center items-center mt-8 space-y-4 w-full sm:flex-row sm:space-x-4 sm:space-y-0 sm:mt-4">
 							{ACTIONS.map((action, index) => {
 								if (action.type !== NavigationItemType.LINK) return null;
 
@@ -93,7 +99,9 @@ export default function HomePage() {
 										transition={{
 											delay: 0.1 * (index + 2) + 0.5,
 										}}>
-										<Button.Outline target="_blank" href={action.href}>
+										<Button.Outline
+											target={action.external ? '_blank' : undefined}
+											href={action.href}>
 											{action.icon}
 											<span>{action.text}</span>
 										</Button.Outline>
@@ -103,15 +111,15 @@ export default function HomePage() {
 						</div>
 					</div>
 				</div>
-				<div className="grid items-center justify-center min-h-screen py-12 md:grid-cols-2 gap-04">
-					<div className="w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
+				<div className="grid justify-center items-center py-12 min-h-screen md:grid-cols-2 gap-04">
+					<div className="space-y-8 w-full max-w-lg text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
 						<Animate
 							as="p"
 							animation={{
 								opacity: [0, 1],
 								scale: [0.75, 1],
 							}}
-							className="max-w-xs mx-auto mt-4 text-base text-white whitespace-pre-line md:mt-8 sm:text-lg md:text-2xl md:max-w-3xl"
+							className="mx-auto mt-4 max-w-xs text-base text-white whitespace-pre-line md:mt-8 sm:text-lg md:text-2xl md:max-w-3xl"
 							transition={{
 								delay: 0.5,
 							}}>
@@ -133,7 +141,7 @@ export default function HomePage() {
 							projetos e ideias!
 						</Animate>
 					</div>
-					<div className="flex items-center justify-center w-full max-w-lg space-y-8 text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
+					<div className="flex justify-center items-center space-y-8 w-full max-w-lg text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
 						<div className="relative w-[20rem] h-[30rem] md:h-[40rem] md:w-[30rem]">
 							<Image
 								src={ProfilePicture}
