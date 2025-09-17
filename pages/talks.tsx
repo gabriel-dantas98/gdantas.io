@@ -7,6 +7,7 @@ import { colors } from '~/lib';
 import type { GetStaticProps } from 'next';
 
 import { Toaster } from 'react-hot-toast';
+import { useI18n } from '~/lib/i18n';
 
 type Talk = Array<TalkItem>;
 
@@ -32,8 +33,9 @@ export const getStaticProps: GetStaticProps<TalksProps> = async () => {
 };
 
 export default function TalksPage({ talks: talks }: TalksProps) {
+	const { t } = useI18n();
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ talks' }}>
+		<Layout.Default seo={{ title: t('talks.seo_title') }}>
 			<Toaster
 				toastOptions={{
 					position: 'bottom-right',
@@ -60,7 +62,7 @@ export default function TalksPage({ talks: talks }: TalksProps) {
 										{
 											type: ListActionType.LINK,
 											icon: 'feather:external-link',
-											label: `${talk.title} homepage`,
+											label: t('talks.label_homepage', { title: talk.title }),
 											href: talk.url,
 										},
 									]}

@@ -6,6 +6,7 @@ import { ListActionType } from '~/types';
 import type { GetStaticProps } from 'next';
 
 import type { ListAction, Project } from '~/types';
+import { useI18n } from '~/lib/i18n';
 
 interface ProjectProps {
 	stringifiedProjects: string;
@@ -24,9 +25,10 @@ export const getStaticProps: GetStaticProps<ProjectProps> = async () => {
 
 export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 	const projects = JSON.parse(stringifiedProjects) as Array<Project>;
+	const { t } = useI18n();
 
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ projects' }}>
+		<Layout.Default seo={{ title: t('projects.seo_title') }}>
 			<div className="mx-2 my-24 sm:mx-6 lg:mb-28 lg:mx-8">
 				<div className="relative max-w-xl mx-auto">
 					<List.Container>
@@ -46,7 +48,7 @@ export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 														external: false,
 														href: project.post,
 														icon: 'feather:edit-3',
-														label: `Blog post about ${project.name}`,
+														label: t('projects.blog_post_about', { name: project.name }),
 													} as ListAction,
 											  ]
 											: []),
@@ -56,7 +58,7 @@ export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 														type: ListActionType.LINK,
 														href: project.homepage,
 														icon: 'feather:home',
-														label: `${project.name} homepage`,
+														label: t('projects.homepage_label', { name: project.name }),
 													} as ListAction,
 											  ]
 											: []),
@@ -64,7 +66,7 @@ export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 											type: ListActionType.LINK,
 											href: project.url,
 											icon: 'feather:github',
-											label: 'GitHub Repository',
+											label: t('projects.github_repo'),
 										},
 									]}
 									description={project.description}
