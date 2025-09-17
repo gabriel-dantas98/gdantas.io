@@ -10,3 +10,4 @@ export { useClick } from './sounds';
 export { useNavigation } from './navigation';
 export { useSeoProps } from './seo';
 export { useStatus } from './lanyard';
+export { I18nProvider, useI18n } from './i18n';
