@@ -21,10 +21,10 @@
 	"scripts": {
 		"analyze": "cross-env ANALYZE=true next build",
 		"dev": "next",
-		"build": "next build",
+		"build": "node ./scripts/sync-redirects.js && next build",
 		"postbuild": "next-sitemap",
 		"start": "next start",
-		"export": "next build && next export",
+		"export": "node ./scripts/sync-redirects.js && next build && next export",
 		"lint": "next lint",
 		"type-check": "tsc",
 		"format": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx,vue}\""
@@ -74,6 +74,7 @@
 		"@types/nprogress": "^0.2.0",
 		"@types/react": "^17.0.24",
 		"@types/react-dom": "^17.0.9",
+		"@types/js-yaml": "^4.0.9",
 		"eslint": "8.10.0",
 		"eslint-config-next": "12.1.0",
 		"gray-matter": "^4.0.3",
@@ -82,6 +83,7 @@
 		"prettier": "^2.4.1",
 		"ts-shader-loader": "^1.0.6",
 		"typescript": "^4.4.3",
-		"windicss-webpack-plugin": "^1.6.10"
+		"windicss-webpack-plugin": "^1.6.10",
+		"js-yaml": "^4.1.0"
 	}
 }

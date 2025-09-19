@@ -7,6 +7,7 @@ import { colors } from '~/lib';
 import type { GetStaticProps } from 'next';
 
 import { Toaster } from 'react-hot-toast';
+import { useI18n } from '~/lib/i18n';
 
 type Link = Array<LinkItem>;
 
@@ -32,8 +33,9 @@ export const getStaticProps: GetStaticProps<LinksProps> = async () => {
 };
 
 export default function LinksPage({ links: links }: LinksProps) {
+	const { t } = useI18n();
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ links' }}>
+		<Layout.Default seo={{ title: t('links.seo_title') }}>
 			<Toaster
 				toastOptions={{
 					position: 'bottom-right',
@@ -60,7 +62,7 @@ export default function LinksPage({ links: links }: LinksProps) {
 										{
 											type: ListActionType.LINK,
 											icon: 'feather:external-link',
-											label: `${link.title} homepage`,
+											label: t('links.homepage_label', { title: link.title }),
 											href: link.url,
 										},
 									]}

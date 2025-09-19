@@ -2,6 +2,7 @@ import { NextSeo } from 'next-seo';
 
 import { Navbar } from '~/components';
 import { useSeoProps } from '~/lib';
+import { useI18n } from '~/lib/i18n';
 
 import type { ComponentProps, PropsWithChildren } from 'react';
 
@@ -10,8 +11,9 @@ interface BlogLayoutProps {
 }
 
 export function BlogLayout({ children, seo }: PropsWithChildren<BlogLayoutProps>) {
+	const { t } = useI18n();
 	const seoProps = useSeoProps({
-		title: 'gdantas ─ who i am',
+		title: t('blog.seo_title'),
 		...seo,
 	});
 

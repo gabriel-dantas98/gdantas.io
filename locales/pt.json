@@ -1,0 +1,68 @@
+{
+    "nav": {
+        "home": "Home",
+        "timeline": "Experiência",
+        "projects": "Projetos",
+        "talks": "Talks",
+        "status": "Status",
+        "linkedin": "Linkedin",
+        "github": "GitHub",
+        "instagram": "Instagram"
+    },
+    "settings": {
+        "animations_on": "Animações Ativadas",
+        "animations_off": "Animações Desativadas",
+        "sounds_on": "Sons Ativados",
+        "sounds_off": "Sons Desativados",
+        "system_theme": "Tema do Sistema",
+        "light_theme": "Tema Claro",
+        "dark_theme": "Tema Escuro",
+        "language": "Idioma",
+        "language_pt": "Português (BR)",
+        "language_en": "Inglês"
+    },
+    "home": {
+        "title": "Eae! Sou Gabriel Dantas 🚀",
+        "role": "Site Reliability Engineer",
+        "description": "Um desenvolvedor que prefere as emoções de infraestrutura",
+        "bio": "Sou de Jandira - São Paulo, comecei no mundo da tecnologia estudando redes de computadores ainda no ensino médio.\nMe formei em Engenharia da Computação na FIAP, onde tive a oportunidade de participar de diversos projetos desde a criação de robôs, aplicativos e ideias de startups.\n\nDesde então sempre tento estar atualizado tanto área Dev quanto Ops, adoro desenvolver, mas também gosto da complexidade que a infraestrutura traz. Atualmente sou SRE e ajudo times de desenvolvimento a criar serviços escaláveis, observáveis e resilientes com as ferramentas certas :)\n\nAdoro ficar favoritando repositórios no Github em busca de novos projetos e ideias!",
+        "actions": {
+            "github": "GitHub",
+            "medium": "Medium",
+            "projects": "Projects",
+            "talks": "Talks"
+        }
+    },
+    "seo": {
+        "title": "gdantas ─ site reliability engineer",
+        "description": "Oi 👋 Eu sou o Gabriel, um site reliability engineer"
+    },
+    "projects": {
+        "seo_title": "gdantas ─ projetos",
+        "blog_post_about": "Post do blog sobre {{name}}",
+        "homepage_label": "Página de {{name}}",
+        "github_repo": "Repositório no GitHub"
+    },
+    "talks": {
+        "seo_title": "gdantas ─ talks",
+        "label_homepage": "Página de {{title}}"
+    },
+    "presentations": {
+        "seo_title": "gdantas ─ apresentações",
+        "content": "{{title}} conteúdo",
+        "github": "{{title}} GitHub"
+    },
+    "timeline": {
+        "seo_title": "gdantas ─ timeline"
+    },
+    "links": {
+        "seo_title": "gdantas ─ links",
+        "homepage_label": "Página de {{title}}"
+    },
+    "blog": {
+        "seo_title": "gdantas ─ quem sou eu"
+    },
+    "error": {
+        "seo_title": "gdantas ─ Opa!"
+    }
+}

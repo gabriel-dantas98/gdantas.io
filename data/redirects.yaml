@@ -1,0 +1,7 @@
+redirects:
+    - source: /links/linkedin
+      destination: https://www.linkedin.com/in/gdantasdev
+    - source: /links/github
+      destination: https://github.com/gdantasdev
+    - source: /links/twitter
+      destination: https://twitter.com/gdantasdev

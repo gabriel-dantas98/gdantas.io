@@ -11,6 +11,7 @@ import type { EventProps } from '~/components/Event.component';
 import type { NavigationItem } from '~/types';
 
 import ProfilePicture from '../public/profile-photo.jpg';
+import { useI18n } from '~/lib/i18n';
 const myLoader = ({ src, width, quality }) => {
 	return `${src}?w=${width}&q=${quality || 75}`;
 };
@@ -21,37 +22,36 @@ const Event = dynamic<EventProps>(
 	},
 );
 
-const ACTIONS: Array<NavigationItem> = [
-	{
-		type: NavigationItemType.LINK,
-		external: true,
-		href: 'https://github.com/gabriel-dantas98',
-		icon: <Icon className="mr-3" icon="feather:github" />,
-		text: 'GitHub',
-	},
-	{
-		type: NavigationItemType.LINK,
-		href: 'https://medium.com/@_gdantas',
-		icon: <Icon className="mr-3" icon="akar-icons:medium-fill" />,
-		text: 'Medium',
-	},
-	{
-		type: NavigationItemType.LINK,
-		href: '/projects',
-		icon: <Icon className="mr-3" icon="feather:copy" />,
-		text: 'Projects',
-	},
-	{
-		type: NavigationItemType.LINK,
-		href: '/presentations',
-		icon: <Icon className="mr-3" icon="feather:youtube" />,
-		text: 'Talks',
-	},
-];
-
 export default function HomePage() {
-	const description = 'Um desenvolvedor que prefere as emoções de infraestrutura';
-	const age = (new Date().getFullYear() - 1998).toString();
+	const { t } = useI18n();
+	const ACTIONS: Array<NavigationItem> = [
+		{
+			type: NavigationItemType.LINK,
+			external: true,
+			href: 'https://github.com/gabriel-dantas98',
+			icon: <Icon className="mr-3" icon="feather:github" />,
+			text: t('home.actions.github'),
+		},
+		{
+			type: NavigationItemType.LINK,
+			href: 'https://medium.com/@_gdantas',
+			icon: <Icon className="mr-3" icon="akar-icons:medium-fill" />,
+			text: t('home.actions.medium'),
+		},
+		{
+			type: NavigationItemType.LINK,
+			href: '/projects',
+			icon: <Icon className="mr-3" icon="feather:copy" />,
+			text: t('home.actions.projects'),
+		},
+		{
+			type: NavigationItemType.LINK,
+			href: '/presentations',
+			icon: <Icon className="mr-3" icon="feather:youtube" />,
+			text: t('home.actions.talks'),
+		},
+	];
+	const description = t('home.description');
 
 	return (
 		<Layout.Default>
@@ -65,9 +65,9 @@ export default function HomePage() {
 								scale: [0.75, 1],
 							}}
 							className="text-4xl font-extrabold tracking-tight text-gray-500 dark:text-white sm:text-6xl md:text-6xl lg:text-7xl">
-							Eae! Sou Gabriel Dantas 🚀 <br className="hidden sm:block" />{' '}
+							{t('home.title')} <br className="hidden sm:block" />{' '}
 							<Pill.Standard className="mt-4 text-2xl font-semibold sm:text-4xl">
-								Site Reliability Engineer
+								{t('home.role')}
 							</Pill.Standard>
 						</Animate>
 
@@ -123,22 +123,7 @@ export default function HomePage() {
 							transition={{
 								delay: 0.5,
 							}}>
-							Sou de Jandira - São Paulo, comecei no mundo da tecnologia estudando
-							redes de computadores ainda no ensino médio. <br />
-							Me formei em Engenharia da Computação na FIAP, onde tive a oportunidade
-							de participar de diversos projetos desde a criação de robôs, aplicativos
-							e ideias de startups.
-							<br />
-							<br />
-							Desde então sempre tento estar atualizado tanto área Dev quanto Ops,
-							adoro desenvolver, mas também gosto da complexidade que a infraestrutura
-							traz. Atualmente sou SRE e ajudo times de desenvolvimento a criar
-							serviços escaláveis, observáveis e resilientes com as ferramentas certas
-							:)
-							<br />
-							<br />
-							Adoro ficar favoritando repositórios no Github em busca de novos
-							projetos e ideias!
+							{t('home.bio')}
 						</Animate>
 					</div>
 					<div className="flex justify-center items-center space-y-8 w-full max-w-lg text-center sm:max-w-2xl md:sm:max-w-2xl lg:sm:max-w-7xl">
