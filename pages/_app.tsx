@@ -43,7 +43,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	return (
 		<I18nProvider>
-			<ThemeProvider attribute="class" defaultTheme={Theme.DARK} themes={Object.values(Theme)}>
+			<ThemeProvider
+				attribute="class"
+				defaultTheme={Theme.DARK}
+				themes={Object.values(Theme)}>
 				{process.env.NODE_ENV === 'production' && (
 					<Script id="ms-clarity" strategy="afterInteractive">{`
 						(function(c,l,a,r,i,t,y){

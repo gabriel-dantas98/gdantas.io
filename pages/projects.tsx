@@ -48,7 +48,9 @@ export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 														external: false,
 														href: project.post,
 														icon: 'feather:edit-3',
-														label: t('projects.blog_post_about', { name: project.name }),
+														label: t('projects.blog_post_about', {
+															name: project.name,
+														}),
 													} as ListAction,
 											  ]
 											: []),
@@ -58,7 +60,9 @@ export default function ProjectsPage({ stringifiedProjects }: ProjectProps) {
 														type: ListActionType.LINK,
 														href: project.homepage,
 														icon: 'feather:home',
-														label: t('projects.homepage_label', { name: project.name }),
+														label: t('projects.homepage_label', {
+															name: project.name,
+														}),
 													} as ListAction,
 											  ]
 											: []),

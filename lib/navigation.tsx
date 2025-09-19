@@ -77,7 +77,7 @@ export function useNavigation() {
 							href: '/status',
 						} as NavigationItem,
 					],
-				]
+			  ]
 			: []),
 	];
 

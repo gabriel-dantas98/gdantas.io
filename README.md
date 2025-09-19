@@ -71,21 +71,27 @@ Each item supports:
 -   `date` (string, optional)
 -   `location` (string, optional)
 -   `preview` (optional object):
+
     -   Google Slides:
-        ```json
-        {
-        	"type": "google-slides",
-        	"slidesEmbedUrl": "https://docs.google.com/presentation/.../embed?start=false&loop=false&delayms=3000"
-        }
-        ```
+
+            ```json
+            {
+             "type": "google-slides",
+             "slidesEmbedUrl": "https://docs.google.com/presentation/.../embed?start=false&loop=false&delayms=3000"
+            }
+            ```
+
     -   YouTube:
-        ```json
-        { "type": "youtube", "youtubeId": "Y57gUwb1v3g" }
-        ```
+
+            ```json
+            { "type": "youtube", "youtubeId": "Y57gUwb1v3g" }
+            ```
+
     -   GitHub README snippet (rendered with MDX styles):
-        ```json
-        { "type": "github-readme", "readmeMarkdown": "# Title\nSome markdown..." }
-        ```
+
+            ```json
+            { "type": "github-readme", "readmeMarkdown": "# Title\nSome markdown..." }
+            ```
 
 Notes:
 
@@ -94,11 +100,11 @@ Notes:
 
 ## Internationalization (i18n)
 
-This repo ships a minimal i18n layer without external deps:
+Built-in minimal i18n (no external deps):
 
-- Locale files live in `locales/pt.json` and `locales/en.json`
-- App is wrapped by `I18nProvider` (`~/lib/i18n`)
-- Use the hook in components/pages:
+-   Locale files: `locales/pt.json`, `locales/en.json`
+-   Provider: `~/lib/i18n` wraps the app in `pages/_app.tsx`
+-   Hook usage:
 
 ```ts
 import { useI18n } from '~/lib/i18n';
@@ -108,7 +114,46 @@ const { t, locale, setLocale } = useI18n();
 return <h1>{t('home.title')}</h1>;
 ```
 
-- The navbar settings menu includes a language switcher (PT/EN)
-- Selected language is persisted in `localStorage` and sets `<html lang>` at runtime
+-   Navbar settings menu has a PT/EN language switcher
+-   Selection persists in `localStorage` and updates `<html lang>`
 
-Add/modify strings in the JSON files and reference by key. No routing changes are required and static export remains compatible.
+SEO titles per page/layout should use keys in locale files:
+
+-   Home/Default: uses `seo.title` and `seo.description` via `useSeoProps`
+-   Projects: `projects.seo_title`
+-   Timeline: `timeline.seo_title`
+-   Talks: `talks.seo_title`
+-   Presentations: `presentations.seo_title`
+-   Links: `links.seo_title`
+-   Blog layout: `blog.seo_title`
+-   Error layout: `error.seo_title`
+
+Add or change strings in the JSONs and reference via `t('path.to.key')`.
+
+## YAML-driven redirects for /links/\*
+
+Declarative redirects live in `data/redirects.yaml` and are versioned.
+
+-   Example entry:
+
+```yaml
+redirects:
+    - source: /links/linkedin
+      destination: https://www.linkedin.com/in/gdantasdev
+```
+
+-   At build/export, `scripts/sync-redirects.ts` merges all `/links/*` entries into `vercel.json` `redirects`, preserving existing non-`/links/*` entries.
+-   Static SSG pages are also generated at `pages/links/[slug].tsx` so exports work even without Vercel config, using meta refresh + JS redirect.
+
+Usage:
+
+-   Add or edit entries in `data/redirects.yaml`
+-   Run:
+
+```zsh
+yarn build
+# or
+yarn export
+```
+
+This will regenerate `vercel.json` and the static pages under `/links/*`.

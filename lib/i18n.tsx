@@ -16,12 +16,17 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 const TRANSLATIONS: Record<Locale, any> = { en, pt };
 
 function getFromPath(object: any, path: string): any {
-	return path.split('.').reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), object);
+	return path
+		.split('.')
+		.reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), object);
 }
 
 function interpolate(template: string, params?: Record<string, string | number>): string {
 	if (!params) return template;
-	return Object.keys(params).reduce((acc, key) => acc.replace(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), String(params[key])), template);
+	return Object.keys(params).reduce(
+		(acc, key) => acc.replace(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), String(params[key])),
+		template,
+	);
 }
 
 function detectInitialLocale(): Locale {
@@ -45,11 +50,14 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 		}
 	}, [locale]);
 
-	const t = useCallback((key: string, params?: Record<string, string | number>) => {
-		const value = getFromPath(TRANSLATIONS[locale], key);
-		if (typeof value === 'string') return interpolate(value, params);
-		return key;
-	}, [locale]);
+	const t = useCallback(
+		(key: string, params?: Record<string, string | number>) => {
+			const value = getFromPath(TRANSLATIONS[locale], key);
+			if (typeof value === 'string') return interpolate(value, params);
+			return key;
+		},
+		[locale],
+	);
 
 	const setLocale = useCallback((next: Locale) => {
 		setLocaleState(next);
@@ -65,3 +73,4 @@ export function useI18n(): I18nContextValue {
 	if (!ctx) throw new Error('useI18n must be used within I18nProvider');
 	return ctx;
 }
+

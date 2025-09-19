@@ -1,6 +1,7 @@
 import { NextSeo } from 'next-seo';
 
 import { useSeoProps } from '~/lib';
+import { useI18n } from '~/lib/i18n';
 
 import type { WithChildren, WithProps } from '~/types';
 
@@ -9,8 +10,9 @@ interface DefaultLayoutProps extends WithChildren {
 }
 
 export function ErrorLayout({ children, seo }: DefaultLayoutProps) {
+	const { t } = useI18n();
 	const seoProps = useSeoProps({
-		title: 'gdantas ─ Whoops!',
+		title: t('error.seo_title'),
 		...seo,
 	});
 
