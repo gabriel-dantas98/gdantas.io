@@ -98,5 +98,28 @@
 			"type": "canva",
 			"canvaEmbedUrl": "https://www.canva.com/design/DAGRQj47Z0k/VEidx9XPoMZk6Sx3M8VgeA/view"
 		}
+	},
+	{
+		"title": "Backstage - construindo seu Internal Developer Portal",
+		"icon": "feather:book",
+		"color": "#9b59b6",
+		"description": "Conteúdo explicando sobre os ganhos de uma IDP e contando um pouco sobre a experiência com Backstage.",
+		"contentUrl": "https://www.canva.com/design/DAGKZ5Yu57g/XTtQmS-vgwjAAiDMHFbmlg/edit",
+		"date": "2024-11-07",
+		"preview": {
+			"type": "canva",
+			"canvaEmbedUrl": "https://www.canva.com/design/DAGKZ5Yu57g/XTtQmS-vgwjAAiDMHFbmlg/view"
+		}
+	},
+	{
+		"title": "Discover QuintoAndar's IDP - Platform Talks",
+		"icon": "feather:youtube",
+		"color": "#c4302b",
+		"description": "Apresentação sobre o Internal Developer Portal do QuintoAndar no Platform Talks",
+		"contentUrl": "https://www.youtube.com/watch?v=KUsXbWtMXzc",
+		"preview": {
+			"type": "youtube",
+			"youtubeId": "KUsXbWtMXzc"
+		}
 	}
 ]
