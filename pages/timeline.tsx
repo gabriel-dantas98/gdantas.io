@@ -7,6 +7,7 @@ import { Layout } from '~/layouts';
 import type { GetStaticProps } from 'next';
 
 import type { Timeline, TimelineEvent } from '~/types';
+import { useI18n } from '~/lib/i18n';
 
 interface TimelineProps {
 	timeline?: Timeline;
@@ -26,6 +27,7 @@ export const getStaticProps: GetStaticProps<TimelineProps> = async () => {
 };
 
 export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
+	const { t } = useI18n();
 	const timeline = rawTimeline.map((event) => ({
 		...event,
 		// Note: Custom parser needed as Safari on iOS doesn't like the standard `new Date()` parsing
@@ -33,7 +35,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 	}));
 
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ timeline' }}>
+		<Layout.Default seo={{ title: t('timeline.seo_title') }}>
 			<div className="flex flex-grow min-h-screen pt-16 pb-12">
 				<div className="flex flex-col justify-center flex-grow w-full max-w-sm px-0 mx-auto sm:max-w-3xl sm:px-16">
 					<ul className="-mb-8" role="list">

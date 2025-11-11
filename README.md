@@ -91,3 +91,24 @@ Notes:
 
 -   We render README markdown at build time using `next-mdx-remote` with the same blog remark/rehype plugins.
 -   If you want to fetch README from GitHub dynamically, wire a serverless API or fetch during `getStaticProps` with a token and put the markdown into `readmeMarkdown`.
+
+## Internationalization (i18n)
+
+This repo ships a minimal i18n layer without external deps:
+
+- Locale files live in `locales/pt.json` and `locales/en.json`
+- App is wrapped by `I18nProvider` (`~/lib/i18n`)
+- Use the hook in components/pages:
+
+```ts
+import { useI18n } from '~/lib/i18n';
+
+const { t, locale, setLocale } = useI18n();
+
+return <h1>{t('home.title')}</h1>;
+```
+
+- The navbar settings menu includes a language switcher (PT/EN)
+- Selected language is persisted in `localStorage` and sets `<html lang>` at runtime
+
+Add/modify strings in the JSON files and reference by key. No routing changes are required and static export remains compatible.

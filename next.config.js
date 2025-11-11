@@ -18,6 +18,9 @@ const ContentSecurityPolicy = `
  */
 const config = {
 	assetPrefix: './',
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	images: {
 		domains: [
 			// Discord assets

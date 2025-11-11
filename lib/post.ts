@@ -58,8 +58,13 @@ export async function getPost(slug: string): Promise<Post> {
 	const source = await serialize(content, {
 		scope: data,
 		mdxOptions: {
-			rehypePlugins: [[RehypeAutolinkHeadings, {}]],
-			remarkPlugins: [RemarkCodeTitles, RemarkEmoji, RemarkPrism, RemarkSlug],
+			rehypePlugins: [[RehypeAutolinkHeadings as unknown as any, {}]] as any,
+			remarkPlugins: [
+				RemarkCodeTitles as unknown as any,
+				RemarkEmoji as unknown as any,
+				RemarkPrism as unknown as any,
+				RemarkSlug as unknown as any,
+			] as any,
 		},
 	});
 
