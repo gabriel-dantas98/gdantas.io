@@ -13,6 +13,7 @@ import RemarkSlug from 'remark-slug';
 import RehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { Elements as BlogElements } from '~/components/Blog/Styles';
 import type { ListAction } from '~/types';
+import { useI18n } from '~/lib/i18n';
 
 interface PresentationItemRaw {
 	title: string;
@@ -271,8 +272,9 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 }
 
 export default function PresentationsPage({ presentations }: PresentationsProps) {
+	const { t } = useI18n();
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ presentations' }}>
+		<Layout.Default seo={{ title: t('presentations.seo_title') }}>
 			<Toaster
 				toastOptions={{
 					position: 'bottom-right',
@@ -299,7 +301,7 @@ export default function PresentationsPage({ presentations }: PresentationsProps)
 										actions.push({
 											type: ListActionType.LINK,
 											icon: 'feather:external-link',
-											label: `${p.title} conteúdo`,
+											label: t('presentations.content', { title: p.title }),
 											href: contentLink,
 										});
 									}
@@ -307,7 +309,7 @@ export default function PresentationsPage({ presentations }: PresentationsProps)
 										actions.push({
 											type: ListActionType.LINK,
 											icon: 'feather:github',
-											label: `${p.title} GitHub`,
+											label: t('presentations.github', { title: p.title }),
 											href: p.githubUrl,
 										});
 									}

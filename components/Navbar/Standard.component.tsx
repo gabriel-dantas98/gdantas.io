@@ -15,11 +15,11 @@ export function Standard() {
 							<Navbar.Icon icon="feather:menu" />
 						</Button.Icon>
 					</Navbar.Dropdown>
-					{/* <Navbar.Dropdown items={settings} position="top-right">
+					<Navbar.Dropdown items={settings} position="top-right">
 						<Button.Icon aria-label="Settings">
 							<Navbar.Icon icon="feather:settings" />
 						</Button.Icon>
-					</Navbar.Dropdown> */}
+					</Navbar.Dropdown>
 				</div>
 			</div>
 		</Disclosure>
