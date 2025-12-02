@@ -25,7 +25,7 @@ interface PresentationItemRaw {
 	date?: string;
 	location?: string;
 	preview?: {
-		type: 'google-slides' | 'youtube' | 'github-readme' | 'spotify' | 'canva';
+		type: 'google-slides' | 'youtube' | 'github-readme' | 'spotify' | 'canva' | 'pdf';
 		// youtube
 		youtubeId?: string;
 		// google slides
@@ -36,6 +36,8 @@ interface PresentationItemRaw {
 		spotifyEmbedUrl?: string;
 		// canva
 		canvaEmbedUrl?: string;
+		// pdf
+		pdfUrl?: string;
 	};
 }
 
@@ -45,7 +47,8 @@ interface PresentationItem extends Omit<PresentationItemRaw, 'preview'> {
 		| { type: 'youtube'; youtubeId: string }
 		| { type: 'github-readme'; mdx: MDXRemoteSerializeResult }
 		| { type: 'spotify'; spotifyEmbedUrl: string }
-		| { type: 'canva'; canvaEmbedUrl: string };
+		| { type: 'canva'; canvaEmbedUrl: string }
+		| { type: 'pdf'; pdfUrl: string };
 }
 
 interface PresentationsProps {
@@ -179,6 +182,13 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 				continue;
 			}
 		}
+		if (item.preview.type === 'pdf') {
+			const pdfUrl = item.preview.pdfUrl || contentLink;
+			if (pdfUrl) {
+				presentations.push({ ...item, preview: { type: 'pdf', pdfUrl } });
+				continue;
+			}
+		}
 
 		presentations.push(item as PresentationItem);
 	}
@@ -263,6 +273,22 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 				<div className="max-w-none prose dark:prose-invert">
 					<BlogElements />
 					<MDXRemote {...presentation.preview.mdx} />
+				</div>
+			</div>
+		);
+	}
+	if (presentation.preview.type === 'pdf') {
+		return (
+			<div className="mt-4 w-full">
+				<div className="w-full h-64 sm:h-80 md:h-96">
+					<iframe
+						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						src={presentation.preview.pdfUrl}
+						title={presentation.title}
+						allowFullScreen
+						referrerPolicy="strict-origin-when-cross-origin"
+						loading="lazy"
+					/>
 				</div>
 			</div>
 		);
