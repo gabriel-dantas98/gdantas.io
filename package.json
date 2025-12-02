@@ -25,6 +25,8 @@
 		"postbuild": "next-sitemap",
 		"start": "next start",
 		"export": "next build && next export",
+		"ci": "bash scripts/ci.sh",
+		"validate": "bash scripts/ci.sh",
 		"lint": "next lint",
 		"type-check": "tsc",
 		"format": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx,vue}\""
