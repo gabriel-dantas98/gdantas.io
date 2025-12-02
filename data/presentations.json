@@ -1,5 +1,32 @@
 [
 	{
+		"title": "DevOps Summit Bluepprint 2025 - ESCALANDO ENGENHARIA COM PORTAIS INTERNOS (IDP's): NAVEGABILIDADE, AUTONOMIA E GOVERNANÇA",
+		"icon": "feather:book",
+		"color": "#4568dc",
+		"description": "Slides da apresentação que fiz no DevOps Summit Bluepprint 2025 no SP",
+		"contentUrl": "https://www.canva.com/design/DAG1K_yOuwc/HOCw_nGAM77blCVRM9XRNw/edit?utm_content=DAG1K_yOuwc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+		"date": "2025-12-02",
+		"location": "São Paulo, SP",
+		"preview": {
+			"type": "canva",
+			"canvaEmbedUrl": "https://www.canva.com/design/DAG1K_yOuwc/HOCw_nGAM77blCVRM9XRNw/view"
+		}
+	},
+	{
+		"title": "Platform Days 2025 - Trazendo o banco de dados para dentro da IDE com Cursor e MCP: Consultas em produção sem medo",
+		"icon": "feather:book",
+		"color": "#7b50ad",
+		"description": "Código & Slides da apresentação que fiz no Platform Days 2025 no SP",
+		"githubUrl": "https://github.com/gfranco9/Platform-Days-Database-MCP",
+		"contentUrl": "https://drive.google.com/file/d/1Jk8cweq_AKYDymIbmPwheR5PBAmRxODh/view?usp=sharing",
+		"date": "2025-11-18",
+		"location": "São Paulo, SP",
+		"preview": {
+			"type": "pdf",
+			"pdfUrl": "https://drive.google.com/file/d/1Jk8cweq_AKYDymIbmPwheR5PBAmRxODh/preview"
+		}
+	},
+	{
 		"title": "DevPR Config 2025 - especial 10 anos - Criando seu Assistente de Incidentes com MCP's",
 		"icon": "feather:book",
 		"color": "#15a04d",
