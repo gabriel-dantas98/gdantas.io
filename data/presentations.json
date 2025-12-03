@@ -13,6 +13,19 @@
 		}
 	},
 	{
+		"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
+		"icon": "feather:youtube",
+		"color": "#c4302b",
+		"description": "Tech Talk no canal do QuintoAndar sobre como aplicar GenAI ao ciclo de validação de releases, explorando como usar dados gerados por testes para produzir insights acionáveis, identificar rapidamente a causa raiz de falhas e obter sugestões de correção imediatas.",
+		"contentUrl": "https://www.youtube.com/watch?v=uJ4BVndB6FU",
+		"date": "2025-11-25",
+		"location": "Online",
+		"preview": {
+			"type": "youtube",
+			"youtubeId": "uJ4BVndB6FU"
+		}
+	},
+	{
 		"title": "Platform Days 2025 - Trazendo o banco de dados para dentro da IDE com Cursor e MCP: Consultas em produção sem medo",
 		"icon": "feather:book",
 		"color": "#7b50ad",
@@ -55,6 +68,30 @@
 		}
 	},
 	{
+		"title": "Discover QuintoAndar's IDP - Platform Talks",
+		"icon": "feather:youtube",
+		"color": "#c4302b",
+		"description": "Apresentação sobre o Internal Developer Portal do QuintoAndar no Platform Talks",
+		"date": "2025-05-16",
+		"contentUrl": "https://www.youtube.com/watch?v=KUsXbWtMXzc",
+		"preview": {
+			"type": "youtube",
+			"youtubeId": "KUsXbWtMXzc"
+		}
+	},
+	{
+		"title": "Comunidade DevOps - Backstage - construindo seu Internal Developer Portal",
+		"icon": "feather:book",
+		"color": "#9b59b6",
+		"description": "Conteúdo explicando sobre os ganhos de uma IDP e contando um pouco sobre a experiência com Backstage.",
+		"contentUrl": "https://www.canva.com/design/DAGKZ5Yu57g/XTtQmS-vgwjAAiDMHFbmlg/edit",
+		"date": "2024-11-07",
+		"preview": {
+			"type": "canva",
+			"canvaEmbedUrl": "https://www.canva.com/design/DAGKZ5Yu57g/XTtQmS-vgwjAAiDMHFbmlg/view"
+		}
+	},
+	{
 		"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
 		"icon": "feather:book",
 		"color": "#ffba00",
@@ -65,6 +102,18 @@
 		"preview": {
 			"type": "google-slides",
 			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
+		"title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
+		"icon": "feather:headphones",
+		"color": "#1ed760",
+		"description": "Episódio que compartilho junto com o Victor Fonseca, Leo Vieira e Caio Queiroz sobre o case de criação de uma plataforma para desenvolvedores com o Backstage no QuintoAndar.",
+		"contentUrl": "https://techleadership.rocks/2023/10/22/plataforma-de-desenvolvedores-com-victor-fonseca-gabriel-dantas-leo-vieira-e-caio-queiroz/",
+		"date": "2023-10-22",
+		"preview": {
+			"type": "spotify",
+			"spotifyEmbedUrl": "https://open.spotify.com/embed/episode/2sx6B0tV3CXtyOvgJ4mfWM"
 		}
 	},
 	{
@@ -105,17 +154,6 @@
 		}
 	},
 	{
-		"title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
-		"icon": "feather:headphones",
-		"color": "#1ed760",
-		"description": "Episódio que compartilho junto com o Victor Fonseca, Leo Vieira e Caio Queiroz sobre o case de criação de uma plataforma para desenvolvedores com o Backstage no QuintoAndar.",
-		"contentUrl": "https://techleadership.rocks/2023/10/22/plataforma-de-desenvolvedores-com-victor-fonseca-gabriel-dantas-leo-vieira-e-caio-queiroz/",
-		"preview": {
-			"type": "spotify",
-			"spotifyEmbedUrl": "https://open.spotify.com/embed/episode/2sx6B0tV3CXtyOvgJ4mfWM"
-		}
-	},
-	{
 		"title": "Jornada DevOps: História e Prática",
 		"icon": "feather:book",
 		"color": "#ffba00",
@@ -124,29 +162,6 @@
 		"preview": {
 			"type": "canva",
 			"canvaEmbedUrl": "https://www.canva.com/design/DAGRQj47Z0k/VEidx9XPoMZk6Sx3M8VgeA/view"
-		}
-	},
-	{
-		"title": "Backstage - construindo seu Internal Developer Portal",
-		"icon": "feather:book",
-		"color": "#9b59b6",
-		"description": "Conteúdo explicando sobre os ganhos de uma IDP e contando um pouco sobre a experiência com Backstage.",
-		"contentUrl": "https://www.canva.com/design/DAGKZ5Yu57g/XTtQmS-vgwjAAiDMHFbmlg/edit",
-		"date": "2024-11-07",
-		"preview": {
-			"type": "canva",
-			"canvaEmbedUrl": "https://www.canva.com/design/DAGKZ5Yu57g/XTtQmS-vgwjAAiDMHFbmlg/view"
-		}
-	},
-	{
-		"title": "Discover QuintoAndar's IDP - Platform Talks",
-		"icon": "feather:youtube",
-		"color": "#c4302b",
-		"description": "Apresentação sobre o Internal Developer Portal do QuintoAndar no Platform Talks",
-		"contentUrl": "https://www.youtube.com/watch?v=KUsXbWtMXzc",
-		"preview": {
-			"type": "youtube",
-			"youtubeId": "KUsXbWtMXzc"
 		}
 	}
 ]
