@@ -205,7 +205,7 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	if (presentation.preview.type === 'google-slides') {
 		return (
 			<div className="mt-4 w-full">
-				<div className="w-full h-64 sm:h-80 md:h-96">
+				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
 					<iframe
 						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
 						src={presentation.preview.slidesEmbedUrl}
@@ -220,7 +220,7 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	if (presentation.preview.type === 'youtube') {
 		return (
 			<div className="mt-4 w-full">
-				<div className="w-full h-64 sm:h-80 md:h-96">
+				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
 					<iframe
 						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
 						src={`https://www.youtube-nocookie.com/embed/${presentation.preview.youtubeId}`}
@@ -237,7 +237,7 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	if (presentation.preview.type === 'spotify') {
 		return (
 			<div className="mt-4 w-full">
-				<div className="w-full h-64 sm:h-80 md:h-96">
+				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
 					<iframe
 						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
 						src={presentation.preview.spotifyEmbedUrl}
@@ -254,7 +254,7 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	if (presentation.preview.type === 'canva') {
 		return (
 			<div className="mt-4 w-full">
-				<div className="w-full h-64 sm:h-80 md:h-96">
+				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
 					<iframe
 						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
 						src={presentation.preview.canvaEmbedUrl}
@@ -269,8 +269,8 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	}
 	if (presentation.preview.type === 'github-readme') {
 		return (
-			<div className="mt-4 w-full">
-				<div className="max-w-none prose dark:prose-invert">
+			<div className="mt-4 w-full px-2 sm:px-0">
+				<div className="max-w-none prose prose-sm sm:prose-base dark:prose-invert">
 					<BlogElements />
 					<MDXRemote {...presentation.preview.mdx} />
 				</div>
@@ -280,7 +280,7 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 	if (presentation.preview.type === 'pdf') {
 		return (
 			<div className="mt-4 w-full">
-				<div className="w-full h-64 sm:h-80 md:h-96">
+				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
 					<iframe
 						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
 						src={presentation.preview.pdfUrl}
@@ -310,8 +310,8 @@ export default function PresentationsPage({ presentations }: PresentationsProps)
 					},
 				}}
 			/>
-			<div className="mx-2 my-24 sm:mx-6 lg:mb-28 lg:mx-8">
-				<div className="relative mx-auto max-w-4xl">
+			<div className="mx-4 my-24 sm:mx-6 lg:mb-28 lg:mx-8">
+				<div className="relative mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
 					<List.Container>
 						{presentations?.map((p, index) => (
 							<Animate

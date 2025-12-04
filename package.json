@@ -67,6 +67,7 @@
 		"swr": "^1.0.1",
 		"tsparticles": "^2.3.4",
 		"use-sound": "^4.0.1",
+		"web-vitals": "^5.1.0",
 		"windicss": "^3.5.1"
 	},
 	"devDependencies": {
