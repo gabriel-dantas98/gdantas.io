@@ -129,7 +129,7 @@ export default function HomePage() {
 							Com 6+ anos de experiência em DevOps/SRE e Engenharia de Plataforma, lidero iniciativas de Developer Experience que impactam centenas de desenvolvedores diariamente.
 							<br />
 							<br />
-							Inspirado no lema "So Others May Live" do U.S. Coast Guard Rescue Swimmer - fazemos o trabalho complexo e vamos onde outros não iriam, para que os times de desenvolvimento possam focar no que realmente importa: entregar valor.
+							Inspirado no lema &ldquo;So Others May Live&rdquo; do U.S. Coast Guard Rescue Swimmer - fazemos o trabalho complexo e vamos onde outros não iriam, para que os times de desenvolvimento possam focar no que realmente importa: entregar valor.
 							<br />
 							<br />
 							Nossa missão é tornar o complexo simples, e o melhor caminho o mais fácil.
