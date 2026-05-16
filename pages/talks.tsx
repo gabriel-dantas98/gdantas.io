@@ -1,14 +1,10 @@
-import { fetchProjects } from '~/lib/projects';
-import { Layout } from '~/layouts';
-import { Animate, List } from '~/components';
-import { ListActionType } from '~/types';
-import { colors } from '~/lib';
-
+import React from 'react';
 import type { GetStaticProps } from 'next';
+import Link from 'next/link';
 
-import { Toaster } from 'react-hot-toast';
+import { Operator } from '~/components';
 
-type Talk = Array<TalkItem>;
+const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 interface TalkItem {
 	title: string;
@@ -19,60 +15,127 @@ interface TalkItem {
 }
 
 interface TalksProps {
-	talks?: Talk;
+	talks: TalkItem[];
 }
 
 export const getStaticProps: GetStaticProps<TalksProps> = async () => {
 	const { default: talks } = await import('~/data/talks.json');
-	return {
-		props: {
-			talks,
-		},
-	};
+	return { props: { talks } };
 };
 
-export default function TalksPage({ talks: talks }: TalksProps) {
+function kindOf(t: TalkItem): { tag: string; color: string } {
+	if (t.icon.includes('youtube')) return { tag: 'VIDEO', color: OP.pager };
+	if (t.icon.includes('headphones')) return { tag: 'AUDIO', color: OP.ok };
+	if (t.icon.includes('book')) return { tag: 'SLIDES', color: OP.amber };
+	return { tag: 'TALK', color: OP.violet };
+}
+
+export default function TalksPage({ talks }: TalksProps) {
+	const ref = useReveal({ stagger: 0.05, y: 18 });
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ talks' }}>
-			<Toaster
-				toastOptions={{
-					position: 'bottom-right',
-					style: {
-						background: colors.gray[900],
-						borderColor: colors.gray[800],
-						borderWidth: '2px',
-						color: colors?.gray[700],
-					},
-				}}
-			/>
-			<div className="mx-2 my-24 sm:mx-6 lg:mb-28 lg:mx-8">
-				<div className="relative max-w-xl mx-auto">
-					<List.Container>
-						{talks?.map((talk, index) => (
-							<Animate
-								animation={{ y: [50, 0], opacity: [0, 1] }}
-								key={index}
-								transition={{
-									delay: 0.1 * index,
+		<OperatorPage
+			title="gdantas ─ ls ~/talks"
+			description="Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops."
+			active="/talks">
+			<div ref={ref}>
+				<Sec label="01" title="ls ~/talks" sub="recent · slides + video + audio" />
+
+				<div
+					className="op-talks-grid"
+					style={{
+						marginTop: 32,
+						display: 'grid',
+						gridTemplateColumns: 'repeat(2, 1fr)',
+						gap: 14,
+					}}>
+					{talks.map((t) => {
+						const k = kindOf(t);
+						return (
+							<a
+								key={t.url}
+								href={t.url}
+								target="_blank"
+								rel="noreferrer noopener"
+								className="op-talk-card"
+								style={{
+									display: 'block',
+									padding: '20px 22px',
+									border: `1px solid ${OP.rule2}`,
+									background: OP.bg2,
+									textDecoration: 'none',
+									color: OP.fg,
+									transition: 'border-color 120ms ease, background 120ms ease',
 								}}>
-								<List.Item
-									actions={[
-										{
-											type: ListActionType.LINK,
-											icon: 'feather:external-link',
-											label: `${talk.title} homepage`,
-											href: talk.url,
-										},
-									]}
-									description={talk.description}
-									icon={talk.icon}
-									iconColor={talk.color}
-									title={talk.title}></List.Item>
-							</Animate>
-						))}
-					</List.Container>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'space-between',
+										alignItems: 'center',
+									}}>
+									<span
+										style={{
+											fontFamily: OP.font,
+											fontSize: 10,
+											color: k.color,
+											letterSpacing: '0.12em',
+											border: `1px solid ${k.color}`,
+											padding: '2px 8px',
+										}}>
+										{k.tag}
+									</span>
+									<span style={{ fontFamily: OP.font, fontSize: 11, color: OP.dim }}>
+										./play ↗
+									</span>
+								</div>
+								<div
+									style={{
+										fontFamily: OP.font,
+										fontSize: 15,
+										color: OP.fg,
+										marginTop: 14,
+										lineHeight: 1.4,
+									}}>
+									{t.title}
+								</div>
+								<div
+									style={{
+										fontFamily: OP.sans,
+										fontSize: 13,
+										color: OP.dim,
+										marginTop: 10,
+										lineHeight: 1.5,
+									}}>
+									{t.description}
+								</div>
+							</a>
+						);
+					})}
+				</div>
+
+				<div style={{ marginTop: 28, fontSize: 13 }}>
+					<Prompt path="~/talks">
+						ls --all | wc -l →{' '}
+						<span style={{ color: OP.amber }}>{talks.length} entries</span> ·{' '}
+						<Link href="/presentations" passHref>
+							<a style={{ color: OP.amber, textDecoration: 'none' }}>
+								↗ presentations (com preview embeddado)
+							</a>
+						</Link>
+					</Prompt>
 				</div>
 			</div>
-		</Layout.Default>
+
+			<style jsx>{`
+				@media (max-width: 720px) {
+					:global(.op-talks-grid) {
+						grid-template-columns: 1fr !important;
+					}
+				}
+				:global(.op-talk-card:hover) {
+					border-color: ${OP.amber} !important;
+					background: ${OP.bg3} !important;
+				}
+			`}</style>
+		</OperatorPage>
 	);
 }
