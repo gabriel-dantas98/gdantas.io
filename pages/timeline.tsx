@@ -2,10 +2,9 @@ import React from 'react';
 import type { GetStaticProps } from 'next';
 import { format, parse } from 'date-fns';
 
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Timeline, TimelineEvent } from '~/types';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 interface TimelineProps {
 	timeline: Timeline;

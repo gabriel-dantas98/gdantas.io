@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 // Drafts/published — preencher conforme posts forem ao ar.
 const POSTS: { date: string; status: 'draft' | 'live'; slug: string; title: string; topic: string; href?: string }[] = [

@@ -8,10 +8,9 @@ import RemarkPrism from 'remark-prism';
 import RemarkSlug from 'remark-slug';
 import RehypeAutolinkHeadings from 'rehype-autolink-headings';
 
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import { Elements as BlogElements } from '~/components/Blog/Styles';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 interface PresentationItemRaw {
 	title: string;

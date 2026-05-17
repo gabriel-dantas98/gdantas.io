@@ -1,0 +1,127 @@
+/* Estilos específicos da home — keyframes globais reutilizadas vivem em
+   components/Operator/styles.module.css. */
+
+@keyframes op-pulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(127, 184, 134, 0.8);
+	}
+	70% {
+		box-shadow: 0 0 0 12px rgba(127, 184, 134, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(127, 184, 134, 0);
+	}
+}
+
+@keyframes op-glow-amber {
+	0%,
+	100% {
+		text-shadow: 0 0 0 rgba(222, 166, 39, 0);
+	}
+	50% {
+		text-shadow: 0 0 18px rgba(222, 166, 39, 0.4);
+	}
+}
+
+.host *,
+.host *::before,
+.host *::after {
+	box-sizing: border-box;
+}
+
+.host img {
+	display: block;
+	max-width: 100%;
+}
+
+.tiltCard {
+	transform-style: preserve-3d;
+	will-change: transform;
+	transition: transform 0.15s ease-out, border-color 0.2s;
+}
+
+.amberGlow {
+	animation: op-glow-amber 3.5s ease-in-out infinite;
+}
+
+.statusDot {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 99px;
+	animation: op-pulse 1.6s ease-out infinite;
+}
+
+.mouseSpot {
+	position: relative;
+}
+
+.mouseSpot::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 30%), rgba(222, 166, 39, 0.1), transparent 55%);
+	transition: background 0.12s ease-out;
+	z-index: 1;
+}
+
+.stackGrid {
+	display: grid;
+	gap: 1px;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.talksGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 24px;
+	perspective: 1200px;
+}
+
+.heroGrid {
+	display: grid;
+	grid-template-columns: 1.5fr 1fr;
+	gap: 64px;
+	margin-top: 56px;
+}
+
+.doctrineGrid {
+	display: grid;
+	grid-template-columns: 1.05fr 1fr;
+	gap: 56px;
+	margin-top: 28px;
+}
+
+.pingGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+	margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+	.stackGrid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.talksGrid {
+		grid-template-columns: 1fr;
+	}
+	.heroGrid,
+	.doctrineGrid {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+	.pingGrid {
+		grid-template-columns: 1fr;
+	}
+	.hostPad {
+		padding: 24px 20px 64px !important;
+	}
+	.heroTitle {
+		font-size: 56px !important;
+	}
+	.topbarNav {
+		display: none !important;
+	}
+}

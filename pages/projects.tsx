@@ -2,10 +2,9 @@ import React from 'react';
 import type { GetStaticProps } from 'next';
 
 import { fetchProjects } from '~/lib/projects';
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Project } from '~/types';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 interface ProjectProps {
 	stringifiedProjects: string;

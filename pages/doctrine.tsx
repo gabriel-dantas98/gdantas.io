@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 const ROLES: { tag: string; title: string; lines: string[]; color: keyof typeof OP }[] = [
 	{

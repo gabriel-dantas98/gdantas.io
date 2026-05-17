@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import ProfilePicture from '../public/profile-photo.jpg';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 const FACTS: { k: string; v: string }[] = [
 	{ k: '$ uname', v: 'gdantas · sre @ quintoandar' },

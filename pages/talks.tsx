@@ -2,9 +2,8 @@ import React from 'react';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 
-import { Operator } from '~/components';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 
-const { OP, Sec, Prompt, OperatorPage, useReveal } = Operator;
 
 interface TalkItem {
 	title: string;
