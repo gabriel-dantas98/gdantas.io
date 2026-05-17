@@ -15,6 +15,7 @@ const NAV_LINKS: NavLink[] = [
 	{ label: './doctrine', href: '/doctrine' },
 	{ label: './talks', href: '/talks' },
 	{ label: './projects', href: '/projects' },
+	{ label: './sidequests', href: '/sidequests' },
 	{ label: './writing', href: '/writing' },
 ];
 

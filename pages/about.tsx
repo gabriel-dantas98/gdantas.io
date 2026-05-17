@@ -142,7 +142,7 @@ export default function AboutPage() {
 								color: OP.dim,
 							}}>
 							Fora do trabalho: pós em ML Eng, MBA em AI Eng + Multi-agents, curso de teologia
-							pastoral. Café preto, livro físico, terminal escuro.
+							pastoral. Monster de manga, um podcast na CPTM, uma partida de ARAM no final de sexta.
 						</div>
 						<div style={{ marginTop: 28, fontSize: 13 }}>
 							<Prompt path="~">cat ~/.about | wc -l → {FACTS.length + 2} linhas</Prompt>

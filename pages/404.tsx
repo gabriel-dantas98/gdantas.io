@@ -79,6 +79,7 @@ export default function NotFoundPage() {
 							['/about', 'cat ~/.about'],
 							['/talks', 'ls ~/talks'],
 							['/projects', 'kubectl get projects'],
+							['/sidequests', 'ls ~/.sidequests'],
 							['/links', 'ls ~/.links'],
 						].map(([href, desc]) => (
 							<li key={href}>
