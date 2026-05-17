@@ -11,6 +11,7 @@ import 'windi.css';
 
 import { colors, useClick } from '~/lib';
 import { ensureGsap } from '~/lib/gsap-loader';
+import { fontVars } from '~/lib/fonts';
 import { Theme } from '~/types';
 
 NProgress.configure({
@@ -57,7 +58,9 @@ export default function App({ Component, pageProps }: AppProps) {
 		<ThemeProvider attribute="class" defaultTheme={Theme.DARK} themes={Object.values(Theme)}>
 			{/* Clarity removido — script bloqueado por CSP gerava console error +
 			   inspector issue; análise não justificava o custo de perf/BP. */}
-			<Component {...pageProps} />
+			<div className={fontVars} style={{ minHeight: '100vh' }}>
+				<Component {...pageProps} />
+			</div>
 			<style jsx global>{`
 				#nprogress .bar {
 					height: 0.25rem;

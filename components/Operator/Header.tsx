@@ -21,7 +21,7 @@ const NAV_LINKS: NavLink[] = [
 export function OperatorHeader({ active }: { active?: string }) {
 	const clock = useUtcClock();
 	return (
-		<header
+        <header
 			style={{
 				display: 'flex',
 				justifyContent: 'space-between',
@@ -37,22 +37,21 @@ export function OperatorHeader({ active }: { active?: string }) {
 				fontSize: 12,
 				color: OP.dim,
 			}}>
-			<div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
 				<span style={{ display: 'flex', gap: 6 }}>
 					<span style={{ width: 10, height: 10, borderRadius: '50%', background: OP.pager }} />
 					<span style={{ width: 10, height: 10, borderRadius: '50%', background: OP.amber }} />
 					<span style={{ width: 10, height: 10, borderRadius: '50%', background: OP.ok }} />
 				</span>
-				<Link href="/" passHref>
-					<a
-						style={{
-							color: OP.fg,
-							textDecoration: 'none',
-							letterSpacing: '0.08em',
-							cursor: 'pointer',
-						}}>
+				<Link href="/" style={{
+                    color: OP.fg,
+                    textDecoration: 'none',
+                    letterSpacing: '0.08em',
+                    cursor: 'pointer',
+                }}>
+					
 						tty/0
-					</a>
+					
 				</Link>
 				<span style={{ color: OP.dim }}>·</span>
 				<span>gdantas.io</span>
@@ -61,26 +60,28 @@ export function OperatorHeader({ active }: { active?: string }) {
 					{clock || '—'}
 				</span>
 			</div>
-			<nav style={{ display: 'flex', gap: 18 }}>
+            <nav style={{ display: 'flex', gap: 18 }}>
 				{NAV_LINKS.map((l) => {
 					const isActive = active === l.href;
 					return (
-						<Link key={l.href} href={l.href} passHref>
-							<a
-								className="op-nav-link"
-								style={{
-									color: isActive ? OP.amber : OP.fg,
-									textDecoration: 'none',
-									letterSpacing: '0.04em',
-									position: 'relative',
-								}}>
-								{isActive ? '▸ ' : '  '}
-								{l.label}
-							</a>
-						</Link>
-					);
+                        <Link
+                            key={l.href}
+                            href={l.href}
+                            className="op-nav-link"
+                            style={{
+                                color: isActive ? OP.amber : OP.fg,
+                                textDecoration: 'none',
+                                letterSpacing: '0.04em',
+                                position: 'relative',
+                            }}>
+
+                            {isActive ? '▸ ' : '  '}
+                            {l.label}
+
+                        </Link>
+                    );
 				})}
 			</nav>
-		</header>
-	);
+        </header>
+    );
 }

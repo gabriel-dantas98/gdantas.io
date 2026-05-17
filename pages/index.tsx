@@ -270,14 +270,14 @@ export default function HomePage() {
 	}, []);
 
 	return (
-		<>
-			<NextSeo {...seo} />
-			<Head>
+        <>
+            <NextSeo {...seo} />
+            <Head>
 				<style>{`html, body { background: ${OP.bg}; scroll-behavior: smooth; } body { font-family: ${OP.sans}; color: ${OP.fg}; margin: 0; }`}</style>
 			</Head>
-			{/* GSAP é carregado via dynamic import no _app.tsx (lib/gsap-loader).
+            {/* GSAP é carregado via dynamic import no _app.tsx (lib/gsap-loader).
 			   Hooks Operator esperam window.gsap via retry pattern. */}
-			<div
+            <div
 				ref={progressRef}
 				style={{
 					position: 'fixed',
@@ -292,7 +292,7 @@ export default function HomePage() {
 					boxShadow: `0 0 12px ${OP.amber}88`,
 				}}
 			/>
-			<main
+            <main
 				className={`${styles.host} ${styles.hostPad}`}
 				style={{
 					width: '100%',
@@ -354,14 +354,16 @@ export default function HomePage() {
 					</div>
 					<div className={styles.topbarNav} style={{ display: 'flex', gap: 22, fontSize: 13 }}>
 						{TOPBAR_LINKS.map(([label, href]) => (
-							<Link key={href} href={href} passHref>
-								<a
-									style={{ color: OP.dim, textDecoration: 'none', transition: 'color .15s' }}
-									onMouseEnter={(e) => (e.currentTarget.style.color = OP.amber)}
-									onMouseLeave={(e) => (e.currentTarget.style.color = OP.dim)}>
-									<span style={{ color: OP.amber }}>›</span> {label}
-								</a>
-							</Link>
+							<Link
+                                key={href}
+                                href={href}
+                                style={{ color: OP.dim, textDecoration: 'none', transition: 'color .15s' }}
+                                onMouseEnter={(e) => (e.currentTarget.style.color = OP.amber)}
+                                onMouseLeave={(e) => (e.currentTarget.style.color = OP.dim)}>
+
+                                <span style={{ color: OP.amber }}>›</span> {label}
+
+                            </Link>
 						))}
 					</div>
 				</div>
@@ -761,8 +763,8 @@ export default function HomePage() {
 					</div>
 					<div style={{ marginTop: 22, fontSize: 13, color: OP.dim }}>
 						<Prompt path="~/talks">ls --all</Prompt>{' '}
-						<Link href="/presentations" passHref>
-							<a style={{ color: OP.amber, textDecoration: 'none' }}>↗ all talks</a>
+						<Link href="/presentations" style={{ color: OP.amber, textDecoration: 'none' }}>
+							↗ all talks
 						</Link>
 					</div>
 				</div>
@@ -937,6 +939,6 @@ export default function HomePage() {
 					</div>
 				</div>
 			</main>
-		</>
-	);
+        </>
+    );
 }

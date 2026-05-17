@@ -19,8 +19,8 @@ interface ItemProps extends WithChildren {
 
 export function Item({ actions, children, description, icon, iconColor, title }: ItemProps) {
 	return (
-		<li className="bg-gray-50 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 backdrop-filter backdrop-blur-sm border border-gray-100 dark:border-gray-500 rounded-lg transition ease-in-out duration-300">
-			<div className="flex flex-col sm:flex-row items-center justify-between px-4 py-4 sm:px-6">
+        <li className="bg-gray-50 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 backdrop-filter backdrop-blur-sm border border-gray-100 dark:border-gray-500 rounded-lg transition ease-in-out duration-300">
+            <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-4 sm:px-6">
 				<div className="flex flex-1 items-center justify-start w-full">
 					{icon &&
 						(typeof icon === 'string' ? (
@@ -82,8 +82,8 @@ export function Item({ actions, children, description, icon, iconColor, title }:
 										);
 
 									return (
-										<Link href={action.href} passHref>
-											<Action
+                                        <Link href={action.href}>
+                                            <Action
 												as="a"
 												aria-label={action.label}
 												key={index}
@@ -92,14 +92,14 @@ export function Item({ actions, children, description, icon, iconColor, title }:
 												<span className="sr-only">{action.label}</span>
 												<Icon className="mt-1" icon={action.icon} />
 											</Action>
-										</Link>
-									);
+                                        </Link>
+                                    );
 							}
 						})}
 					</div>
 				)}
 			</div>
-			{children}
-		</li>
-	);
+            {children}
+        </li>
+    );
 }

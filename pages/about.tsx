@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import React from 'react';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';

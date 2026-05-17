@@ -11,11 +11,11 @@ export default function ErrorPage() {
 	const ref = useReveal({ stagger: 0.08, y: 20 });
 
 	return (
-		<OperatorPage
+        <OperatorPage
 			title={`gdantas ─ ${code}`}
 			description="Algo deu errado do nosso lado."
 			active="/">
-			<div
+            <div
 				ref={ref}
 				style={{
 					maxWidth: 720,
@@ -82,26 +82,25 @@ export default function ErrorPage() {
 						}}>
 						← back
 					</button>
-					<Link href="/" passHref>
-						<a
-							style={{
-								fontFamily: OP.font,
-								fontSize: 12,
-								color: OP.ok,
-								background: 'transparent',
-								border: `1px solid ${OP.ok}`,
-								padding: '8px 14px',
-								letterSpacing: '0.08em',
-								textDecoration: 'none',
-								display: 'inline-block',
-								minHeight: 36,
-								lineHeight: '20px',
-							}}>
+					<Link href="/" style={{
+                        fontFamily: OP.font,
+                        fontSize: 12,
+                        color: OP.ok,
+                        background: 'transparent',
+                        border: `1px solid ${OP.ok}`,
+                        padding: '8px 14px',
+                        letterSpacing: '0.08em',
+                        textDecoration: 'none',
+                        display: 'inline-block',
+                        minHeight: 36,
+                        lineHeight: '20px',
+                    }}>
+						
 							cd ~
-						</a>
+						
 					</Link>
 				</div>
 			</div>
-		</OperatorPage>
-	);
+        </OperatorPage>
+    );
 }
