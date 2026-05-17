@@ -32,11 +32,11 @@ function kindOf(t: TalkItem): { tag: string; color: string } {
 export default function TalksPage({ talks }: TalksProps) {
 	const ref = useReveal({ stagger: 0.05, y: 18 });
 	return (
-		<OperatorPage
+        <OperatorPage
 			title="gdantas ─ ls ~/talks"
 			description="Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops."
 			active="/talks">
-			<div ref={ref}>
+            <div ref={ref}>
 				<Sec label="01" title="ls ~/talks" sub="recent · slides + video + audio" />
 
 				<div
@@ -115,16 +115,15 @@ export default function TalksPage({ talks }: TalksProps) {
 					<Prompt path="~/talks">
 						ls --all | wc -l →{' '}
 						<span style={{ color: OP.amber }}>{talks.length} entries</span> ·{' '}
-						<Link href="/presentations" passHref>
-							<a style={{ color: OP.amber, textDecoration: 'none' }}>
+						<Link href="/presentations" style={{ color: OP.amber, textDecoration: 'none' }}>
+							
 								↗ presentations (com preview embeddado)
-							</a>
+							
 						</Link>
 					</Prompt>
 				</div>
 			</div>
-
-			<style jsx>{`
+            <style jsx>{`
 				@media (max-width: 720px) {
 					:global(.op-talks-grid) {
 						grid-template-columns: 1fr !important;
@@ -135,6 +134,6 @@ export default function TalksPage({ talks }: TalksProps) {
 					background: ${OP.bg3} !important;
 				}
 			`}</style>
-		</OperatorPage>
-	);
+        </OperatorPage>
+    );
 }

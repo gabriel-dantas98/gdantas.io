@@ -1,14 +1,27 @@
-import { Layout } from '~/layouts';
+import React from 'react';
+
+import { OP, Sec, OperatorPage, useReveal } from '~/components/Operator';
 import { Status } from '~/components';
 
 export default function StatusPage() {
+	const ref = useReveal({ stagger: 0.06, y: 18 });
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ status' }}>
-			<div className="flex flex-grow min-h-screen pt-16 pb-12">
-				<div className="flex flex-col justify-center flex-grow w-full max-w-sm px-0 mx-auto sm:max-w-lg sm:px-16">
+		<OperatorPage
+			title="gdantas ─ systemctl status"
+			description="Status do operador — Lanyard / Discord presence."
+			active="/">
+			<div ref={ref} style={{ maxWidth: 520 }}>
+				<Sec label="01" title="systemctl status" sub="discord presence + agora" />
+				<div
+					style={{
+						marginTop: 28,
+						padding: '22px 24px',
+						border: `1px solid ${OP.rule}`,
+						background: OP.bg2,
+					}}>
 					<Status.Widget />
 				</div>
 			</div>
-		</Layout.Default>
+		</OperatorPage>
 	);
 }

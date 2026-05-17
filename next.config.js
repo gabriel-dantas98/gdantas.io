@@ -2,22 +2,24 @@ const WindiCSS = require('windicss-webpack-plugin');
 const { withAxiom } = require('next-axiom');
 
 const ContentSecurityPolicy = `
-  child-src *.google.com streamable.com;
+  child-src *.google.com streamable.com *.youtube.com *.youtube-nocookie.com *.spotify.com *.canva.com;
   connect-src *;
   default-src 'self';
-  font-src 'self';
+  font-src 'self' *.gstatic.com data:;
   img-src * blob: data:;
   media-src 'none';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.splitbee.io;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' data: cdn.splitbee.io;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   worker-src 'self' 'unsafe-inline' blob:;
+  frame-src *.youtube.com *.youtube-nocookie.com *.spotify.com *.canva.com *.google.com;
 `;
 
 /**
  * @type {import('next').NextConfig}
  */
 const config = {
-	assetPrefix: './',
+	// assetPrefix removido: next/font (13+) exige '' ou '/' ou URL absoluta.
+	// Domínio é gdantas.com.br (root), então paths absolutos funcionam.
 	images: {
 		domains: [
 			// Discord assets
@@ -72,6 +74,7 @@ const config = {
 	},
 	reactStrictMode: true,
 	swcMinify: true,
+	productionBrowserSourceMaps: true,
 	webpack: (config, { dev, isServer }) => {
 		// TODO: Temp disabled as since upgrading `next` to v12.2.3 production builds fail & this seems to be the cause
 		// Replace React with Preact only in client production build

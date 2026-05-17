@@ -16,8 +16,10 @@ export const OP = {
 	ok: '#7fb886',
 	rule: 'rgba(248,248,249,0.10)',
 	rule2: 'rgba(248,248,249,0.18)',
-	font: '"IBM Plex Mono", ui-monospace, Menlo, monospace',
-	sans: '"IBM Plex Sans", system-ui, sans-serif',
+	// CSS vars setadas em <body> pelo lib/fonts.ts via next/font/google.
+	// Fallback inline cobre o caso de a var não estar definida (build-time).
+	font: 'var(--font-mono), ui-monospace, Menlo, monospace',
+	sans: 'var(--font-sans), system-ui, sans-serif',
 } as const;
 
 export type OperatorTokens = typeof OP;
