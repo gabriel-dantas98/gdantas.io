@@ -1,8 +1,4 @@
-import { Layout } from '~/layouts';
-import { Animate, List } from '~/components';
-import { ListActionType } from '~/types';
-import { colors } from '~/lib';
-import { Toaster } from 'react-hot-toast';
+import React from 'react';
 import type { GetStaticProps } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -11,32 +7,28 @@ import RemarkEmoji from 'remark-emoji';
 import RemarkPrism from 'remark-prism';
 import RemarkSlug from 'remark-slug';
 import RehypeAutolinkHeadings from 'rehype-autolink-headings';
+
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import { Elements as BlogElements } from '~/components/Blog/Styles';
-import type { ListAction } from '~/types';
+
 
 interface PresentationItemRaw {
 	title: string;
 	icon: string;
 	color: string;
 	description: string;
-	url?: string; // legacy canonical link
-	contentUrl?: string; // preferred content link
-	githubUrl?: string; // repository link
+	url?: string;
+	contentUrl?: string;
+	githubUrl?: string;
 	date?: string;
 	location?: string;
 	preview?: {
 		type: 'google-slides' | 'youtube' | 'github-readme' | 'spotify' | 'canva' | 'pdf';
-		// youtube
 		youtubeId?: string;
-		// google slides
 		slidesEmbedUrl?: string;
-		// github readme snippet
 		readmeMarkdown?: string;
-		// spotify
 		spotifyEmbedUrl?: string;
-		// canva
 		canvaEmbedUrl?: string;
-		// pdf
 		pdfUrl?: string;
 	};
 }
@@ -52,7 +44,7 @@ interface PresentationItem extends Omit<PresentationItemRaw, 'preview'> {
 }
 
 interface PresentationsProps {
-	presentations?: Array<PresentationItem>;
+	presentations: PresentationItem[];
 }
 
 export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
@@ -93,11 +85,9 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 		try {
 			const url = new URL(link);
 			if (!url.hostname.includes('canva.com')) return undefined;
-			// If already a view?embed link, keep it
 			if (url.pathname.includes('/view') && url.search.includes('embed')) {
 				return url.toString();
 			}
-			// Extract /design/{id}/{key?}
 			const parts = url.pathname.split('/').filter(Boolean);
 			const designIdx = parts.indexOf('design');
 			const designId = designIdx >= 0 ? parts[designIdx + 1] : undefined;
@@ -110,11 +100,10 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 		return undefined;
 	}
 
-	const presentations: Array<PresentationItem> = [];
-	for (const item of raw as Array<PresentationItemRaw>) {
+	const presentations: PresentationItem[] = [];
+	for (const item of raw as PresentationItemRaw[]) {
 		const contentLink = item.contentUrl || item.url;
 
-		// Derive preview if missing
 		if (!item.preview) {
 			const yt = extractYouTubeId(contentLink);
 			if (yt) {
@@ -135,7 +124,6 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 			continue;
 		}
 
-		// Normalize provided preview data
 		if (item.preview.type === 'github-readme' && item.preview.readmeMarkdown) {
 			const mdx = await serialize(item.preview.readmeMarkdown, {
 				mdxOptions: {
@@ -148,10 +136,7 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 					] as any,
 				},
 			});
-			presentations.push({
-				...item,
-				preview: { type: 'github-readme', mdx },
-			});
+			presentations.push({ ...item, preview: { type: 'github-readme', mdx } });
 			continue;
 		}
 		if (item.preview.type === 'google-slides') {
@@ -193,36 +178,65 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 		presentations.push(item as PresentationItem);
 	}
 
-	return {
-		props: {
-			presentations,
-		},
-	};
+	return { props: { presentations } };
 };
 
-function Preview({ presentation }: { presentation: PresentationItem }) {
+function TalkPreview({ presentation }: { presentation: PresentationItem }) {
 	if (!presentation.preview) return null;
-	if (presentation.preview.type === 'google-slides') {
-		return (
-			<div className="mt-4 w-full">
-				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
+	const frame: React.CSSProperties = {
+		width: '100%',
+		height: '100%',
+		border: 0,
+		background: OP.bg2,
+	};
+	const wrap: React.CSSProperties = {
+		marginTop: 16,
+		width: '100%',
+		aspectRatio: '16 / 9',
+		border: `1px solid ${OP.rule2}`,
+		background: OP.bg2,
+		position: 'relative',
+	};
+	const chrome = (
+		<div
+			style={{
+				position: 'absolute',
+				top: -1,
+				left: -1,
+				fontFamily: OP.font,
+				fontSize: 10,
+				color: OP.amber,
+				padding: '3px 9px',
+				background: OP.bg,
+				border: `1px solid ${OP.rule2}`,
+				zIndex: 2,
+				letterSpacing: '0.08em',
+			}}>
+			PREVIEW · {presentation.preview.type.toUpperCase()}
+		</div>
+	);
+
+	switch (presentation.preview.type) {
+		case 'google-slides':
+			return (
+				<div style={wrap}>
+					{chrome}
 					<iframe
-						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						style={frame}
 						src={presentation.preview.slidesEmbedUrl}
+						title={presentation.title}
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
 						loading="lazy"
 					/>
 				</div>
-			</div>
-		);
-	}
-	if (presentation.preview.type === 'youtube') {
-		return (
-			<div className="mt-4 w-full">
-				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
+			);
+		case 'youtube':
+			return (
+				<div style={wrap}>
+					{chrome}
 					<iframe
-						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						style={frame}
 						src={`https://www.youtube-nocookie.com/embed/${presentation.preview.youtubeId}`}
 						title={presentation.title}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -231,58 +245,42 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 						loading="lazy"
 					/>
 				</div>
-			</div>
-		);
-	}
-	if (presentation.preview.type === 'spotify') {
-		return (
-			<div className="mt-4 w-full">
-				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
+			);
+		case 'spotify':
+			return (
+				<div style={{ ...wrap, aspectRatio: 'auto', height: 232 }}>
+					{chrome}
 					<iframe
-						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						style={frame}
 						src={presentation.preview.spotifyEmbedUrl}
-						title={`${presentation.title} - Spotify embed`}
-						frameBorder={0}
+						title={`${presentation.title} - Spotify`}
 						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 						allowFullScreen
 						loading="lazy"
 					/>
 				</div>
-			</div>
-		);
-	}
-	if (presentation.preview.type === 'canva') {
-		return (
-			<div className="mt-4 w-full">
-				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
+			);
+		case 'canva':
+			return (
+				<div style={wrap}>
+					{chrome}
 					<iframe
-						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						style={frame}
 						src={presentation.preview.canvaEmbedUrl}
+						title={presentation.title}
 						allowFullScreen
 						allow="clipboard-write"
 						referrerPolicy="strict-origin-when-cross-origin"
 						loading="lazy"
 					/>
 				</div>
-			</div>
-		);
-	}
-	if (presentation.preview.type === 'github-readme') {
-		return (
-			<div className="mt-4 w-full px-2 sm:px-0">
-				<div className="max-w-none prose prose-sm sm:prose-base dark:prose-invert">
-					<BlogElements />
-					<MDXRemote {...presentation.preview.mdx} />
-				</div>
-			</div>
-		);
-	}
-	if (presentation.preview.type === 'pdf') {
-		return (
-			<div className="mt-4 w-full">
-				<div className="w-full h-56 sm:h-72 md:h-80 lg:h-96">
+			);
+		case 'pdf':
+			return (
+				<div style={wrap}>
+					{chrome}
 					<iframe
-						className="w-full h-full rounded-lg border-2 border-gray-200 dark:border-gray-700"
+						style={frame}
 						src={presentation.preview.pdfUrl}
 						title={presentation.title}
 						allowFullScreen
@@ -290,71 +288,150 @@ function Preview({ presentation }: { presentation: PresentationItem }) {
 						loading="lazy"
 					/>
 				</div>
-			</div>
-		);
+			);
+		case 'github-readme':
+			return (
+				<div
+					style={{
+						marginTop: 16,
+						padding: '20px 22px',
+						border: `1px solid ${OP.rule2}`,
+						background: OP.bg2,
+						position: 'relative',
+					}}>
+					{chrome}
+					<div className="prose prose-sm dark:prose-invert" style={{ marginTop: 14 }}>
+						<BlogElements />
+						<MDXRemote {...presentation.preview.mdx} />
+					</div>
+				</div>
+			);
+		default:
+			return null;
 	}
-	return null;
 }
 
 export default function PresentationsPage({ presentations }: PresentationsProps) {
+	const ref = useReveal({ stagger: 0.05, y: 18 });
 	return (
-		<Layout.Default seo={{ title: 'gdantas ─ presentations' }}>
-			<Toaster
-				toastOptions={{
-					position: 'bottom-right',
-					style: {
-						background: colors.gray[900],
-						borderColor: colors.gray[800],
-						borderWidth: '2px',
-						color: colors?.gray[700],
-					},
-				}}
-			/>
-			<div className="mx-4 my-24 sm:mx-6 lg:mb-28 lg:mx-8">
-				<div className="relative mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
-					<List.Container>
-						{presentations?.map((p, index) => (
-							<Animate
-								animation={{ y: [50, 0], opacity: [0, 1] }}
-								key={index}
-								transition={{ delay: 0.1 * index }}>
-								{(() => {
-									const actions: Array<ListAction> = [];
-									const contentLink = p.contentUrl || p.url;
-									if (contentLink) {
-										actions.push({
-											type: ListActionType.LINK,
-											icon: 'feather:external-link',
-											label: `${p.title} conteúdo`,
-											href: contentLink,
-										});
-									}
-									if (p.githubUrl && p.githubUrl !== contentLink) {
-										actions.push({
-											type: ListActionType.LINK,
-											icon: 'feather:github',
-											label: `${p.title} GitHub`,
-											href: p.githubUrl,
-										});
-									}
-									return (
-										<List.Item
-											actions={actions}
-											description={[p.description, p.location, p.date]
-												.filter(Boolean)
-												.join(' • ')}
-											icon={p.icon}
-											iconColor={p.color}
-											title={p.title}>
-											<Preview presentation={p} />
-										</List.Item>
-									);
-								})()}
-							</Animate>
-						))}
-					</List.Container>
+		<OperatorPage
+			title="gdantas ─ presentations"
+			description="Apresentações com preview embeddado — slides, vídeos, podcasts."
+			active="/talks">
+			<div ref={ref}>
+				<Sec
+					label="01"
+					title="ls ~/talks --preview"
+					sub="cada talk com preview embeddado"
+				/>
+
+				<div
+					style={{
+						marginTop: 32,
+						display: 'grid',
+						gap: 22,
+					}}>
+					{presentations.map((p, i) => {
+						const contentLink = p.contentUrl || p.url;
+						return (
+							<article
+								key={`${p.title}-${i}`}
+								style={{
+									border: `1px solid ${OP.rule}`,
+									background: 'rgba(17,14,27,0.65)',
+									padding: '22px 26px',
+								}}>
+								<header
+									style={{
+										display: 'flex',
+										justifyContent: 'space-between',
+										gap: 18,
+										alignItems: 'baseline',
+										flexWrap: 'wrap',
+									}}>
+									<div style={{ minWidth: 0, flex: 1 }}>
+										<div
+											style={{
+												fontFamily: OP.font,
+												fontSize: 11,
+												color: OP.dim,
+												letterSpacing: '0.08em',
+											}}>
+											{[p.date, p.location].filter(Boolean).join(' · ') || '— · —'}
+										</div>
+										<h3
+											style={{
+												margin: '6px 0 0',
+												fontFamily: OP.font,
+												fontSize: 17,
+												color: OP.fg,
+												fontWeight: 500,
+												lineHeight: 1.35,
+											}}>
+											{p.title}
+										</h3>
+										<p
+											style={{
+												margin: '8px 0 0',
+												fontFamily: OP.sans,
+												fontSize: 14,
+												color: OP.dim,
+												lineHeight: 1.55,
+												maxWidth: 720,
+											}}>
+											{p.description}
+										</p>
+									</div>
+									<div style={{ display: 'flex', gap: 10, flexShrink: 0 }}>
+										{contentLink && (
+											<a
+												href={contentLink}
+												target="_blank"
+												rel="noreferrer noopener"
+												style={{
+													fontFamily: OP.font,
+													fontSize: 11,
+													color: OP.amber,
+													border: `1px solid ${OP.amber}`,
+													padding: '4px 10px',
+													textDecoration: 'none',
+													letterSpacing: '0.08em',
+												}}>
+												./play ↗
+											</a>
+										)}
+										{p.githubUrl && p.githubUrl !== contentLink && (
+											<a
+												href={p.githubUrl}
+												target="_blank"
+												rel="noreferrer noopener"
+												style={{
+													fontFamily: OP.font,
+													fontSize: 11,
+													color: OP.violet,
+													border: `1px solid ${OP.violet}`,
+													padding: '4px 10px',
+													textDecoration: 'none',
+													letterSpacing: '0.08em',
+												}}>
+												./src ↗
+											</a>
+										)}
+									</div>
+								</header>
+								<TalkPreview presentation={p} />
+							</article>
+						);
+					})}
+				</div>
+
+				<div style={{ marginTop: 28, fontSize: 13 }}>
+					<Prompt path="~/talks">
+						ls --preview | wc -l →{' '}
+						<span style={{ color: OP.amber }}>{presentations.length} entries</span>
+					</Prompt>
 				</div>
 			</div>
-		</Layout.Default>
+		</OperatorPage>
 	);
 }

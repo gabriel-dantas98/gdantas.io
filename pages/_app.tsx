@@ -24,17 +24,10 @@ import { reportWebVitals as axiomReportWebVitals } from 'next-axiom';
 import type { NextWebVitalsMetric } from 'next/app';
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-	// Send to axiom
-	axiomReportWebVitals(metric);
-
-	// Log to console in development
-	if (process.env.NODE_ENV === 'development') {
-		const { id, name, label, value } = metric;
-		console.log(`[Web Vitals] ${label} metric: ${name}`, {
-			id,
-			value: label === 'web-vital' ? `${Math.round(value)}ms` : value,
-			metric,
-		});
+	// Só envia pra axiom em prod com endpoint configurado — evita warnings em
+	// dev e em deploys sem env vars.
+	if (process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_AXIOM_INGEST_ENDPOINT) {
+		axiomReportWebVitals(metric);
 	}
 }
 

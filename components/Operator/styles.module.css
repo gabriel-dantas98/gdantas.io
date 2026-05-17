@@ -1,0 +1,71 @@
+/* Keyframes globais usadas por múltiplos componentes Operator. */
+
+@keyframes op-blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+@keyframes op-pulse-ok {
+	0% {
+		box-shadow: 0 0 0 0 rgba(127, 184, 134, 0.8);
+	}
+	70% {
+		box-shadow: 0 0 0 12px rgba(127, 184, 134, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(127, 184, 134, 0);
+	}
+}
+
+@keyframes op-glow-amber {
+	0%,
+	100% {
+		text-shadow: 0 0 0 rgba(222, 166, 39, 0);
+	}
+	50% {
+		text-shadow: 0 0 18px rgba(222, 166, 39, 0.4);
+	}
+}
+
+@keyframes op-marquee {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+/* Reusable classes — disponíveis via :global() em CSS modules. */
+.blink {
+	animation: op-blink 1s steps(2) infinite;
+}
+
+.amberGlow {
+	animation: op-glow-amber 3.5s ease-in-out infinite;
+}
+
+.pulseOk {
+	animation: op-pulse-ok 1.8s ease-out infinite;
+}
+
+.mouseSpot {
+	position: relative;
+}
+
+.mouseSpot::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 30%), rgba(222, 166, 39, 0.1), transparent 55%);
+	transition: background 0.12s ease-out;
+	z-index: 1;
+}
+
+.tiltCard {
+	transform-style: preserve-3d;
+	will-change: transform;
+	transition: transform 0.15s ease-out, border-color 0.2s;
+}

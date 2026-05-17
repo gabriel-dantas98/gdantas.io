@@ -1,3 +1,4 @@
+export * as Operator from './Operator';
 export * as Blog from './Blog';
 export * as Button from './Button';
 export * as List from './List';
