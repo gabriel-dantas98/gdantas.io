@@ -1,9 +1,21 @@
 import React from 'react';
 import type { GetStaticProps } from 'next';
-import { format, parse } from 'date-fns';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Timeline, TimelineEvent } from '~/types';
+
+// Parse MM-dd-yyyy → ISO date sem precisar puxar date-fns inteiro.
+// Mais ~10KB cortado do bundle da timeline.
+function parseMmDdYyyy(s: string): Date {
+	const [m, d, y] = s.split('-').map(Number);
+	return new Date(Date.UTC(y, m - 1, d));
+}
+
+function fmtYearMonth(d: Date): string {
+	const y = d.getUTCFullYear();
+	const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+	return `${y}-${m}`;
+}
 
 
 interface TimelineProps {
@@ -29,7 +41,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 	const ref = useReveal({ stagger: 0.05, y: 16 });
 	const timeline = rawTimeline.map((event) => ({
 		...event,
-		_date: parse(event.date.toString(), 'MM-dd-yyyy', new Date()),
+		_date: parseMmDdYyyy(event.date.toString()),
 	}));
 
 	return (
@@ -69,7 +81,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 								<div>
 									<div style={{ color: OP.amber }}>{shaFromTitle(event.title)}</div>
 									<div style={{ color: OP.dim, fontSize: 11, marginTop: 2 }}>
-										{format(event._date, 'yyyy-MM')}
+										{fmtYearMonth(event._date)}
 									</div>
 								</div>
 								<div>

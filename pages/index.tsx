@@ -24,9 +24,10 @@ import {
 } from '~/components/Operator';
 import styles from './home.module.css';
 
-// Componentes pesados (SVG grande, GSAP timelines) split em chunks separados.
-// SSR off porque dependem de window.gsap. Marquee + Topology + ClusterGrid
-// só hidratam quando o JS chunk chega — fora do critical path do LCP.
+// Topology/ClusterGrid/Marquee são below-the-fold + carregam GSAP timelines
+// pesadas. Dynamic SSR-off mantém esses chunks fora do critical path.
+// PlatformBg + HeroIconRain ficam estáticos pq são wallpaper do hero (above
+// fold) — deferir gera flash visual no LCP.
 const Topology = dynamic(
 	() => import('~/components/Operator/Topology').then((m) => m.Topology),
 	{ ssr: false, loading: () => <div style={{ minHeight: 520 }} /> },
