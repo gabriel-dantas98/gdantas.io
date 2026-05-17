@@ -2401,6 +2401,7 @@ __metadata:
     eslint: 8.10.0
     eslint-config-next: 12.1.0
     gray-matter: ^4.0.3
+    gsap: 3.12.5
     inter-ui: ^3.19.3
     is-web-crawler: ^1.1.0
     motion: ^10.7.2
@@ -2611,6 +2612,13 @@ __metadata:
     section-matter: ^1.0.0
     strip-bom-string: ^1.0.0
   checksum: 37717bd424344487d655392251ce8d8878a1275ee087003e61208fba3bfd59cbb73a85b2159abf742ae95e23db04964813fdc33ae18b074208428b2528205222
+  languageName: node
+  linkType: hard
+
+"gsap@npm:3.12.5":
+  version: 3.12.5
+  resolution: "gsap@npm:3.12.5"
+  checksum: 60b99dc4482992ba86013963ee9a97a5ec62d480495dd85764788913245aa08cfd202c1df4bbc7592e43d5faa885127bec75f77266f2964fe3d3b559ab63f852
   languageName: node
   linkType: hard
 

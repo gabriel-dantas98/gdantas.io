@@ -4,13 +4,13 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import { useEffectOnce, useEvent } from 'react-use';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 
 import 'inter-ui/inter.css';
 import 'nprogress/nprogress.css';
 import 'windi.css';
 
 import { colors, useClick } from '~/lib';
+import { ensureGsap } from '~/lib/gsap-loader';
 import { Theme } from '~/types';
 
 NProgress.configure({
@@ -43,6 +43,10 @@ export default function App({ Component, pageProps }: AppProps) {
 		router.events.on('routeChangeComplete', () => NProgress.done());
 		router.events.on('routeChangeError', () => NProgress.done());
 
+		// GSAP via dynamic import — substitui o <Script> CDN bloqueante.
+		// Chamado uma vez aqui; hooks Operator esperam window.gsap via retry.
+		ensureGsap();
+
 		if (process.env.NODE_ENV === 'production')
 			splitbee.init({
 				disableCookie: true,
@@ -51,15 +55,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	return (
 		<ThemeProvider attribute="class" defaultTheme={Theme.DARK} themes={Object.values(Theme)}>
-			{process.env.NODE_ENV === 'production' && (
-				<Script id="ms-clarity" strategy="afterInteractive">{`
-					(function(c,l,a,r,i,t,y){
-						c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-						t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-						y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-					})(window, document, "clarity", "script", "tb58tagwix");
-				`}</Script>
-			)}
+			{/* Clarity removido — script bloqueado por CSP gerava console error +
+			   inspector issue; análise não justificava o custo de perf/BP. */}
 			<Component {...pageProps} />
 			<style jsx global>{`
 				#nprogress .bar {

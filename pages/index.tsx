@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 
 import { useSeoProps } from '~/lib';
@@ -17,15 +17,28 @@ import {
 	Cursor,
 	Prompt,
 	Sec,
-	Marquee,
 	PlatformBg,
 	HeroIconRain,
-	Topology,
-	ClusterGrid,
 	TalkPreview,
 	type Talk,
 } from '~/components/Operator';
 import styles from './home.module.css';
+
+// Componentes pesados (SVG grande, GSAP timelines) split em chunks separados.
+// SSR off porque dependem de window.gsap. Marquee + Topology + ClusterGrid
+// só hidratam quando o JS chunk chega — fora do critical path do LCP.
+const Topology = dynamic(
+	() => import('~/components/Operator/Topology').then((m) => m.Topology),
+	{ ssr: false, loading: () => <div style={{ minHeight: 520 }} /> },
+);
+const ClusterGrid = dynamic(
+	() => import('~/components/Operator/ClusterGrid').then((m) => m.ClusterGrid),
+	{ ssr: false, loading: () => <div style={{ minHeight: 84 }} /> },
+);
+const Marquee = dynamic(
+	() => import('~/components/Operator/Marquee').then((m) => m.Marquee),
+	{ ssr: false, loading: () => <div style={{ height: 56 }} /> },
+);
 
 // Talks que aparecem na home — `04 ls ~/talks`. A lista completa com previews
 // embeddados (YouTube/Canva/Slides/PDF/Spotify) vive em /presentations e usa
@@ -261,21 +274,8 @@ export default function HomePage() {
 			<Head>
 				<style>{`html, body { background: ${OP.bg}; scroll-behavior: smooth; } body { font-family: ${OP.sans}; color: ${OP.fg}; margin: 0; }`}</style>
 			</Head>
-			{/* beforeInteractive garante que window.gsap exista quando os
-			   useEffect das animações (Topology/ClusterGrid) rodarem. */}
-			<Script
-				src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"
-				strategy="beforeInteractive"
-			/>
-			<Script
-				src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"
-				strategy="beforeInteractive"
-				onLoad={() => {
-					if (window.gsap && window.ScrollTrigger) {
-						window.gsap.registerPlugin(window.ScrollTrigger);
-					}
-				}}
-			/>
+			{/* GSAP é carregado via dynamic import no _app.tsx (lib/gsap-loader).
+			   Hooks Operator esperam window.gsap via retry pattern. */}
 			<div
 				ref={progressRef}
 				style={{

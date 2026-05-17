@@ -1,48 +1,112 @@
-import { Icon } from '@iconify/react';
+import React from 'react';
+import Link from 'next/link';
 
-import { Button } from '~/components';
-import { Layout } from '~/layouts';
-import { NavigationItemType } from '~/types';
+import { OP, Prompt, Cursor, OperatorPage, useReveal } from '~/components/Operator';
 
-export default function Error() {
+export default function NotFoundPage() {
+	const ref = useReveal({ stagger: 0.08, y: 20 });
 	return (
-		<Layout.Error>
-			<div className="flex flex-grow min-h-full pt-16 pb-12">
-				<div className="flex-grow flex flex-col justify-center max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-shrink-0 justify-center">
-						<Icon
-							className="h-12 text-primary-500 w-auto"
-							icon="feather:alert-triangle"
-						/>
+		<OperatorPage
+			title="gdantas ─ 404 not found"
+			description="Página não encontrada."
+			active="/">
+			<div
+				ref={ref}
+				style={{
+					maxWidth: 720,
+					padding: '64px 0',
+					fontFamily: OP.font,
+				}}>
+				<div style={{ fontSize: 13, color: OP.dim }}>
+					<Prompt path="~">
+						cat /var/log/access.log | grep 404
+						<Cursor />
+					</Prompt>
+				</div>
+
+				<div
+					style={{
+						marginTop: 32,
+						display: 'grid',
+						gridTemplateColumns: 'auto 1fr',
+						gap: 28,
+						alignItems: 'baseline',
+					}}>
+					<div
+						style={{
+							fontSize: 112,
+							color: OP.pager,
+							lineHeight: 1,
+							letterSpacing: '-0.04em',
+							fontWeight: 500,
+							textShadow: `0 0 22px ${OP.pager}55`,
+						}}>
+						404
 					</div>
-					<div className="py-4 text-center">
-						<h1 className="mt-2 text-4xl font-extrabold text-gray-500 dark:text-white tracking-tight sm:text-5xl">
-							Whoops!
-						</h1>
-						<p className="mt-8 text-sm font-medium text-gray-300 dark:text-gray-400">
-							Looks like you took a wrong turn.
-							<br />
-							The page you&apos;re looking for couldn&apos;t be found.
-						</p>
-						<div className="mt-6 flex justify-center items-center space-x-4">
-							<Button.Standard
-								type={NavigationItemType.ACTION}
-								onClick={() => history.go(-1)}
-								icon="feather:arrow-left"
-							>
-								Back
-							</Button.Standard>
-							<Button.Standard
-								type={NavigationItemType.LINK}
-								href="/"
-								icon="feather:home"
-							>
-								Home
-							</Button.Standard>
+					<div>
+						<div style={{ fontSize: 22, color: OP.fg }}>
+							route <span style={{ color: OP.amber }}>not found</span>
+						</div>
+						<div style={{ marginTop: 8, fontSize: 14, color: OP.dim }}>
+							Esse caminho não existe no sistema — pode ter sido renomeado,
+							removido, ou nunca existiu mesmo.
 						</div>
 					</div>
 				</div>
+
+				<div
+					style={{
+						marginTop: 36,
+						border: `1px solid ${OP.rule}`,
+						background: OP.bg2,
+						padding: '22px 24px',
+						fontSize: 14,
+						color: OP.fg,
+					}}>
+					<div style={{ color: OP.dim, fontSize: 12, marginBottom: 12 }}>
+						./suggested-routes
+					</div>
+					<ul
+						style={{
+							margin: 0,
+							padding: 0,
+							listStyle: 'none',
+							display: 'grid',
+							gap: 8,
+						}}>
+						{[
+							['/', 'home — topology + stack + ping'],
+							['/about', 'cat ~/.about'],
+							['/talks', 'ls ~/talks'],
+							['/projects', 'kubectl get projects'],
+							['/links', 'ls ~/.links'],
+						].map(([href, desc]) => (
+							<li key={href}>
+								<Link href={href} passHref>
+									<a
+										style={{
+											display: 'inline-block',
+											color: OP.amber,
+											textDecoration: 'none',
+											padding: '4px 0',
+											minHeight: 24,
+										}}>
+										<span style={{ color: OP.dim }}>cd</span> {href}{' '}
+										<span style={{ color: OP.dim }}>{'// '}{desc}</span>
+									</a>
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div style={{ marginTop: 32, fontSize: 13, color: OP.dim }}>
+					<Prompt path="~">
+						exit 404
+						<Cursor />
+					</Prompt>
+				</div>
 			</div>
-		</Layout.Error>
+		</OperatorPage>
 	);
 }

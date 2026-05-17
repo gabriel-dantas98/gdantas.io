@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
-import ProfilePicture from '../public/profile-photo.jpg';
+import ProfilePicture from '../public/profile-photo-720.jpg';
 
 
 const FACTS: { k: string; v: string }[] = [
