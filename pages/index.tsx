@@ -177,23 +177,23 @@ const STACK: Array<[string, string]> = [
 // CTAs do `05 ping --help`.
 const CTAS = [
 	{
-		tag: '— TALK',
-		title: 'agendar um papo',
-		desc: 'café virtual, 30min. sem pitch, sem funil.',
+		tag: '— BENCHMARK',
+		title: 'trocar figurinha',
+		desc: 'papo sobre Engenharia de Plataforma / DevEx — como tá no seu time, o que funciona, o que dói.',
 		href: 'https://cal.com/gdantas/30min',
 		color: OP.amber,
 	},
 	{
-		tag: '— CONNECT',
-		title: 'mandar mensagem',
-		desc: 'linkedin pra coisa rápida, github pra issue, medium pra papo de ideia.',
+		tag: '— TALK',
+		title: 'levar uma talk',
+		desc: 'leve uma das minhas talks pro seu time ou evento — Backstage, IDP, AI ops, RAG, observabilidade.',
 		href: 'https://www.linkedin.com/in/gabrieldantasg/',
 		color: OP.violet,
 	},
 	{
 		tag: '— BUILD',
-		title: 'colaborar num projeto',
-		desc: 'plataforma interna, RAG sobre infra, agentes pra ops. abrir uma issue conta.',
+		title: 'projeto em parceria',
+		desc: 'tem um projeto que precisa de uma cabeça extra ou de mão na massa? me chama pra desenhar junto.',
 		href: 'https://github.com/gabriel-dantas98',
 		color: OP.pager,
 	},
@@ -808,9 +808,9 @@ export default function HomePage() {
 								maxWidth: 760,
 							}}>
 							<p style={{ margin: '0 0 8px' }}>
-								Plataforma travada num gargalo de DevEx? Backstage parado no Software
-								Catalog? IA sem chão de observabilidade? RAG que precisa comer infra
-								inteira? Pode chamar.
+								Plataforma é trabalho coletivo. Se você quer trocar figurinha, levar
+								uma talk pro seu time, ou tem um projeto que precisa de uma cabeça
+								extra — a inbox tá aberta.
 							</p>
 							<p style={{ margin: 0, color: OP.dim, fontSize: 15 }}>
 								$ ping <span style={{ color: OP.ok }}>gd</span>{' '}
