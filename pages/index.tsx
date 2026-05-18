@@ -20,6 +20,7 @@ import {
 	PlatformBg,
 	HeroIconRain,
 	TalkPreview,
+	MobileMenuDrawer,
 	type Talk,
 } from '~/components/Operator';
 import styles from './home.module.css';
@@ -356,17 +357,19 @@ export default function HomePage() {
 					<div className={styles.topbarNav} style={{ display: 'flex', gap: 22, fontSize: 13 }}>
 						{TOPBAR_LINKS.map(([label, href]) => (
 							<Link
-                                key={href}
-                                href={href}
-                                style={{ color: OP.dim, textDecoration: 'none', transition: 'color .15s' }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = OP.amber)}
-                                onMouseLeave={(e) => (e.currentTarget.style.color = OP.dim)}>
-
-                                <span style={{ color: OP.amber }}>›</span> {label}
-
-                            </Link>
+								key={href}
+								href={href}
+								style={{ color: OP.dim, textDecoration: 'none', transition: 'color .15s' }}
+								onMouseEnter={(e) => (e.currentTarget.style.color = OP.amber)}
+								onMouseLeave={(e) => (e.currentTarget.style.color = OP.dim)}>
+								<span style={{ color: OP.amber }}>›</span> {label}
+							</Link>
 						))}
 					</div>
+					<MobileMenuDrawer
+						items={TOPBAR_LINKS.map(([label, href]) => ({ label, href }))}
+						topOffset={0}
+					/>
 				</div>
 
 				{/* HERO */}
@@ -513,14 +516,20 @@ export default function HomePage() {
 								style={{
 									display: 'flex',
 									justifyContent: 'space-between',
+									gap: 12,
 									fontSize: 11,
 									color: OP.dim,
 									marginBottom: 10,
+									flexWrap: 'wrap',
 								}}>
 								<span>$ kubectl get pods --watch · 112 pods · 4 namespaces</span>
 								<span>p95 latency 38ms</span>
 							</div>
-							<ClusterGrid rows={4} cols={28} />
+							<div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+								<div style={{ minWidth: 480 }}>
+									<ClusterGrid rows={4} cols={28} />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -53,6 +53,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 				<Sec label="01" title="git log --career" sub="commits que importam" />
 
 				<div
+					className="op-timeline-card"
 					style={{
 						marginTop: 28,
 						border: `1px solid ${OP.rule}`,
@@ -69,6 +70,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 						return (
 							<div
 								key={event.title}
+								className="op-timeline-row"
 								style={{
 									display: 'grid',
 									gridTemplateColumns: '120px 1fr',
@@ -146,6 +148,18 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 					<Prompt path="~">git log --career --pretty=oneline</Prompt>
 				</div>
 			</div>
+
+			<style jsx global>{`
+				@media (max-width: 640px) {
+					.op-timeline-card {
+						padding: 18px 16px !important;
+					}
+					.op-timeline-row {
+						grid-template-columns: 1fr !important;
+						gap: 6px !important;
+					}
+				}
+			`}</style>
 		</OperatorPage>
 	);
 }

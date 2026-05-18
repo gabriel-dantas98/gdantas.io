@@ -19,10 +19,11 @@ type WritingPageProps = {
 
 const MEDIUM_FEED_URL = 'https://medium.com/feed/@_gdantas';
 
+// RSS Medium não inclui <style>/<script>; só preciso strip de tags genéricas.
+// (evitar literals com </style> ou </script> pq SWC do Next 13 confunde com
+// JSX closing tags mesmo dentro de string.)
 function stripHtml(input: string): string {
 	return input
-		.replace(/<style[\s\S]*?<\/style>/gi, '')
-		.replace(/<script[\s\S]*?<\/script>/gi, '')
 		.replace(/<[^>]+>/g, '')
 		.replace(/\s+/g, ' ')
 		.trim();
@@ -108,6 +109,7 @@ export default function WritingPage({ posts }: WritingPageProps) {
 				</div>
 
 				<div
+					className="op-writing-card"
 					style={{
 						marginTop: 20,
 						border: `1px solid ${OP.rule}`,
@@ -119,6 +121,7 @@ export default function WritingPage({ posts }: WritingPageProps) {
 						overflow: 'hidden',
 					}}>
 					<div
+						className="op-writing-head"
 						style={{
 							display: 'grid',
 							gridTemplateColumns: '90px 70px 1fr 140px',
@@ -153,8 +156,9 @@ export default function WritingPage({ posts }: WritingPageProps) {
 									href={p.href}
 									target="_blank"
 									rel="noreferrer noopener"
+									className="op-writing-row"
 									style={baseStyle}>
-									<span style={{ color: OP.dim }}>{p.date}</span>
+									<span className="op-writing-date" style={{ color: OP.dim }}>{p.date}</span>
 									<span
 										style={{
 											fontSize: 10,
@@ -169,6 +173,7 @@ export default function WritingPage({ posts }: WritingPageProps) {
 									</span>
 									<span style={{ color: OP.fg }}>{p.title}</span>
 									<span
+										className="op-writing-topic"
 										style={{
 											color: OP.violet,
 											textAlign: 'right',
@@ -217,6 +222,26 @@ export default function WritingPage({ posts }: WritingPageProps) {
 					infra. Cada post novo no Medium aparece nessa lista automaticamente.
 				</p>
 			</div>
+
+			<style jsx global>{`
+				@media (max-width: 640px) {
+					.op-writing-card {
+						padding: 18px 16px !important;
+					}
+					.op-writing-head {
+						display: none !important;
+					}
+					.op-writing-row {
+						grid-template-columns: 1fr !important;
+						gap: 6px !important;
+						padding: 14px 0 !important;
+					}
+					.op-writing-date,
+					.op-writing-topic {
+						text-align: left !important;
+					}
+				}
+			`}</style>
 		</OperatorPage>
 	);
 }
