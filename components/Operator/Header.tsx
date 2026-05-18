@@ -99,11 +99,10 @@ export function OperatorHeader({ active }: { active?: string }) {
 					}
 				}
 				@media (max-width: 720px) {
+					/* .op-nav-burger fica visível via global CSS do
+					   MobileMenuDrawer — aqui só escondo o nav desktop. */
 					.op-nav-desktop {
 						display: none !important;
-					}
-					.op-nav-burger {
-						display: inline-block !important;
 					}
 				}
 			`}</style>

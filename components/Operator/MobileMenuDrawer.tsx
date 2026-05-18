@@ -112,6 +112,15 @@ export function MobileMenuDrawer({ items, active, topOffset = 49 }: MobileMenuDr
 				{open ? '[ × ]' : '[ ≡ ]'}
 			</button>
 			{mounted && overlay && createPortal(overlay, document.body)}
+			{/* CSS responsivo viaja com o componente — não depende de quem o
+			   monta (OperatorHeader sticky vs topbar bespoke da home). */}
+			<style jsx global>{`
+				@media (max-width: 720px) {
+					.op-nav-burger {
+						display: inline-block !important;
+					}
+				}
+			`}</style>
 		</>
 	);
 }

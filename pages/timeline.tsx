@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Timeline, TimelineEvent } from '~/types';
+import timelineData from '~/data/timeline.json';
 
 // Parse MM-dd-yyyy → ISO date sem precisar puxar date-fns inteiro.
 // Mais ~10KB cortado do bundle da timeline.
@@ -23,10 +24,9 @@ interface TimelineProps {
 }
 
 export const getStaticProps: GetStaticProps<TimelineProps> = async () => {
-	const { default: rawTimeline } = await import('~/data/timeline.json');
-	const timeline = (rawTimeline as TimelineEvent[]).sort(
-		(a, b) => +new Date(b.date) - +new Date(a.date),
-	);
+	const timeline = (timelineData as TimelineEvent[])
+		.slice()
+		.sort((a, b) => +new Date(b.date) - +new Date(a.date));
 	return { props: { timeline } };
 };
 
