@@ -115,9 +115,11 @@ export default function TalksPage({ talks }: TalksProps) {
 							<button
 								key={`${t.url}-${i}`}
 								type="button"
-								onClick={() => setActiveIdx(i)}
+								onClick={() => {
+									setActiveIdx(i);
+									posthog.capture("talk_clicked", { talk_title: t.title, talk_type: k.tag });
+								}}
 								className="op-talk-card"
-								onClick={() => posthog.capture("talk_clicked", { talk_title: t.title, talk_type: k.tag })}
 								style={{
 									textAlign: 'left',
 									display: 'block',
