@@ -28,7 +28,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 		? `https://img.youtube.com/vi/${talk.youtubeId}/hqdefault.jpg`
 		: null;
 	return (
-		<div
+        <div
 			style={{
 				aspectRatio: '16/9',
 				background: '#06080a',
@@ -36,9 +36,9 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 				borderBottom: `1px solid ${OP.rule2}`,
 				overflow: 'hidden',
 			}}>
-			{thumb && (
+            {thumb && (
 				// eslint-disable-next-line @next/next/no-img-element
-				<img
+				(<img
 					src={thumb}
 					alt={talk.title}
 					loading="lazy"
@@ -50,9 +50,9 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 						objectFit: 'cover',
 						filter: 'brightness(0.55) saturate(0.8)',
 					}}
-				/>
+				/>)
 			)}
-			{!thumb && talk.slidesEmbed && (
+            {!thumb && talk.slidesEmbed && (
 				<div
 					style={{
 						position: 'absolute',
@@ -68,7 +68,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 					[ ./slides ↗ ]
 				</div>
 			)}
-			<div
+            <div
 				style={{
 					position: 'absolute',
 					inset: 0,
@@ -77,7 +77,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 					pointerEvents: 'none',
 				}}
 			/>
-			<div
+            <div
 				style={{
 					position: 'absolute',
 					top: 0,
@@ -103,7 +103,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 					{isVideo ? '▸ video' : '▤ deck'}
 				</span>
 			</div>
-			{!thumb && !talk.slidesEmbed && (
+            {!thumb && !talk.slidesEmbed && (
 				<div
 					style={{
 						position: 'absolute',
@@ -123,7 +123,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 					</div>
 				</div>
 			)}
-			<div
+            <div
 				style={{
 					position: 'absolute',
 					left: 0,
@@ -141,7 +141,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 				<span>{talk.date}</span>
 				<span>{talk.runtime || (isVideo ? '—:—' : `${talk.slides || '∞'} slides`)}</span>
 			</div>
-			<div
+            <div
 				style={{
 					position: 'absolute',
 					right: 18,
@@ -159,6 +159,6 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 				}}>
 				{isVideo ? '▶' : '↗'}
 			</div>
-		</div>
-	);
+        </div>
+    );
 }

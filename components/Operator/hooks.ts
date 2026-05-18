@@ -27,25 +27,39 @@ export function useUtcClock() {
 	return now;
 }
 
-// Glambox intern foi o primeiro commit da carreira — uptime conta a partir daí.
-const CAREER_START = new Date('2016-06-01T00:00:00Z').getTime();
+// Boot date: 1998-05-07 (gd nasceu). "uptime" = quanto tempo o sistema tá
+// no ar. Calendar math real (respeita meses 28-31 e bissextos), atualiza 1x
+// por dia (sem h:m:s — a topbar já tem clock UTC tickando).
+const BOOT_DATE = new Date(Date.UTC(1998, 4, 7));
+
+function diffYmd(from: Date, to: Date): { y: number; m: number; d: number } {
+	let y = to.getUTCFullYear() - from.getUTCFullYear();
+	let m = to.getUTCMonth() - from.getUTCMonth();
+	let d = to.getUTCDate() - from.getUTCDate();
+	if (d < 0) {
+		// "borrow" do mês anterior — usa o último dia do mês anterior pra
+		// somar nos dias restantes.
+		m -= 1;
+		const prevMonth = new Date(Date.UTC(to.getUTCFullYear(), to.getUTCMonth(), 0));
+		d += prevMonth.getUTCDate();
+	}
+	if (m < 0) {
+		y -= 1;
+		m += 12;
+	}
+	return { y, m, d };
+}
 
 export function useUptime() {
 	const [text, setText] = useState('');
 	useEffect(() => {
 		const calc = () => {
-			const diff = Date.now() - CAREER_START;
-			const s = Math.floor(diff / 1000) % 60;
-			const m = Math.floor(diff / 60000) % 60;
-			const h = Math.floor(diff / 3600000) % 24;
-			const d = Math.floor(diff / 86400000);
-			const years = Math.floor(d / 365);
-			const months = Math.floor((d % 365) / 30);
-			const days = (d % 365) % 30;
-			return `${years}y ${months}m ${days}d ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+			const { y, m, d } = diffYmd(BOOT_DATE, new Date());
+			return `${y}y ${m}m ${d}d`;
 		};
 		setText(calc());
-		const id = window.setInterval(() => setText(calc()), 1000);
+		// 1x/min é suficiente — só muda quando a data vira (00:00 UTC).
+		const id = window.setInterval(() => setText(calc()), 60_000);
 		return () => window.clearInterval(id);
 	}, []);
 	return text;

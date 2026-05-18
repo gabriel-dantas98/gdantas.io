@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 interface XFigureProps {
 	alt?: string;
@@ -13,10 +13,10 @@ export function XFigure({ alt, caption, src }: XFigureProps) {
 				alt={alt ?? caption}
 				className="rounded-3xl object-cover select-none hover:shadow-xl"
 				draggable={false}
-				height="100%"
+				height={1080}
 				layout="responsive"
 				src={src}
-				width="100%"
+				width={1920}
 			/>
 			<figcaption>{alt ?? caption}</figcaption>
 		</figure>

@@ -79,21 +79,19 @@ export default function NotFoundPage() {
 							['/about', 'cat ~/.about'],
 							['/talks', 'ls ~/talks'],
 							['/projects', 'kubectl get projects'],
+							['/sidequests', 'ls ~/.sidequests'],
 							['/links', 'ls ~/.links'],
 						].map(([href, desc]) => (
 							<li key={href}>
-								<Link href={href} passHref>
-									<a
-										style={{
-											display: 'inline-block',
-											color: OP.amber,
-											textDecoration: 'none',
-											padding: '4px 0',
-											minHeight: 24,
-										}}>
-										<span style={{ color: OP.dim }}>cd</span> {href}{' '}
-										<span style={{ color: OP.dim }}>{'// '}{desc}</span>
-									</a>
+								<Link href={href} style={{
+									display: 'inline-block',
+									color: OP.amber,
+									textDecoration: 'none',
+									padding: '4px 0',
+									minHeight: 24,
+								}}>
+									<span style={{ color: OP.dim }}>cd</span> {href}{' '}
+									<span style={{ color: OP.dim }}>{'// '}{desc}</span>
 								</Link>
 							</li>
 						))}

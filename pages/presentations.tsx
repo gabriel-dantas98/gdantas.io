@@ -11,6 +11,7 @@ import RehypeAutolinkHeadings from 'rehype-autolink-headings';
 import posthog from 'posthog-js';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import { Elements as BlogElements } from '~/components/Blog/Styles';
+import presentationsData from '~/data/presentations.json';
 
 
 interface PresentationItemRaw {
@@ -49,7 +50,7 @@ interface PresentationsProps {
 }
 
 export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
-	const { default: raw } = await import('~/data/presentations.json');
+	const raw = presentationsData as PresentationItemRaw[];
 
 	function extractYouTubeId(link?: string) {
 		if (!link) return undefined;

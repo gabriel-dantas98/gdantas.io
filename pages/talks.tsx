@@ -1,37 +1,97 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import posthog from 'posthog-js';
 
-import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
+import {
+	OP,
+	Sec,
+	Prompt,
+	OperatorPage,
+	PreviewModal,
+	useReveal,
+} from '~/components/Operator';
+import { derivePreview, type NormalizedPreview, type RawPreview } from '~/lib/preview';
+import presentationsData from '~/data/presentations.json';
 
-
-interface TalkItem {
+interface RawPresentation {
 	title: string;
 	icon: string;
 	color: string;
 	description: string;
+	url?: string;
+	contentUrl?: string;
+	githubUrl?: string;
+	date?: string;
+	location?: string;
+	preview?: RawPreview;
+}
+
+interface TalkItem {
+	title: string;
+	icon: string;
+	description: string;
 	url: string;
+	date?: string;
+	location?: string;
+	kind: 'video' | 'audio' | 'slides' | 'talk';
+	preview: NormalizedPreview | null;
 }
 
 interface TalksProps {
 	talks: TalkItem[];
 }
 
+function inferKind(p: RawPresentation): TalkItem['kind'] {
+	const previewType = p.preview?.type || '';
+	if (p.icon.includes('youtube') || previewType === 'youtube') return 'video';
+	if (p.icon.includes('headphones') || previewType === 'spotify') return 'audio';
+	if (
+		p.icon.includes('book') ||
+		previewType === 'canva' ||
+		previewType === 'google-slides' ||
+		previewType === 'pdf'
+	)
+		return 'slides';
+	return 'talk';
+}
+
+// Source of truth única: presentations.json. /talks mostra cards leves; o
+// preview embeddado abre num modal (PreviewModal) quando o usuário clica.
 export const getStaticProps: GetStaticProps<TalksProps> = async () => {
-	const { default: talks } = await import('~/data/talks.json');
+	const raw = presentationsData as RawPresentation[];
+	const talks: TalkItem[] = raw.map((p) => {
+		const item: TalkItem = {
+			title: p.title,
+			icon: p.icon,
+			description: p.description,
+			url: p.contentUrl || p.url || 'https://github.com/gabriel-dantas98',
+			kind: inferKind(p),
+			preview: derivePreview(p),
+		};
+		if (p.date) item.date = p.date;
+		if (p.location) item.location = p.location;
+		return item;
+	});
 	return { props: { talks } };
 };
 
-function kindOf(t: TalkItem): { tag: string; color: string } {
-	if (t.icon.includes('youtube')) return { tag: 'VIDEO', color: OP.pager };
-	if (t.icon.includes('headphones')) return { tag: 'AUDIO', color: OP.ok };
-	if (t.icon.includes('book')) return { tag: 'SLIDES', color: OP.amber };
-	return { tag: 'TALK', color: OP.violet };
-}
+const KIND_TAG: Record<TalkItem['kind'], { tag: string; color: string }> = {
+	video: { tag: 'VIDEO', color: OP.pager },
+	audio: { tag: 'AUDIO', color: OP.ok },
+	slides: { tag: 'SLIDES', color: OP.amber },
+	talk: { tag: 'TALK', color: OP.violet },
+};
 
 export default function TalksPage({ talks }: TalksProps) {
 	const ref = useReveal({ stagger: 0.05, y: 18 });
+	const [activeIdx, setActiveIdx] = useState<number | null>(null);
+	const active = activeIdx != null ? talks[activeIdx] : null;
+	const activeKind = active ? KIND_TAG[active.kind] : null;
+	const activeMeta = active
+		? [active.date, active.location].filter(Boolean).join(' · ')
+		: '';
+
 	return (
 		<OperatorPage
 			title="gdantas ─ ls ~/talks"
@@ -48,23 +108,26 @@ export default function TalksPage({ talks }: TalksProps) {
 						gridTemplateColumns: 'repeat(2, 1fr)',
 						gap: 14,
 					}}>
-					{talks.map((t) => {
-						const k = kindOf(t);
+					{talks.map((t, i) => {
+						const k = KIND_TAG[t.kind];
+						const meta = [t.date, t.location].filter(Boolean).join(' · ');
 						return (
-							<a
-								key={t.url}
-								href={t.url}
-								target="_blank"
-								rel="noreferrer noopener"
+							<button
+								key={`${t.url}-${i}`}
+								type="button"
+								onClick={() => setActiveIdx(i)}
 								className="op-talk-card"
 								onClick={() => posthog.capture("talk_clicked", { talk_title: t.title, talk_type: k.tag })}
 								style={{
+									textAlign: 'left',
 									display: 'block',
 									padding: '20px 22px',
 									border: `1px solid ${OP.rule2}`,
 									background: OP.bg2,
-									textDecoration: 'none',
 									color: OP.fg,
+									font: 'inherit',
+									cursor: 'pointer',
+									width: '100%',
 									transition: 'border-color 120ms ease, background 120ms ease',
 								}}>
 								<div
@@ -72,6 +135,8 @@ export default function TalksPage({ talks }: TalksProps) {
 										display: 'flex',
 										justifyContent: 'space-between',
 										alignItems: 'center',
+										gap: 8,
+										flexWrap: 'wrap',
 									}}>
 									<span
 										style={{
@@ -84,8 +149,19 @@ export default function TalksPage({ talks }: TalksProps) {
 										}}>
 										{k.tag}
 									</span>
-									<span style={{ fontFamily: OP.font, fontSize: 11, color: OP.dim }}>
-										./play ↗
+									{meta && (
+										<span
+											style={{
+												fontFamily: OP.font,
+												fontSize: 11,
+												color: OP.dim,
+												letterSpacing: '0.04em',
+											}}>
+											{meta}
+										</span>
+									)}
+									<span style={{ fontFamily: OP.font, fontSize: 11, color: OP.amber }}>
+										./preview ↗
 									</span>
 								</div>
 								<div
@@ -108,7 +184,7 @@ export default function TalksPage({ talks }: TalksProps) {
 									}}>
 									{t.description}
 								</div>
-							</a>
+							</button>
 						);
 					})}
 				</div>
@@ -117,14 +193,26 @@ export default function TalksPage({ talks }: TalksProps) {
 					<Prompt path="~/talks">
 						ls --all | wc -l →{' '}
 						<span style={{ color: OP.amber }}>{talks.length} entries</span> ·{' '}
-						<Link href="/presentations" passHref>
-							<a style={{ color: OP.amber, textDecoration: 'none' }}>
-								↗ presentations (com preview embeddado)
-							</a>
+						<Link
+							href="/presentations"
+							style={{ color: OP.amber, textDecoration: 'none' }}>
+							↗ presentations (lista completa com previews inline)
 						</Link>
 					</Prompt>
 				</div>
 			</div>
+
+			{active && activeKind && (
+				<PreviewModal
+					open
+					onClose={() => setActiveIdx(null)}
+					title={active.title}
+					tag={{ label: activeKind.tag, color: activeKind.color }}
+					meta={activeMeta || undefined}
+					preview={active.preview}
+					href={active.url}
+				/>
+			)}
 
 			<style jsx>{`
 				@media (max-width: 720px) {

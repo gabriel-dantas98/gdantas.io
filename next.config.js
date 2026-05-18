@@ -18,7 +18,8 @@ const ContentSecurityPolicy = `
  * @type {import('next').NextConfig}
  */
 const config = {
-	assetPrefix: './',
+	// assetPrefix removido: next/font (13+) exige '' ou '/' ou URL absoluta.
+	// Domínio é gdantas.com.br (root), então paths absolutos funcionam.
 	images: {
 		domains: [
 			// Discord assets

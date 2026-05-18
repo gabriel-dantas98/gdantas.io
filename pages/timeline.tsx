@@ -1,9 +1,22 @@
 import React from 'react';
 import type { GetStaticProps } from 'next';
-import { format, parse } from 'date-fns';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Timeline, TimelineEvent } from '~/types';
+import timelineData from '~/data/timeline.json';
+
+// Parse MM-dd-yyyy → ISO date sem precisar puxar date-fns inteiro.
+// Mais ~10KB cortado do bundle da timeline.
+function parseMmDdYyyy(s: string): Date {
+	const [m, d, y] = s.split('-').map(Number);
+	return new Date(Date.UTC(y, m - 1, d));
+}
+
+function fmtYearMonth(d: Date): string {
+	const y = d.getUTCFullYear();
+	const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+	return `${y}-${m}`;
+}
 
 
 interface TimelineProps {
@@ -11,10 +24,9 @@ interface TimelineProps {
 }
 
 export const getStaticProps: GetStaticProps<TimelineProps> = async () => {
-	const { default: rawTimeline } = await import('~/data/timeline.json');
-	const timeline = (rawTimeline as TimelineEvent[]).sort(
-		(a, b) => +new Date(b.date) - +new Date(a.date),
-	);
+	const timeline = (timelineData as TimelineEvent[])
+		.slice()
+		.sort((a, b) => +new Date(b.date) - +new Date(a.date));
 	return { props: { timeline } };
 };
 
@@ -29,7 +41,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 	const ref = useReveal({ stagger: 0.05, y: 16 });
 	const timeline = rawTimeline.map((event) => ({
 		...event,
-		_date: parse(event.date.toString(), 'MM-dd-yyyy', new Date()),
+		_date: parseMmDdYyyy(event.date.toString()),
 	}));
 
 	return (
@@ -41,6 +53,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 				<Sec label="01" title="git log --career" sub="commits que importam" />
 
 				<div
+					className="op-timeline-card"
 					style={{
 						marginTop: 28,
 						border: `1px solid ${OP.rule}`,
@@ -57,6 +70,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 						return (
 							<div
 								key={event.title}
+								className="op-timeline-row"
 								style={{
 									display: 'grid',
 									gridTemplateColumns: '120px 1fr',
@@ -69,7 +83,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 								<div>
 									<div style={{ color: OP.amber }}>{shaFromTitle(event.title)}</div>
 									<div style={{ color: OP.dim, fontSize: 11, marginTop: 2 }}>
-										{format(event._date, 'yyyy-MM')}
+										{fmtYearMonth(event._date)}
 									</div>
 								</div>
 								<div>
@@ -134,6 +148,18 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 					<Prompt path="~">git log --career --pretty=oneline</Prompt>
 				</div>
 			</div>
+
+			<style jsx global>{`
+				@media (max-width: 640px) {
+					.op-timeline-card {
+						padding: 18px 16px !important;
+					}
+					.op-timeline-row {
+						grid-template-columns: 1fr !important;
+						gap: 6px !important;
+					}
+				}
+			`}</style>
 		</OperatorPage>
 	);
 }

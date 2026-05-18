@@ -22,3 +22,5 @@ export { TalkPreview, type Talk } from './TalkPreview';
 export { OperatorHeader } from './Header';
 export { OperatorFooter } from './Footer';
 export { OperatorPage } from './Layout';
+export { MobileMenuDrawer } from './MobileMenuDrawer';
+export { PreviewModal } from './PreviewModal';

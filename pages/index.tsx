@@ -21,13 +21,15 @@ import {
 	PlatformBg,
 	HeroIconRain,
 	TalkPreview,
+	MobileMenuDrawer,
 	type Talk,
 } from '~/components/Operator';
 import styles from './home.module.css';
 
-// Componentes pesados (SVG grande, GSAP timelines) split em chunks separados.
-// SSR off porque dependem de window.gsap. Marquee + Topology + ClusterGrid
-// só hidratam quando o JS chunk chega — fora do critical path do LCP.
+// Topology/ClusterGrid/Marquee são below-the-fold + carregam GSAP timelines
+// pesadas. Dynamic SSR-off mantém esses chunks fora do critical path.
+// PlatformBg + HeroIconRain ficam estáticos pq são wallpaper do hero (above
+// fold) — deferir gera flash visual no LCP.
 const Topology = dynamic(
 	() => import('~/components/Operator/Topology').then((m) => m.Topology),
 	{ ssr: false, loading: () => <div style={{ minHeight: 520 }} /> },
@@ -177,23 +179,23 @@ const STACK: Array<[string, string]> = [
 // CTAs do `05 ping --help`.
 const CTAS = [
 	{
-		tag: '— TALK',
-		title: 'agendar um papo',
-		desc: 'café virtual, 30min. sem pitch, sem funil.',
+		tag: '— BENCHMARK',
+		title: 'trocar figurinha',
+		desc: 'papo sobre Engenharia de Plataforma / DevEx — como tá no seu time, o que funciona, o que dói.',
 		href: 'https://cal.com/gdantas/30min',
 		color: OP.amber,
 	},
 	{
-		tag: '— CONNECT',
-		title: 'mandar mensagem',
-		desc: 'linkedin pra coisa rápida, github pra issue, medium pra papo de ideia.',
+		tag: '— TALK',
+		title: 'levar uma talk',
+		desc: 'leve uma das minhas talks pro seu time ou evento — Backstage, IDP, AI ops, RAG, observabilidade.',
 		href: 'https://www.linkedin.com/in/gabrieldantasg/',
 		color: OP.violet,
 	},
 	{
 		tag: '— BUILD',
-		title: 'colaborar num projeto',
-		desc: 'plataforma interna, RAG sobre infra, agentes pra ops. abrir uma issue conta.',
+		title: 'projeto em parceria',
+		desc: 'tem um projeto que precisa de uma cabeça extra ou de mão na massa? me chama pra desenhar junto.',
 		href: 'https://github.com/gabriel-dantas98',
 		color: OP.pager,
 	},
@@ -205,6 +207,7 @@ const TOPBAR_LINKS: Array<[string, string]> = [
 	['./doctrine', '/doctrine'],
 	['./talks', '/talks'],
 	['./projects', '/projects'],
+	['./sidequests', '/sidequests'],
 	['./writing', '/writing'],
 ];
 
@@ -270,9 +273,9 @@ export default function HomePage() {
 	}, []);
 
 	return (
-		<>
-			<NextSeo {...seo} />
-			<Head>
+        <>
+            <NextSeo {...seo} />
+            <Head>
 				<style>{`html, body { background: ${OP.bg}; scroll-behavior: smooth; } body { font-family: ${OP.sans}; color: ${OP.fg}; margin: 0; }`}</style>
 			</Head>
 			{/* GSAP é carregado via dynamic import no _app.tsx (lib/gsap-loader).
@@ -292,7 +295,7 @@ export default function HomePage() {
 					boxShadow: `0 0 12px ${OP.amber}88`,
 				}}
 			/>
-			<main
+            <main
 				className={`${styles.host} ${styles.hostPad}`}
 				style={{
 					width: '100%',
@@ -354,16 +357,20 @@ export default function HomePage() {
 					</div>
 					<div className={styles.topbarNav} style={{ display: 'flex', gap: 22, fontSize: 13 }}>
 						{TOPBAR_LINKS.map(([label, href]) => (
-							<Link key={href} href={href} passHref>
-								<a
-									style={{ color: OP.dim, textDecoration: 'none', transition: 'color .15s' }}
-									onMouseEnter={(e) => (e.currentTarget.style.color = OP.amber)}
-									onMouseLeave={(e) => (e.currentTarget.style.color = OP.dim)}>
-									<span style={{ color: OP.amber }}>›</span> {label}
-								</a>
+							<Link
+								key={href}
+								href={href}
+								style={{ color: OP.dim, textDecoration: 'none', transition: 'color .15s' }}
+								onMouseEnter={(e) => (e.currentTarget.style.color = OP.amber)}
+								onMouseLeave={(e) => (e.currentTarget.style.color = OP.dim)}>
+								<span style={{ color: OP.amber }}>›</span> {label}
 							</Link>
 						))}
 					</div>
+					<MobileMenuDrawer
+						items={TOPBAR_LINKS.map(([label, href]) => ({ label, href }))}
+						topOffset={0}
+					/>
 				</div>
 
 				{/* HERO */}
@@ -413,9 +420,10 @@ export default function HomePage() {
 									color: OP.fg,
 									maxWidth: 620,
 								}}>
-								6+ anos fazendo plataforma de dev. Hoje no QuintoAndar, mexendo com
-								Backstage, agentes com MCP e observabilidade que serve pra debugar
-								de verdade.
+								6+ anos fazendo plataforma de dev. Faço parte do time de Engenharia
+								de Plataforma do Grupo QuintoAndar, focado no nosso IDP (by
+								Backstage.io) e na criação de ferramental pra melhorar a experiência
+								e a produtividade dos times de desenvolvimento.
 								<div style={{ marginTop: 18, color: OP.dim, fontStyle: 'italic', fontSize: 16 }}>
 									&ldquo;So others may live.&rdquo; — U.S. Coast Guard Rescue Swimmer
 								</div>
@@ -451,7 +459,7 @@ export default function HomePage() {
 										gap: 8,
 									}}>
 									<span className={styles.statusDot} style={{ background: OP.ok }} />
-									on-call for devex
+									Platform Engineer · DevEx &amp; Productivity
 								</div>
 								<div style={{ marginTop: 22 }}>BASE</div>
 								<div style={{ color: OP.fg, fontSize: 16, marginTop: 4 }}>
@@ -509,14 +517,20 @@ export default function HomePage() {
 								style={{
 									display: 'flex',
 									justifyContent: 'space-between',
+									gap: 12,
 									fontSize: 11,
 									color: OP.dim,
 									marginBottom: 10,
+									flexWrap: 'wrap',
 								}}>
 								<span>$ kubectl get pods --watch · 112 pods · 4 namespaces</span>
 								<span>p95 latency 38ms</span>
 							</div>
-							<ClusterGrid rows={4} cols={28} />
+							<div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+								<div style={{ minWidth: 480 }}>
+									<ClusterGrid rows={4} cols={28} />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -584,20 +598,30 @@ export default function HomePage() {
 									marginTop: 14,
 								}}>
 								<p style={{ margin: '0 0 14px' }}>
-									Plataforma é trabalho de{' '}
-									<span style={{ color: OP.amber }}>bastidor</span>. A gente entra na
-									água gelada pra que o resto do time não precise.
+									Plataforma é um trabalho de{' '}
+									<span style={{ color: OP.amber }}><em>bastidores</em></span>.
+									Geralmente, quanto menos somos percebidos e mais produtivos os
+									times estão, melhor está sendo o nosso trabalho.
 								</p>
 								<p style={{ margin: '0 0 14px' }}>
-									O lema dos <em>Rescue Swimmers</em> da U.S. Coast Guard é{' '}
+									O primeiro time de plataforma em que trabalhei tinha o lema{' '}
 									<span style={{ color: OP.amber }}>
 										&ldquo;So Others May Live&rdquo;
 									</span>
-									. É isso. Fazer o trabalho que ninguém quer fazer pra que o dev
-									chegue mais cedo no que importa.
+									: <em>fazemos coisas complexas pra que outros não precisem, vamos
+									onde outros não iriam, pra fazer aquilo que não fariam — sem
+									ninguém notar que a gente existe.</em>
+								</p>
+								<p style={{ margin: '0 0 14px' }}>
+									Isso é exatamente o trabalho de plataforma — que no fundo se liga
+									com toda a cultura DevOps. No fim do dia, o que eu mais gosto é{' '}
+									ajudar outras pessoas de tecnologia a resolver problemas{' '}
+									<span style={{ color: OP.amber }}>:)</span>
 								</p>
 								<p style={{ margin: 0 }}>
-									O objetivo é simples: tornar o caminho certo o caminho mais fácil.
+									Em resumo: se conseguimos deixar o melhor caminho, com as melhores
+									ferramentas, o mais fácil pra todos — nossa missão de plataforma
+									está cumprida.
 								</p>
 							</div>
 							<div
@@ -621,9 +645,13 @@ export default function HomePage() {
 									role: 'DevOps',
 									text: (
 										<>
-											<span style={{ color: OP.amber }}>Cultura</span>, não ferramenta.
-											O que me importa é o <em>feedback loop</em> entre quem constrói
-											e quem mantém. Quanto mais curto, melhor.
+											DevOps pra mim é{' '}
+											<span style={{ color: OP.amber }}>cultura</span>, não
+											ferramenta nem cargo. É hábito do dia a dia: encurtar o{' '}
+											<em>feedback loop</em> entre quem constrói e quem mantém,
+											até que os dois lados parem de existir como lados.
+											Quando dev e ops compartilham o mesmo pager, o código sai
+											diferente.
 										</>
 									),
 								},
@@ -632,10 +660,13 @@ export default function HomePage() {
 									role: 'SRE',
 									text: (
 										<>
-											Engenheiro que trata operação como{' '}
-											<span style={{ color: OP.amber }}>software</span>. Lê SLO antes
-											de escrever código, mede toil, vira incidente em postmortem e
-											postmortem em mudança real. Pager é dado, não castigo.
+											SRE é o engenheiro que trata operação como{' '}
+											<span style={{ color: OP.amber }}>software</span>: SLO
+											antes do código, toil medido em horas, incidente que vira
+											postmortem e postmortem que vira mudança real. Plantão é
+											uma excelente forma de aprender como os sistemas
+											funcionam, encontrar <em>oportunidades de melhoria</em> e
+											os gaps de observabilidade.
 										</>
 									),
 								},
@@ -645,9 +676,10 @@ export default function HomePage() {
 									text: (
 										<>
 											É quando tudo isso{' '}
-											<span style={{ color: OP.amber }}>vira produto</span>.
-											Self-service, paved roads, abstrações que protegem o dev sem
-											prender. Meço sucesso pelo tempo que economizo dos outros.
+											<span style={{ color: OP.amber }}>vira produto</span>:
+											self-service, paved roads, abstrações que protegem o dev
+											sem prender. Métrica preferida: <em>tempo que outros
+											ganharam sem perceber</em>. Quanto mais invisível, melhor.
 										</>
 									),
 								},
@@ -762,8 +794,8 @@ export default function HomePage() {
 					</div>
 					<div style={{ marginTop: 22, fontSize: 13, color: OP.dim }}>
 						<Prompt path="~/talks">ls --all</Prompt>{' '}
-						<Link href="/presentations" passHref>
-							<a style={{ color: OP.amber, textDecoration: 'none' }}>↗ all talks</a>
+						<Link href="/presentations" style={{ color: OP.amber, textDecoration: 'none' }}>
+							↗ all talks
 						</Link>
 					</div>
 				</div>
@@ -807,9 +839,9 @@ export default function HomePage() {
 								maxWidth: 760,
 							}}>
 							<p style={{ margin: '0 0 8px' }}>
-								Plataforma travada num gargalo de DevEx? Backstage parado no Software
-								Catalog? IA sem chão de observabilidade? RAG que precisa comer infra
-								inteira? Pode chamar.
+								Plataforma é trabalho coletivo. Se você quer trocar figurinha, levar
+								uma talk pro seu time, ou tem um projeto que precisa de uma cabeça
+								extra — a inbox tá aberta.
 							</p>
 							<p style={{ margin: 0, color: OP.dim, fontSize: 15 }}>
 								$ ping <span style={{ color: OP.ok }}>gd</span>{' '}
@@ -940,6 +972,6 @@ export default function HomePage() {
 					</div>
 				</div>
 			</main>
-		</>
-	);
+        </>
+    );
 }

@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 
 import posthog from 'posthog-js';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
+import linktreeData from '~/data/linktree.json';
 
 interface LinkItem {
 	title: string;
@@ -17,8 +18,7 @@ interface LinksProps {
 }
 
 export const getStaticProps: GetStaticProps<LinksProps> = async () => {
-	const { default: links } = await import('~/data/linktree.json');
-	return { props: { links } };
+	return { props: { links: linktreeData as LinkItem[] } };
 };
 
 // Mapeia o feather icon original pra um tag visual no formato terminal.

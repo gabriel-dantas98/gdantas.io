@@ -54,7 +54,7 @@ export function HeroIconRain() {
 	}, [items]);
 
 	return (
-		<div
+        <div
 			ref={ref}
 			aria-hidden="true"
 			style={{
@@ -68,9 +68,9 @@ export function HeroIconRain() {
 				WebkitMaskImage:
 					'radial-gradient(ellipse 90% 70% at 50% 50%, #000 30%, transparent 90%)',
 			}}>
-			{items.map((p, i) => (
+            {items.map((p, i) => (
 				// eslint-disable-next-line @next/next/no-img-element
-				<img
+				(<img
 					key={p.slug + i}
 					className="op-hero-icon"
 					src={`https://cdn.simpleicons.org/${p.slug}/${p.accent ? 'dea627' : 'f8f8f9'}`}
@@ -95,8 +95,8 @@ export function HeroIconRain() {
 						transform: `rotate(${p.rot0}deg)`,
 						filter: p.accent ? `drop-shadow(0 0 12px ${OP.amber}66)` : 'none',
 					}}
-				/>
+				/>)
 			))}
-		</div>
-	);
+        </div>
+    );
 }
