@@ -57,14 +57,19 @@ export default function App({ Component, pageProps }: AppProps) {
 				disableCookie: true,
 			});
 
-		posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-			api_host: '/ingest',
-			ui_host: 'https://us.posthog.com',
-			defaults: '2026-01-30',
-			capture_pageview: false,
-			capture_exceptions: true,
-			debug: process.env.NODE_ENV === 'development',
-		});
+		posthog.init(
+			process.env.NEXT_PUBLIC_POSTHOG_KEY ||
+				'phc_CNLrSr8MiyZPcFQHcd2HdtfdvBdmP3CHwmHj82hbUy2T',
+			{
+				api_host: 'https://us.i.posthog.com',
+				ui_host: 'https://us.posthog.com',
+				defaults: '2026-01-30',
+				capture_pageview: false,
+				capture_exceptions: true,
+				person_profiles: 'identified_only',
+				debug: process.env.NODE_ENV === 'development',
+			},
+		);
 	});
 
 	return (
