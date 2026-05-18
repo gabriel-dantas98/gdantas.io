@@ -1,5 +1,6 @@
 import NProgress from 'nprogress';
 import splitbee from '@splitbee/web';
+import posthog from 'posthog-js';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import { useEffectOnce, useEvent } from 'react-use';
@@ -40,7 +41,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	useEffectOnce(() => {
 		router.events.on('routeChangeStart', () => NProgress.start());
-		router.events.on('routeChangeComplete', () => NProgress.done());
+		router.events.on('routeChangeComplete', () => {
+			NProgress.done();
+			posthog.capture('$pageview');
+		});
 		router.events.on('routeChangeError', () => NProgress.done());
 
 		// GSAP via dynamic import — substitui o <Script> CDN bloqueante.
@@ -51,6 +55,15 @@ export default function App({ Component, pageProps }: AppProps) {
 			splitbee.init({
 				disableCookie: true,
 			});
+
+		posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+			api_host: '/ingest',
+			ui_host: 'https://us.posthog.com',
+			defaults: '2026-01-30',
+			capture_pageview: false,
+			capture_exceptions: true,
+			debug: process.env.NODE_ENV === 'development',
+		});
 	});
 
 	return (

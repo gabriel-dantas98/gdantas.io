@@ -1,5 +1,6 @@
 import React from 'react';
 
+import posthog from 'posthog-js';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 
 
@@ -105,7 +106,7 @@ export default function WritingPage() {
 							color: OP.fg,
 						};
 						return p.href ? (
-							<a key={p.slug} href={p.href} target="_blank" rel="noreferrer noopener" style={baseStyle}>
+							<a key={p.slug} href={p.href} target="_blank" rel="noreferrer noopener" onClick={() => posthog.capture("writing_post_opened", { post_title: p.title, post_slug: p.slug, topic: p.topic })} style={baseStyle}>
 								{content}
 							</a>
 						) : (

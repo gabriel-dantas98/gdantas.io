@@ -1,6 +1,7 @@
 import React from 'react';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
+import posthog from 'posthog-js';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 
@@ -56,6 +57,7 @@ export default function TalksPage({ talks }: TalksProps) {
 								target="_blank"
 								rel="noreferrer noopener"
 								className="op-talk-card"
+								onClick={() => posthog.capture("talk_clicked", { talk_title: t.title, talk_type: k.tag })}
 								style={{
 									display: 'block',
 									padding: '20px 22px',

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
+import posthog from 'posthog-js';
 
 import { useSeoProps } from '~/lib';
 import {
@@ -702,6 +703,7 @@ export default function HomePage() {
 									textDecoration: 'none',
 									color: 'inherit',
 								}}
+								onClick={() => posthog.capture('talk_card_clicked', { talk_slug: t.slug, talk_title: t.title, talk_event: t.event })}
 								onMouseMove={(e) => {
 									const r = e.currentTarget.getBoundingClientRect();
 									const px = (e.clientX - r.left) / r.width - 0.5;
@@ -821,6 +823,7 @@ export default function HomePage() {
 									href={cta.href}
 									target="_blank"
 									rel="noreferrer noopener"
+									onClick={() => posthog.capture('cta_clicked', { cta_type: cta.tag, cta_title: cta.title })}
 									style={{
 										display: 'block',
 										padding: '20px 22px',
@@ -921,6 +924,7 @@ export default function HomePage() {
 										href={c.url}
 										target="_blank"
 										rel="noreferrer noopener"
+										onClick={() => posthog.capture('contact_link_clicked', { label: c.label })}
 										style={{
 											color: OP.fg,
 											textDecoration: 'none',
