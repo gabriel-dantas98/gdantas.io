@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -12,15 +13,22 @@ interface NavItem {
 interface MobileMenuDrawerProps {
 	items: NavItem[];
 	active?: string;
-	/** offset do topo (px) — depende da altura do header que veio antes do drawer */
+	/** offset do topo do drawer (px) — esconde o header sticky atrás dele */
 	topOffset?: number;
 }
 
-// Burger button + overlay drawer responsivo. Visível só em mobile (<720px) via
-// CSS global. Fecha ao trocar de rota e trava scroll do body enquanto aberto.
+// Burger button + overlay drawer responsivo. O overlay é montado via Portal em
+// document.body porque o <header> tem `backdrop-filter: blur` que cria
+// containing block pra position:fixed — sem portal o drawer fica preso dentro
+// do header (height = 48px em vez de viewport - top).
 export function MobileMenuDrawer({ items, active, topOffset = 49 }: MobileMenuDrawerProps) {
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	useEffect(() => {
 		const close = () => setOpen(false);
@@ -34,6 +42,52 @@ export function MobileMenuDrawer({ items, active, topOffset = 49 }: MobileMenuDr
 			document.body.style.overflow = '';
 		};
 	}, [open]);
+
+	const overlay = open ? (
+		<div
+			role="dialog"
+			aria-modal="true"
+			style={{
+				position: 'fixed',
+				top: topOffset,
+				left: 0,
+				right: 0,
+				bottom: 0,
+				background: 'rgba(17,14,27,0.98)',
+				backdropFilter: 'blur(8px)',
+				zIndex: 30,
+				padding: '24px 28px',
+				overflowY: 'auto',
+				fontFamily: OP.font,
+			}}>
+			<nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+				{items.map((l) => {
+					const isActive = active === l.href;
+					return (
+						<Link
+							key={l.href}
+							href={l.href}
+							onClick={() => setOpen(false)}
+							style={{
+								color: isActive ? OP.amber : OP.fg,
+								textDecoration: 'none',
+								fontFamily: OP.font,
+								fontSize: 18,
+								letterSpacing: '0.04em',
+								padding: '14px 4px',
+								borderBottom: `1px dashed ${OP.rule}`,
+								display: 'block',
+							}}>
+							<span style={{ color: OP.dim, marginRight: 8 }}>
+								{isActive ? '▸' : '$'}
+							</span>
+							{l.label}
+						</Link>
+					);
+				})}
+			</nav>
+		</div>
+	) : null;
 
 	return (
 		<>
@@ -57,49 +111,7 @@ export function MobileMenuDrawer({ items, active, topOffset = 49 }: MobileMenuDr
 				}}>
 				{open ? '[ × ]' : '[ ≡ ]'}
 			</button>
-
-			{open && (
-				<div
-					style={{
-						position: 'fixed',
-						top: topOffset,
-						left: 0,
-						right: 0,
-						bottom: 0,
-						background: 'rgba(17,14,27,0.98)',
-						backdropFilter: 'blur(8px)',
-						zIndex: 19,
-						padding: '24px 28px',
-						overflowY: 'auto',
-					}}>
-					<nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-						{items.map((l) => {
-							const isActive = active === l.href;
-							return (
-								<Link
-									key={l.href}
-									href={l.href}
-									onClick={() => setOpen(false)}
-									style={{
-										color: isActive ? OP.amber : OP.fg,
-										textDecoration: 'none',
-										fontFamily: OP.font,
-										fontSize: 18,
-										letterSpacing: '0.04em',
-										padding: '14px 4px',
-										borderBottom: `1px dashed ${OP.rule}`,
-										display: 'block',
-									}}>
-									<span style={{ color: OP.dim, marginRight: 8 }}>
-										{isActive ? '▸' : '$'}
-									</span>
-									{l.label}
-								</Link>
-							);
-						})}
-					</nav>
-				</div>
-			)}
+			{mounted && overlay && createPortal(overlay, document.body)}
 		</>
 	);
 }
