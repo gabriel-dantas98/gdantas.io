@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Timeline, TimelineEvent } from '~/types';
+import timelineData from '~/data/timeline.json';
 
 // Parse MM-dd-yyyy → ISO date sem precisar puxar date-fns inteiro.
 // Mais ~10KB cortado do bundle da timeline.
@@ -23,10 +24,9 @@ interface TimelineProps {
 }
 
 export const getStaticProps: GetStaticProps<TimelineProps> = async () => {
-	const { default: rawTimeline } = await import('~/data/timeline.json');
-	const timeline = (rawTimeline as TimelineEvent[]).sort(
-		(a, b) => +new Date(b.date) - +new Date(a.date),
-	);
+	const timeline = (timelineData as TimelineEvent[])
+		.slice()
+		.sort((a, b) => +new Date(b.date) - +new Date(a.date));
 	return { props: { timeline } };
 };
 
@@ -53,6 +53,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 				<Sec label="01" title="git log --career" sub="commits que importam" />
 
 				<div
+					className="op-timeline-card"
 					style={{
 						marginTop: 28,
 						border: `1px solid ${OP.rule}`,
@@ -69,6 +70,7 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 						return (
 							<div
 								key={event.title}
+								className="op-timeline-row"
 								style={{
 									display: 'grid',
 									gridTemplateColumns: '120px 1fr',
@@ -146,6 +148,18 @@ export default function TimelinePage({ timeline: rawTimeline }: TimelineProps) {
 					<Prompt path="~">git log --career --pretty=oneline</Prompt>
 				</div>
 			</div>
+
+			<style jsx global>{`
+				@media (max-width: 640px) {
+					.op-timeline-card {
+						padding: 18px 16px !important;
+					}
+					.op-timeline-row {
+						grid-template-columns: 1fr !important;
+						gap: 6px !important;
+					}
+				}
+			`}</style>
 		</OperatorPage>
 	);
 }

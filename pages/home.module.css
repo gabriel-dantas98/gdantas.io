@@ -116,12 +116,24 @@
 		grid-template-columns: 1fr;
 	}
 	.hostPad {
-		padding: 24px 20px 64px !important;
+		padding: 24px 16px 64px !important;
 	}
 	.heroTitle {
 		font-size: 56px !important;
 	}
 	.topbarNav {
 		display: none !important;
+	}
+}
+
+@media (max-width: 480px) {
+	.stackGrid {
+		grid-template-columns: 1fr;
+	}
+	.heroTitle {
+		font-size: 44px !important;
+	}
+	.hostPad {
+		padding: 18px 14px 48px !important;
 	}
 }
