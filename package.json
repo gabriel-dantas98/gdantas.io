@@ -53,6 +53,7 @@
 		"next-themes": "^0.1.1",
 		"nprogress": "^0.2.0",
 		"ogl-typescript": "^0.1.40",
+		"posthog-js": "^1.373.5",
 		"preact": "^10.10.0",
 		"react": "18",
 		"react-dom": "18",

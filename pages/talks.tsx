@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
+import posthog from 'posthog-js';
 
 import {
 	OP,
@@ -114,7 +115,10 @@ export default function TalksPage({ talks }: TalksProps) {
 							<button
 								key={`${t.url}-${i}`}
 								type="button"
-								onClick={() => setActiveIdx(i)}
+								onClick={() => {
+									setActiveIdx(i);
+									posthog.capture("talk_clicked", { talk_title: t.title, talk_type: k.tag });
+								}}
 								className="op-talk-card"
 								style={{
 									textAlign: 'left',

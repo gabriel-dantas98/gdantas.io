@@ -2,6 +2,7 @@ import React from 'react';
 import type { GetStaticProps } from 'next';
 import Parser from 'rss-parser';
 
+import posthog from 'posthog-js';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 
 type MediumPost = {
@@ -157,6 +158,7 @@ export default function WritingPage({ posts }: WritingPageProps) {
 									target="_blank"
 									rel="noreferrer noopener"
 									className="op-writing-row"
+									onClick={() => posthog.capture("writing_post_opened", { post_title: p.title, post_slug: p.href, topic: p.topic })}
 									style={baseStyle}>
 									<span className="op-writing-date" style={{ color: OP.dim }}>{p.date}</span>
 									<span

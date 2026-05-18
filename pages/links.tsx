@@ -1,6 +1,7 @@
 import React from 'react';
 import type { GetStaticProps } from 'next';
 
+import posthog from 'posthog-js';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import linktreeData from '~/data/linktree.json';
 
@@ -61,6 +62,7 @@ export default function LinksPage({ links }: LinksProps) {
 									? {}
 									: { target: '_blank', rel: 'noreferrer noopener' })}
 								className="op-link-row"
+								onClick={() => posthog.capture("link_clicked", { link_title: l.title, link_type: k.tag })}
 								style={{
 									display: 'grid',
 									gridTemplateColumns: '60px 1fr 60px',
