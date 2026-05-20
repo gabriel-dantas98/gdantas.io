@@ -114,7 +114,7 @@
 		"p2Bold": "\"So Others May Live\"",
 		"p2Post": ". Plataforma é parecido. A gente faz o trabalho chato pra que o time de produto consiga fazer o trabalho deles sem tropeçar em yaml.",
 		"facts": [
-			{ "k": "$ uname", "v": "gdantas · sre @ quintoandar" },
+			{ "k": "$ uname", "v": "gdantas · platform engineer · devex" },
 			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · otel · thanos" },
 			{ "k": "$ impact", "v": "−70% onboarding · IDP self-service · AI ops · RAG sobre infra" },
 			{ "k": "$ creds", "v": "Exam Contributor · Certified Backstage Associate" },

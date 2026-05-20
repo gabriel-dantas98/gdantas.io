@@ -114,7 +114,7 @@
 		"p2Bold": "\"So Others May Live\"",
 		"p2Post": ". Platform is similar. We do the boring work so the product team can do theirs without tripping over yaml.",
 		"facts": [
-			{ "k": "$ uname", "v": "gdantas · sre @ quintoandar" },
+			{ "k": "$ uname", "v": "gdantas · platform engineer · devex" },
 			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · otel · thanos" },
 			{ "k": "$ impact", "v": "−70% onboarding · IDP self-service · AI ops · RAG over infra" },
 			{ "k": "$ creds", "v": "Exam Contributor · Certified Backstage Associate" },
