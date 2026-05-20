@@ -31,7 +31,13 @@ export default defineConfig({
 				},
 			},
 		},
-		{ name: 'mobile-safari', use: { ...devices['iPhone 13'] } },
+		{
+			name: 'mobile-chromium',
+			use: {
+				...devices['Pixel 7'],
+				launchOptions: { args: ['--enable-features=SharedArrayBuffer'] },
+			},
+		},
 	],
 	webServer: {
 		command: `yarn serve out -l ${PORT}`,
