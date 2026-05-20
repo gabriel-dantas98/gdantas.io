@@ -7,6 +7,7 @@ import RemarkEmoji from 'remark-emoji';
 import RemarkPrism from 'remark-prism';
 import RemarkSlug from 'remark-slug';
 import RehypeAutolinkHeadings from 'rehype-autolink-headings';
+import posthog from 'posthog-js';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import { Elements as BlogElements } from '~/components/Blog/Styles';
@@ -399,6 +400,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												href={contentLink}
 												target="_blank"
 												rel="noreferrer noopener"
+												onClick={() => posthog.capture('presentation_played', { title: p.title, preview_type: p.preview?.type })}
 												style={{
 													fontFamily: OP.font,
 													fontSize: 11,
@@ -416,6 +418,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												href={p.githubUrl}
 												target="_blank"
 												rel="noreferrer noopener"
+												onClick={() => posthog.capture('presentation_src_opened', { title: p.title })}
 												style={{
 													fontFamily: OP.font,
 													fontSize: 11,

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
+import posthog from 'posthog-js';
 
 import { useSeoProps } from '~/lib';
 import {
@@ -690,6 +691,7 @@ function HomePageInner() {
 								key={tk.slug}
 								href={`/presentations#${tk.slug}`}
 								className={styles.tiltCard}
+								onClick={() => posthog.capture('talk_card_clicked', { talk_slug: tk.slug, talk_title: tk.title, talk_event: tk.event })}
 								style={{
 									background: OP.bg2,
 									border: `1px solid ${OP.rule}`,
@@ -810,6 +812,7 @@ function HomePageInner() {
 									href={cta.href}
 									target="_blank"
 									rel="noreferrer noopener"
+									onClick={() => posthog.capture('cta_clicked', { cta_type: cta.tag, cta_title: cta.title })}
 									style={{
 										display: 'block',
 										padding: '20px 22px',
@@ -910,6 +913,7 @@ function HomePageInner() {
 										href={c.url}
 										target="_blank"
 										rel="noreferrer noopener"
+										onClick={() => posthog.capture('contact_link_clicked', { label: c.label })}
 										style={{
 											color: OP.fg,
 											textDecoration: 'none',

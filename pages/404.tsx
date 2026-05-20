@@ -6,11 +6,11 @@ import { OP, Prompt, Cursor, OperatorPage, useReveal } from '~/components/Operat
 export default function NotFoundPage() {
 	const ref = useReveal({ stagger: 0.08, y: 20 });
 	return (
-        <OperatorPage
+		<OperatorPage
 			title="gdantas ─ 404 not found"
 			description="Página não encontrada."
 			active="/">
-            <div
+			<div
 				ref={ref}
 				style={{
 					maxWidth: 720,
@@ -84,17 +84,15 @@ export default function NotFoundPage() {
 						].map(([href, desc]) => (
 							<li key={href}>
 								<Link href={href} style={{
-                                    display: 'inline-block',
-                                    color: OP.amber,
-                                    textDecoration: 'none',
-                                    padding: '4px 0',
-                                    minHeight: 24,
-                                }}>
-
-                                    <span style={{ color: OP.dim }}>cd</span> {href}{' '}
-                                    <span style={{ color: OP.dim }}>{'// '}{desc}</span>
-
-                                </Link>
+									display: 'inline-block',
+									color: OP.amber,
+									textDecoration: 'none',
+									padding: '4px 0',
+									minHeight: 24,
+								}}>
+									<span style={{ color: OP.dim }}>cd</span> {href}{' '}
+									<span style={{ color: OP.dim }}>{'// '}{desc}</span>
+								</Link>
 							</li>
 						))}
 					</ul>
@@ -107,6 +105,6 @@ export default function NotFoundPage() {
 					</Prompt>
 				</div>
 			</div>
-        </OperatorPage>
-    );
+		</OperatorPage>
+	);
 }

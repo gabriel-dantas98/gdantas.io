@@ -1,5 +1,6 @@
 import React from 'react';
 import type { GetStaticProps } from 'next';
+import posthog from 'posthog-js';
 
 import { fetchProjects } from '~/lib/projects';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
@@ -71,6 +72,7 @@ function ProjectsPageInner({ stringifiedProjects }: { stringifiedProjects: strin
 								target="_blank"
 								rel="noreferrer noopener"
 								className="op-pod"
+								onClick={() => posthog.capture('project_clicked', { project_name: p.name })}
 								style={{
 									display: 'block',
 									padding: '14px 16px',
