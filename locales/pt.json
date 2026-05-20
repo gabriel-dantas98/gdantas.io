@@ -1,5 +1,6 @@
 {
 	"nav": {
+		"home": "./home",
 		"about": "./about",
 		"career": "./career",
 		"doctrine": "./doctrine",
