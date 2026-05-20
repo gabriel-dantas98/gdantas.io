@@ -12,6 +12,7 @@ import 'windi.css';
 import { colors, useClick } from '~/lib';
 import { ensureGsap } from '~/lib/gsap-loader';
 import { fontVars } from '~/lib/fonts';
+import { I18nProvider, detectLocaleFromPath, withLocale } from '~/lib/i18n';
 import { Theme } from '~/types';
 
 NProgress.configure({
@@ -48,6 +49,25 @@ export default function App({ Component, pageProps }: AppProps) {
 		// Chamado uma vez aqui; hooks Operator esperam window.gsap via retry.
 		ensureGsap();
 
+		// i18n: na 1ª visita sem preferência salva, se o browser prefere EN e
+		// o usuário caiu numa rota PT, manda pro mirror /en/<path>. Preferência
+		// explícita no LangSwitcher grava localStorage.lang e essa detecção
+		// para de atuar.
+		try {
+			const stored = window.localStorage.getItem('lang');
+			if (!stored) {
+				const browser = (navigator.language || 'pt').toLowerCase();
+				if (browser.startsWith('en')) {
+					const currentLocale = detectLocaleFromPath(router.asPath);
+					if (currentLocale === 'pt') {
+						router.replace(withLocale(router.asPath, 'en'));
+					}
+				}
+			}
+		} catch {
+			// localStorage bloqueado (modo privado iOS): ignora a detecção.
+		}
+
 		if (process.env.NODE_ENV === 'production')
 			splitbee.init({
 				disableCookie: true,
@@ -58,9 +78,11 @@ export default function App({ Component, pageProps }: AppProps) {
 		<ThemeProvider attribute="class" defaultTheme={Theme.DARK} themes={Object.values(Theme)}>
 			{/* Clarity removido — script bloqueado por CSP gerava console error +
 			   inspector issue; análise não justificava o custo de perf/BP. */}
-			<div className={fontVars} style={{ minHeight: '100vh' }}>
-				<Component {...pageProps} />
-			</div>
+			<I18nProvider>
+				<div className={fontVars} style={{ minHeight: '100vh' }}>
+					<Component {...pageProps} />
+				</div>
+			</I18nProvider>
 			<style jsx global>{`
 				#nprogress .bar {
 					height: 0.25rem;

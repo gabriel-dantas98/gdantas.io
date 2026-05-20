@@ -4,24 +4,33 @@ import Link from 'next/link';
 import { OP } from './tokens';
 import { useUtcClock } from './hooks';
 import { MobileMenuDrawer } from './MobileMenuDrawer';
+import { LangSwitcher } from './LangSwitcher';
+import { useI18n, withLocale } from '~/lib/i18n';
 
 interface NavLink {
-	label: string;
+	labelKey: string;
 	href: string;
 }
 
 const NAV_LINKS: NavLink[] = [
-	{ label: './about', href: '/about' },
-	{ label: './career', href: '/timeline' },
-	{ label: './doctrine', href: '/doctrine' },
-	{ label: './talks', href: '/talks' },
-	{ label: './projects', href: '/projects' },
-	{ label: './sidequests', href: '/sidequests' },
-	{ label: './writing', href: '/writing' },
+	{ labelKey: 'nav.about', href: '/about' },
+	{ labelKey: 'nav.career', href: '/timeline' },
+	{ labelKey: 'nav.doctrine', href: '/doctrine' },
+	{ labelKey: 'nav.talks', href: '/talks' },
+	{ labelKey: 'nav.projects', href: '/projects' },
+	{ labelKey: 'nav.sidequests', href: '/sidequests' },
+	{ labelKey: 'nav.writing', href: '/writing' },
 ];
 
 export function OperatorHeader({ active }: { active?: string }) {
 	const clock = useUtcClock();
+	const { locale, t } = useI18n();
+	const localizedLinks = NAV_LINKS.map((l) => ({
+		label: t(l.labelKey),
+		href: withLocale(l.href, locale),
+		canonicalHref: l.href,
+	}));
+
 	return (
 		<>
 			<header
@@ -48,7 +57,7 @@ export function OperatorHeader({ active }: { active?: string }) {
 						<span style={{ width: 10, height: 10, borderRadius: '50%', background: OP.ok }} />
 					</span>
 					<Link
-						href="/"
+						href={withLocale('/', locale)}
 						style={{
 							color: OP.fg,
 							textDecoration: 'none',
@@ -68,27 +77,37 @@ export function OperatorHeader({ active }: { active?: string }) {
 					</span>
 				</div>
 
-				<nav className="op-nav-desktop" style={{ display: 'flex', gap: 18 }}>
-					{NAV_LINKS.map((l) => {
-						const isActive = active === l.href;
-						return (
-							<Link
-								key={l.href}
-								href={l.href}
-								className="op-nav-link"
-								style={{
-									color: isActive ? OP.amber : OP.fg,
-									textDecoration: 'none',
-									letterSpacing: '0.04em',
-								}}>
-								{isActive ? '▸ ' : '  '}
-								{l.label}
-							</Link>
-						);
-					})}
-				</nav>
+				<div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+					<nav className="op-nav-desktop" style={{ display: 'flex', gap: 18 }}>
+						{localizedLinks.map((l) => {
+							const isActive = active === l.canonicalHref;
+							return (
+								<Link
+									key={l.href}
+									href={l.href}
+									className="op-nav-link"
+									style={{
+										color: isActive ? OP.amber : OP.fg,
+										textDecoration: 'none',
+										letterSpacing: '0.04em',
+									}}>
+									{isActive ? '▸ ' : '  '}
+									{l.label}
+								</Link>
+							);
+						})}
+					</nav>
 
-				<MobileMenuDrawer items={NAV_LINKS} active={active} topOffset={49} />
+					<span className="op-lang-desktop">
+						<LangSwitcher />
+					</span>
+
+					<MobileMenuDrawer
+						items={localizedLinks.map(({ label, href }) => ({ label, href }))}
+						active={active && withLocale(active, locale)}
+						topOffset={49}
+					/>
+				</div>
 			</header>
 
 			<style jsx global>{`
@@ -99,9 +118,10 @@ export function OperatorHeader({ active }: { active?: string }) {
 					}
 				}
 				@media (max-width: 720px) {
-					/* .op-nav-burger fica visível via global CSS do
-					   MobileMenuDrawer — aqui só escondo o nav desktop. */
 					.op-nav-desktop {
+						display: none !important;
+					}
+					.op-lang-desktop {
 						display: none !important;
 					}
 				}

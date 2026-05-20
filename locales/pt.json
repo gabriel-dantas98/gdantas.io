@@ -1,0 +1,225 @@
+{
+	"nav": {
+		"about": "./about",
+		"career": "./career",
+		"doctrine": "./doctrine",
+		"talks": "./talks",
+		"projects": "./projects",
+		"sidequests": "./sidequests",
+		"writing": "./writing"
+	},
+	"common": {
+		"loading": "carregando…",
+		"close": "fechar",
+		"open": "abrir",
+		"play": "./play ↗",
+		"preview": "./preview ↗",
+		"confer": "conferir ↗",
+		"langSwitchLabel": "Mudar idioma"
+	},
+	"hero": {
+		"role": "platform engineer",
+		"bioP1": "6+ anos fazendo plataforma de dev. Faço parte do time de Engenharia de Plataforma do Grupo QuintoAndar, focado no nosso IDP (by Backstage.io) e na criação de ferramental pra melhorar a experiência e a produtividade dos times de desenvolvimento.",
+		"quote": "\"So others may live.\" — U.S. Coast Guard Rescue Swimmer",
+		"uptimeLabel": "UPTIME",
+		"statusLabel": "STATUS",
+		"statusValue": "Platform Engineer · DevEx & Productivity",
+		"baseLabel": "BASE",
+		"baseValue": "São Paulo, BR"
+	},
+	"sections": {
+		"topology": { "label": "01", "title": "kubectl get topology", "sub": "the platform as a graph" },
+		"stack": { "label": "02", "title": "cat ~/.stack", "sub": "o que tá rodando agora" },
+		"doctrine": { "label": "03", "title": "cat ~/.doctrine", "sub": "\"So Others May Live\"" },
+		"talks": { "label": "04", "title": "ls ~/talks", "sub": "recent · slides + video" },
+		"ping": { "label": "05", "title": "ping --help", "sub": "acha que consigo te ajudar a resolver algum desafio?" }
+	},
+	"topology": {
+		"cluster": "CLUSTER · sa-east-1",
+		"synced": "● synced",
+		"kubectlBar": "$ kubectl get pods --watch · 112 pods · 4 namespaces",
+		"p95": "p95 latency 38ms"
+	},
+	"doctrine": {
+		"manifestoTag": "MANIFESTO.md",
+		"manifestoP1Pre": "Plataforma é um trabalho de ",
+		"manifestoP1Amber": "bastidores",
+		"manifestoP1Post": ". Geralmente, quanto menos somos percebidos e mais produtivos os times estão, melhor está sendo o nosso trabalho.",
+		"manifestoP2Pre": "O primeiro time de plataforma em que trabalhei tinha o lema ",
+		"manifestoP2Amber": "\"So Others May Live\"",
+		"manifestoP2Post": ": fazemos coisas complexas pra que outros não precisem, vamos onde outros não iriam, pra fazer aquilo que não fariam — sem ninguém notar que a gente existe.",
+		"manifestoP3Pre": "Isso é exatamente o trabalho de plataforma — que no fundo se liga com toda a cultura DevOps. No fim do dia, o que eu mais gosto é ajudar outras pessoas de tecnologia a resolver problemas ",
+		"manifestoP3Amber": ":)",
+		"manifestoP4": "Em resumo: se conseguimos deixar o melhor caminho, com as melhores ferramentas, o mais fácil pra todos — nossa missão de plataforma está cumprida.",
+		"sig": "— gd",
+		"sigDate": "last edited: today",
+		"roles": [
+			{
+				"tag": "ROLE 01",
+				"name": "DevOps",
+				"text": "DevOps pra mim é cultura, não ferramenta nem cargo. É hábito do dia a dia: encurtar o feedback loop entre quem constrói e quem mantém, até que os dois lados parem de existir como lados. Quando dev e ops compartilham o mesmo pager, o código sai diferente."
+			},
+			{
+				"tag": "ROLE 02",
+				"name": "SRE",
+				"text": "SRE é o engenheiro que trata operação como software: SLO antes do código, toil medido em horas, incidente que vira postmortem e postmortem que vira mudança real. Plantão é uma excelente forma de aprender como os sistemas funcionam, encontrar oportunidades de melhoria e os gaps de observabilidade."
+			},
+			{
+				"tag": "ROLE 03",
+				"name": "Platform Engineer",
+				"text": "É quando tudo isso vira produto: self-service, paved roads, abstrações que protegem o dev sem prender. Métrica preferida: tempo que outros ganharam sem perceber. Quanto mais invisível, melhor."
+			}
+		]
+	},
+	"ping": {
+		"chrome": "CHALLENGES.txt",
+		"intro": "Plataforma é trabalho coletivo. Se você quer trocar figurinha, levar uma talk pro seu time, ou tem um projeto que precisa de uma cabeça extra — a inbox tá aberta.",
+		"prompt": "$ ping gd ↗",
+		"ctas": [
+			{
+				"tag": "— BENCHMARK",
+				"title": "trocar figurinha",
+				"desc": "papo sobre Engenharia de Plataforma / DevEx — como tá no seu time, o que funciona, o que dói."
+			},
+			{
+				"tag": "— TALK",
+				"title": "levar uma talk",
+				"desc": "leve uma das minhas talks pro seu time ou evento — Backstage, IDP, AI ops, RAG, observabilidade."
+			},
+			{
+				"tag": "— BUILD",
+				"title": "projeto em parceria",
+				"desc": "tem um projeto que precisa de uma cabeça extra ou de mão na massa? me chama pra desenhar junto."
+			}
+		]
+	},
+	"talks": {
+		"section": { "label": "01", "title": "ls ~/talks", "sub": "recent · slides + video + audio" },
+		"kinds": { "video": "VIDEO", "audio": "AUDIO", "slides": "SLIDES", "talk": "TALK" },
+		"footerPrompt": "ls --all | wc -l →",
+		"footerEntries": "entries",
+		"footerLink": "↗ presentations (lista completa com previews inline)"
+	},
+	"about": {
+		"section": { "label": "01", "title": "cat ~/.about", "sub": "quem é o operador" },
+		"imgLabel": "IMG · gd.jpg",
+		"subject": "SUBJECT · gabriel",
+		"shot": "F1.8 · SP/BR",
+		"p1Pre": "",
+		"p1Bold": "SRE no QuintoAndar",
+		"p1Mid": " há 5+ anos. Mexo com observabilidade (Grafana, Prometheus, Thanos, OTel, ELK) e DevEx com ",
+		"p1Bold2": "Backstage",
+		"p1Post": ". Antes disso fui estagiário em ops, devops e infra. Soma 6+ anos.",
+		"p2Pre": "O lema dos Rescue Swimmers da U.S. Coast Guard é ",
+		"p2Bold": "\"So Others May Live\"",
+		"p2Post": ". Plataforma é parecido. A gente faz o trabalho chato pra que o time de produto consiga fazer o trabalho deles sem tropeçar em yaml.",
+		"facts": [
+			{ "k": "$ uname", "v": "gdantas · sre @ quintoandar" },
+			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · otel · thanos" },
+			{ "k": "$ impact", "v": "−70% onboarding · IDP self-service · AI ops · RAG sobre infra" },
+			{ "k": "$ creds", "v": "Exam Contributor · Certified Backstage Associate" },
+			{ "k": "$ edu", "v": "FIAP · Eng. Comp + pós ML Eng + MBA AI Eng & Multi-agents" },
+			{ "k": "$ loc", "v": "Osasco · São Paulo · BR" }
+		],
+		"hobbies": "Fora do trabalho: pós em ML Eng, MBA em AI Eng + Multi-agents, curso de teologia pastoral. Monster de manga, um podcast na CPTM, uma partida de ARAM no final de sexta."
+	},
+	"sidequests": {
+		"section": { "label": "01", "title": "ls ~/.sidequests", "sub": "o que rola fora do horário comercial" },
+		"footerPromptPre": "ls -l | wc -l →",
+		"footerEntries": "quests",
+		"footerNote": "· novos projetos aparecem aqui conforme vão saindo do papel",
+		"emConstrucao": "./em-construção",
+		"items": [
+			{
+				"tag": "PRINT",
+				"name": "3Dantas",
+				"prompt": "maker · impressão 3D · hobby sustentável",
+				"tagline": "craft em filamento — peças sob encomenda + linha própria.",
+				"bodyP1": "Marca de impressão 3D rodando em Bambu Lab A1 mini. Encomendas (Funkos personalizados, chaveiros, trofeus, brinquedos sensoriais) entram via WhatsApp; em paralelo, linha própria Funkos Santos no catálogo.",
+				"bodyP2": "Métrica: hobby sustentável — operação se paga em ≥50% de qualquer reinvestimento."
+			},
+			{
+				"tag": "FAITH",
+				"name": "Novarum",
+				"prompt": "voluntariado · ferramental pra ministérios",
+				"tagline": "tooling pra coroinhas, EJC e Pascom — tirar peso da logística.",
+				"bodyP1": "Braço técnico do meu trabalho voluntário na Igreja Católica. Construir ferramentas que rodam em planilha + WhatsApp + processos improvisados, pra ministério focar em gente, não em logística.",
+				"bodyP2": "Público: coroinhas (altar servers), EJC (Encontro de Jovens com Cristo), Pascom (Pastoral da Comunicação). Hosting near-zero."
+			},
+			{
+				"tag": "MERCH",
+				"name": "DeployOu",
+				"prompt": "loja · camisetas tech-themed",
+				"tagline": "dev humor brasileiro — trocadilhos de DevOps em algodão.",
+				"bodyP1": "Marca de camisetas via Reserva INK (sem gestão de estoque). Foco em humor de dev br: trocadilhos de Kubernetes, SRE, Cloud Native. Tom direto, irônico, cúmplice — fala com quem entende a piada sem precisar explicar.",
+				"bodyP2": "Audiência: devs, SREs, platform engineers — gente que ri da própria área. Operação em modo autopilot."
+			}
+		]
+	},
+	"writing": {
+		"section": { "label": "01", "title": "tail -f ~/.writing", "sub": "notes · medium · published" },
+		"prompt": "curl medium.com/feed/@_gdantas | parse-rss",
+		"colDate": "DATE",
+		"colStatus": "STATUS",
+		"colTitle": "TITLE",
+		"colTopic": "TOPIC",
+		"statusLive": "LIVE",
+		"emptyState": "Medium feed offline. Próximos posts vão aparecer aqui automaticamente.",
+		"footerPromptPre": "tail -f ~/.writing | wc -l →",
+		"footerEntries": "entries",
+		"footerNote": "· feed sincronizado direto do medium/@_gdantas",
+		"readmePrompt": "cat README.txt",
+		"readmeBody": "Tudo aqui é puxado em tempo de build do feed RSS do medium/@_gdantas. Tópicos: AI ops, plataforma de dev, observabilidade, agentes pra incidente, RAG sobre infra. Cada post novo no Medium aparece nessa lista automaticamente."
+	},
+	"timeline": {
+		"section": { "label": "01", "title": "git log --career", "sub": "commits que importam" },
+		"head": "HEAD",
+		"footerPromptPre": "git log --oneline | wc -l →",
+		"footerCommits": "commits",
+		"footerNote": "· learning rate compounding",
+		"closingPrompt": "git log --career --pretty=oneline"
+	},
+	"projects": {
+		"section": { "label": "01", "title": "kubectl get projects", "sub": "open source · side-projects · experimentos" },
+		"footerPromptPre": "kubectl get projects | wc -l →",
+		"footerPods": "pods",
+		"inspect": "./inspect ↗"
+	},
+	"links": {
+		"section": { "label": "01", "title": "ls ~/.links", "sub": "atalhos pros canais" },
+		"kinds": { "video": "VIDEO", "code": "CODE", "pro": "PRO", "write": "WRITE", "mail": "MAIL", "link": "LINK" },
+		"footerPromptPre": "ls ~/.links | wc -l →",
+		"footerEntries": "entries"
+	},
+	"status": {
+		"section": { "label": "01", "title": "systemctl status", "sub": "discord presence + agora" }
+	},
+	"footer": {
+		"prompt": "echo $SIGN",
+		"baseValue": "Osasco / São Paulo · BR",
+		"contactLabel": "./contact"
+	},
+	"notFound": {
+		"prompt": "cat /var/log/access.log | grep 404",
+		"title": "route not found",
+		"description": "Esse caminho não existe no sistema — pode ter sido renomeado, removido, ou nunca existiu mesmo.",
+		"suggestedTitle": "./suggested-routes",
+		"exitPrompt": "exit 404"
+	},
+	"errorPage": {
+		"prompt": "tail -f /var/log/error.log",
+		"title": "something broke",
+		"description": "Não foi você. Foi do nosso lado. Já estamos investigando — tenta de novo daqui a pouco.",
+		"back": "← back",
+		"home": "cd ~"
+	},
+	"go": {
+		"section": { "label": "01", "title": "ls ~/.shortcuts", "sub": "encurtador as code · /go/<slug>" },
+		"colSlug": "SLUG",
+		"colLabel": "LABEL",
+		"colUrl": "URL",
+		"footerPromptPre": "ls ~/.shortcuts | wc -l →",
+		"footerEntries": "atalhos",
+		"footerNote": "· definidos em data/shortcuts.yaml"
+	}
+}

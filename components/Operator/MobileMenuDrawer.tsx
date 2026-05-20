@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { OP } from './tokens';
+import { LangSwitcher } from './LangSwitcher';
 
 interface NavItem {
 	label: string;
@@ -60,6 +61,9 @@ export function MobileMenuDrawer({ items, active, topOffset = 49 }: MobileMenuDr
 				overflowY: 'auto',
 				fontFamily: OP.font,
 			}}>
+			<div style={{ marginBottom: 20 }}>
+				<LangSwitcher />
+			</div>
 			<nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
 				{items.map((l) => {
 					const isActive = active === l.href;

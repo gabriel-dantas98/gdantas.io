@@ -1,0 +1,225 @@
+{
+	"nav": {
+		"about": "./about",
+		"career": "./career",
+		"doctrine": "./doctrine",
+		"talks": "./talks",
+		"projects": "./projects",
+		"sidequests": "./sidequests",
+		"writing": "./writing"
+	},
+	"common": {
+		"loading": "loading…",
+		"close": "close",
+		"open": "open",
+		"play": "./play ↗",
+		"preview": "./preview ↗",
+		"confer": "check it out ↗",
+		"langSwitchLabel": "Switch language"
+	},
+	"hero": {
+		"role": "platform engineer",
+		"bioP1": "6+ years building developer platforms. I'm part of QuintoAndar Group's Platform Engineering team, focused on our IDP (Backstage.io) and building tooling that improves developer experience and productivity.",
+		"quote": "\"So others may live.\" — U.S. Coast Guard Rescue Swimmer",
+		"uptimeLabel": "UPTIME",
+		"statusLabel": "STATUS",
+		"statusValue": "Platform Engineer · DevEx & Productivity",
+		"baseLabel": "BASE",
+		"baseValue": "São Paulo, BR"
+	},
+	"sections": {
+		"topology": { "label": "01", "title": "kubectl get topology", "sub": "the platform as a graph" },
+		"stack": { "label": "02", "title": "cat ~/.stack", "sub": "what's running right now" },
+		"doctrine": { "label": "03", "title": "cat ~/.doctrine", "sub": "\"So Others May Live\"" },
+		"talks": { "label": "04", "title": "ls ~/talks", "sub": "recent · slides + video" },
+		"ping": { "label": "05", "title": "ping --help", "sub": "think I could help you crack a problem?" }
+	},
+	"topology": {
+		"cluster": "CLUSTER · sa-east-1",
+		"synced": "● synced",
+		"kubectlBar": "$ kubectl get pods --watch · 112 pods · 4 namespaces",
+		"p95": "p95 latency 38ms"
+	},
+	"doctrine": {
+		"manifestoTag": "MANIFESTO.md",
+		"manifestoP1Pre": "Platform engineering is ",
+		"manifestoP1Amber": "backstage work",
+		"manifestoP1Post": ". Usually, the less we're noticed and the more productive teams are, the better we're doing.",
+		"manifestoP2Pre": "The first platform team I worked with had this motto: ",
+		"manifestoP2Amber": "\"So Others May Live\"",
+		"manifestoP2Post": " — we do the complex stuff so others don't have to, we go where others wouldn't, to do what they wouldn't — without anyone noticing we exist.",
+		"manifestoP3Pre": "That's exactly what platform is — and it ties straight back to DevOps culture. At the end of the day, what I love most is helping other engineers solve problems ",
+		"manifestoP3Amber": ":)",
+		"manifestoP4": "TL;DR: if we can make the best path the easiest path, with the best tools, for everyone — our platform mission is accomplished.",
+		"sig": "— gd",
+		"sigDate": "last edited: today",
+		"roles": [
+			{
+				"tag": "ROLE 01",
+				"name": "DevOps",
+				"text": "DevOps to me is culture, not tooling or a job title. It's a daily habit: shortening the feedback loop between who builds and who runs, until both sides stop existing as sides. When dev and ops share the same pager, the code comes out different."
+			},
+			{
+				"tag": "ROLE 02",
+				"name": "SRE",
+				"text": "SRE is the engineer who treats operations as software: SLO before code, toil measured in hours, incident turning into postmortem and postmortem into real change. On-call is an excellent way to learn how systems actually work, find improvement opportunities and observability gaps."
+			},
+			{
+				"tag": "ROLE 03",
+				"name": "Platform Engineer",
+				"text": "That's when all of this turns into product: self-service, paved roads, abstractions that protect the dev without locking them in. Favorite metric: time others gained without noticing. The more invisible, the better."
+			}
+		]
+	},
+	"ping": {
+		"chrome": "CHALLENGES.txt",
+		"intro": "Platform is teamwork. If you want to swap notes, bring a talk to your team, or you've got a project that needs an extra brain — the inbox is open.",
+		"prompt": "$ ping gd ↗",
+		"ctas": [
+			{
+				"tag": "— BENCHMARK",
+				"title": "swap notes",
+				"desc": "chat about Platform Engineering / DevEx — how it's going on your team, what works, what hurts."
+			},
+			{
+				"tag": "— TALK",
+				"title": "bring a talk",
+				"desc": "have one of my talks at your team or event — Backstage, IDP, AI ops, RAG, observability."
+			},
+			{
+				"tag": "— BUILD",
+				"title": "partner on a project",
+				"desc": "got a project that needs an extra brain or hands-on work? call me in to design it together."
+			}
+		]
+	},
+	"talks": {
+		"section": { "label": "01", "title": "ls ~/talks", "sub": "recent · slides + video + audio" },
+		"kinds": { "video": "VIDEO", "audio": "AUDIO", "slides": "SLIDES", "talk": "TALK" },
+		"footerPrompt": "ls --all | wc -l →",
+		"footerEntries": "entries",
+		"footerLink": "↗ presentations (full list with inline previews)"
+	},
+	"about": {
+		"section": { "label": "01", "title": "cat ~/.about", "sub": "who's the operator" },
+		"imgLabel": "IMG · gd.jpg",
+		"subject": "SUBJECT · gabriel",
+		"shot": "F1.8 · SP/BR",
+		"p1Pre": "",
+		"p1Bold": "SRE at QuintoAndar",
+		"p1Mid": " for 5+ years. I work on observability (Grafana, Prometheus, Thanos, OTel, ELK) and DevEx through ",
+		"p1Bold2": "Backstage",
+		"p1Post": ". Before that I interned through ops, devops and infra. 6+ years in.",
+		"p2Pre": "The U.S. Coast Guard Rescue Swimmers' motto is ",
+		"p2Bold": "\"So Others May Live\"",
+		"p2Post": ". Platform is similar. We do the boring work so the product team can do theirs without tripping over yaml.",
+		"facts": [
+			{ "k": "$ uname", "v": "gdantas · sre @ quintoandar" },
+			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · otel · thanos" },
+			{ "k": "$ impact", "v": "−70% onboarding · IDP self-service · AI ops · RAG over infra" },
+			{ "k": "$ creds", "v": "Exam Contributor · Certified Backstage Associate" },
+			{ "k": "$ edu", "v": "FIAP · CS BSc + ML Eng grad + MBA AI Eng & Multi-agents" },
+			{ "k": "$ loc", "v": "Osasco · São Paulo · BR" }
+		],
+		"hobbies": "Off-hours: ML Eng grad school, MBA in AI Eng + Multi-agents, pastoral theology course. Mango Monster, a podcast on the train, a Friday-night ARAM."
+	},
+	"sidequests": {
+		"section": { "label": "01", "title": "ls ~/.sidequests", "sub": "what happens off business hours" },
+		"footerPromptPre": "ls -l | wc -l →",
+		"footerEntries": "quests",
+		"footerNote": "· new projects show up here as they leave the napkin",
+		"emConstrucao": "./under-construction",
+		"items": [
+			{
+				"tag": "PRINT",
+				"name": "3Dantas",
+				"prompt": "maker · 3d printing · sustainable hobby",
+				"tagline": "filament craft — made-to-order pieces + own line.",
+				"bodyP1": "3D printing brand running on a Bambu Lab A1 mini. Orders (custom Funkos, keychains, trophies, sensory toys) come via WhatsApp; in parallel, the Funkos Santos line lives in the catalog.",
+				"bodyP2": "Metric: sustainable hobby — operation pays for ≥50% of any reinvestment."
+			},
+			{
+				"tag": "FAITH",
+				"name": "Novarum",
+				"prompt": "volunteer work · tooling for ministries",
+				"tagline": "tooling for altar servers, EJC and Pascom — taking weight off logistics.",
+				"bodyP1": "Technical arm of my volunteer work in the Catholic Church. Building tools to replace spreadsheets + WhatsApp + improvised processes, so the ministry can focus on people, not logistics.",
+				"bodyP2": "Audience: altar servers (coroinhas), EJC (Youth Encounter with Christ), Pascom (Pastoral Communication). Near-zero hosting."
+			},
+			{
+				"tag": "MERCH",
+				"name": "DeployOu",
+				"prompt": "store · tech-themed t-shirts",
+				"tagline": "brazilian dev humor — DevOps puns on cotton.",
+				"bodyP1": "T-shirt brand via Reserva INK (no inventory management). Brazilian dev humor: Kubernetes, SRE, Cloud Native puns. Direct, ironic, complicit tone — talks to people who get the joke without explanation.",
+				"bodyP2": "Audience: devs, SREs, platform engineers — folks who laugh at their own field. Autopilot mode operation."
+			}
+		]
+	},
+	"writing": {
+		"section": { "label": "01", "title": "tail -f ~/.writing", "sub": "notes · medium · published" },
+		"prompt": "curl medium.com/feed/@_gdantas | parse-rss",
+		"colDate": "DATE",
+		"colStatus": "STATUS",
+		"colTitle": "TITLE",
+		"colTopic": "TOPIC",
+		"statusLive": "LIVE",
+		"emptyState": "Medium feed offline. New posts will show up here automatically.",
+		"footerPromptPre": "tail -f ~/.writing | wc -l →",
+		"footerEntries": "entries",
+		"footerNote": "· feed synced straight from medium/@_gdantas",
+		"readmePrompt": "cat README.txt",
+		"readmeBody": "Everything here is pulled at build time from the medium/@_gdantas RSS feed. Topics: AI ops, dev platform, observability, incident agents, RAG over infra. Every new Medium post shows up in this list automatically."
+	},
+	"timeline": {
+		"section": { "label": "01", "title": "git log --career", "sub": "commits that matter" },
+		"head": "HEAD",
+		"footerPromptPre": "git log --oneline | wc -l →",
+		"footerCommits": "commits",
+		"footerNote": "· learning rate compounding",
+		"closingPrompt": "git log --career --pretty=oneline"
+	},
+	"projects": {
+		"section": { "label": "01", "title": "kubectl get projects", "sub": "open source · side-projects · experiments" },
+		"footerPromptPre": "kubectl get projects | wc -l →",
+		"footerPods": "pods",
+		"inspect": "./inspect ↗"
+	},
+	"links": {
+		"section": { "label": "01", "title": "ls ~/.links", "sub": "shortcuts to the channels" },
+		"kinds": { "video": "VIDEO", "code": "CODE", "pro": "PRO", "write": "WRITE", "mail": "MAIL", "link": "LINK" },
+		"footerPromptPre": "ls ~/.links | wc -l →",
+		"footerEntries": "entries"
+	},
+	"status": {
+		"section": { "label": "01", "title": "systemctl status", "sub": "discord presence + now playing" }
+	},
+	"footer": {
+		"prompt": "echo $SIGN",
+		"baseValue": "Osasco / São Paulo · BR",
+		"contactLabel": "./contact"
+	},
+	"notFound": {
+		"prompt": "cat /var/log/access.log | grep 404",
+		"title": "route not found",
+		"description": "This path doesn't exist in the system — might have been renamed, removed, or never existed in the first place.",
+		"suggestedTitle": "./suggested-routes",
+		"exitPrompt": "exit 404"
+	},
+	"errorPage": {
+		"prompt": "tail -f /var/log/error.log",
+		"title": "something broke",
+		"description": "Not your fault. It's on our side. We're already investigating — try again in a bit.",
+		"back": "← back",
+		"home": "cd ~"
+	},
+	"go": {
+		"section": { "label": "01", "title": "ls ~/.shortcuts", "sub": "url shortener as code · /go/<slug>" },
+		"colSlug": "SLUG",
+		"colLabel": "LABEL",
+		"colUrl": "URL",
+		"footerPromptPre": "ls ~/.shortcuts | wc -l →",
+		"footerEntries": "shortcuts",
+		"footerNote": "· defined in data/shortcuts.yaml"
+	}
+}
