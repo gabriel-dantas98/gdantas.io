@@ -43,10 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	useEffectOnce(() => {
 		router.events.on('routeChangeStart', () => NProgress.start());
-		router.events.on('routeChangeComplete', () => {
-			NProgress.done();
-			posthog.capture('$pageview');
-		});
+		router.events.on('routeChangeComplete', () => NProgress.done());
 		router.events.on('routeChangeError', () => NProgress.done());
 
 		// GSAP via dynamic import — substitui o <Script> CDN bloqueante.
@@ -84,7 +81,6 @@ export default function App({ Component, pageProps }: AppProps) {
 				api_host: 'https://us.i.posthog.com',
 				ui_host: 'https://us.posthog.com',
 				defaults: '2026-01-30',
-				capture_pageview: false,
 				capture_exceptions: true,
 				person_profiles: 'identified_only',
 				debug: process.env.NODE_ENV === 'development',
