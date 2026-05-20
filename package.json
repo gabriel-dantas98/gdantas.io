@@ -30,7 +30,10 @@
     "lint": "next lint",
     "type-check": "tsc",
     "format": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx,vue}\"",
-    "i18n:check": "tsx scripts/i18n-check.ts"
+    "i18n:check": "tsx scripts/i18n-check.ts",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:install": "playwright install --with-deps chromium"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
@@ -76,6 +79,7 @@
     "windicss": "^3.5.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/canvas-confetti": "^1.4.2",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^16.10.1",
@@ -89,6 +93,7 @@
     "next-sitemap": "^2.5.4",
     "node-fetch": "^3.2.10",
     "prettier": "^2.4.1",
+    "serve": "^14.2.6",
     "ts-shader-loader": "^1.0.6",
     "tsx": "^4.22.2",
     "typescript": "^4.4.3",

@@ -1,5 +1,6 @@
 [
 	{
+		"slug": "idp-portals",
 		"title": "DevOps Summit Bluepprint 2025 - ESCALANDO ENGENHARIA COM PORTAIS INTERNOS (IDP's): NAVEGABILIDADE, AUTONOMIA E GOVERNANÇA",
 		"icon": "feather:book",
 		"color": "#4568dc",
@@ -13,6 +14,7 @@
 		}
 	},
 	{
+		"slug": "flaky-to-confident",
 		"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -26,6 +28,7 @@
 		}
 	},
 	{
+		"slug": "cursor-mcp-db",
 		"title": "Platform Days 2025 - Trazendo o banco de dados para dentro da IDE com Cursor e MCP: Consultas em produção sem medo",
 		"icon": "feather:book",
 		"color": "#7b50ad",
@@ -40,6 +43,7 @@
 		}
 	},
 	{
+		"slug": "incident-mcps",
 		"title": "DevPR Config 2025 - especial 10 anos - Criando seu Assistente de Incidentes com MCP's",
 		"icon": "feather:book",
 		"color": "#15a04d",
@@ -54,6 +58,7 @@
 		}
 	},
 	{
+		"slug": "rag-idp",
 		"title": "Platform Days 2025 - Construindo um RAG com dados do seu Internal Developer Portal",
 		"icon": "feather:book",
 		"color": "#51f086",
@@ -68,6 +73,7 @@
 		}
 	},
 	{
+		"slug": "qa-idp",
 		"title": "Discover QuintoAndar's IDP - Platform Talks",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -80,6 +86,7 @@
 		}
 	},
 	{
+		"slug": "comunidade-backstage",
 		"title": "Comunidade DevOps - Backstage - construindo seu Internal Developer Portal",
 		"icon": "feather:book",
 		"color": "#9b59b6",
@@ -92,6 +99,7 @@
 		}
 	},
 	{
+		"slug": "backstage-tf",
 		"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
 		"icon": "feather:book",
 		"color": "#ffba00",
@@ -105,6 +113,7 @@
 		}
 	},
 	{
+		"slug": "tech-leadership-rocks",
 		"title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
 		"icon": "feather:headphones",
 		"color": "#1ed760",
@@ -117,6 +126,7 @@
 		}
 	},
 	{
+		"slug": "idp-backstage",
 		"title": "Tech Talk -  Como desenvolvemos o developer portal usando o Backstage.io",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -130,6 +140,7 @@
 		}
 	},
 	{
+		"slug": "carreira-sre",
 		"title": "Carreira SRE: com Daniel Requena SRE no Ifood, Gabriel Dantas SRE no Quinto Andar e Bruno Pereira",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -143,6 +154,7 @@
 		}
 	},
 	{
+		"slug": "quintocast-backstage",
 		"title": "QuintoCast - Backstage: Tornando a Engenharia do QuintoAndar navegável",
 		"icon": "feather:headphones",
 		"color": "#1ed760",
@@ -154,6 +166,7 @@
 		}
 	},
 	{
+		"slug": "jornada-devops",
 		"title": "Jornada DevOps: História e Prática",
 		"icon": "feather:book",
 		"color": "#ffba00",

@@ -16,6 +16,7 @@ import { I18nProvider, useT } from '~/lib/i18n';
 
 
 interface PresentationItemRaw {
+	slug?: string;
 	title: string;
 	icon: string;
 	color: string;
@@ -348,10 +349,12 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 						return (
 							<article
 								key={`${p.title}-${i}`}
+								id={p.slug}
 								style={{
 									border: `1px solid ${OP.rule}`,
 									background: 'rgba(17,14,27,0.65)',
 									padding: '22px 26px',
+									scrollMarginTop: 80,
 								}}>
 								<header
 									style={{
