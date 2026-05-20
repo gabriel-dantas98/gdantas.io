@@ -1,0 +1,30 @@
+# Encurtador as code — cada entrada vira /go/<slug> com redirect SSG.
+# Slug: [a-z0-9][a-z0-9-]{0,32}. URL absoluta ou caminho interno (começa com /).
+# Convenção: prefira slugs curtos e memoráveis. Quando adicionar, rode
+# `yarn build` localmente pra validar antes do PR.
+
+links:
+    - slug: gh
+      url: https://github.com/gabriel-dantas98
+      label: github · @gabriel-dantas98
+    - slug: li
+      url: https://www.linkedin.com/in/gabrieldantasg/
+      label: linkedin · gabrieldantasg
+    - slug: medium
+      url: https://medium.com/@_gdantas
+      label: medium · @_gdantas
+    - slug: cal
+      url: https://cal.com/gdantas/30min
+      label: cal · café virtual 30min
+    - slug: deployou
+      url: https://www.reserva.ink/deployou
+      label: DeployOu · Reserva INK storefront
+    - slug: 3dantas
+      url: https://www.3dantas.com.br
+      label: 3Dantas · site de impressão 3D
+    - slug: talks
+      url: /talks
+      label: ↗ /talks
+    - slug: ig-deployou
+      url: https://www.instagram.com/deployou
+      label: instagram · @deployou

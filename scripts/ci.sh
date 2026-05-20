@@ -28,6 +28,10 @@ echo "📦 Installing dependencies..."
 $MANAGER $COMMAND
 
 echo ""
+echo "🌐 Checking i18n key parity (pt vs en)..."
+$RUNNER tsx scripts/i18n-check.ts || $RUNNER ts-node scripts/i18n-check.ts
+
+echo ""
 echo "🏗️  Building with Next.js..."
 $RUNNER next build
 

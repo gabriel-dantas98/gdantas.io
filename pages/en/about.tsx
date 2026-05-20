@@ -1,4 +1,4 @@
 import { AboutPage } from '~/components/pages/AboutPage';
 export default function Page() {
-	return <AboutPage locale="pt" />;
+	return <AboutPage locale="en" />;
 }

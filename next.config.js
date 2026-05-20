@@ -93,6 +93,26 @@ const config = {
 			use: ['ts-shader-loader'],
 		});
 
+		// remark-prism transitively imports jsdom → https-proxy-agent → net/tls.
+		// Those are Node-only modules that end up in the client bundle when
+		// components/pages/*Page.tsx re-exports getStaticProps. Stub them.
+		if (!isServer) {
+			config.resolve.fallback = {
+				...(config.resolve.fallback || {}),
+				net: false,
+				tls: false,
+				fs: false,
+				child_process: false,
+				dns: false,
+				http2: false,
+				stream: false,
+				crypto: false,
+				zlib: false,
+				path: false,
+				os: false,
+			};
+		}
+
 		return config;
 	},
 };

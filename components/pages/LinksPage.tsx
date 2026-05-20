@@ -1,0 +1,149 @@
+import React from 'react';
+import type { GetStaticProps } from 'next';
+import posthog from 'posthog-js';
+
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
+import linktreeData from '~/data/linktree.json';
+import { I18nProvider, useT } from '~/lib/i18n';
+
+interface LinkItem {
+	title: string;
+	icon: string;
+	color: string;
+	description: string;
+	url: string;
+}
+
+interface LinksProps {
+	links: LinkItem[];
+}
+
+export const getStaticProps: GetStaticProps<LinksProps> = async () => {
+	return { props: { links: linktreeData as LinkItem[] } };
+};
+
+// Mapeia o feather icon original pra um tag visual no formato terminal.
+function kindOf(icon: string, t: (k: string) => string): { tag: string; color: string } {
+	if (icon.includes('youtube')) return { tag: t('links.kinds.video'), color: OP.pager };
+	if (icon.includes('github')) return { tag: t('links.kinds.code'), color: OP.amber };
+	if (icon.includes('linkedin')) return { tag: t('links.kinds.pro'), color: OP.violet };
+	if (icon.includes('book')) return { tag: t('links.kinds.write'), color: OP.ok };
+	if (icon.includes('mail')) return { tag: t('links.kinds.mail'), color: OP.amber };
+	return { tag: t('links.kinds.link'), color: OP.dim };
+}
+
+function isInternal(url: string) {
+	return url.startsWith('/');
+}
+
+export function LinksPage({ links, locale = 'pt' }: LinksProps & { locale?: 'pt' | 'en' }) {
+	return (
+		<I18nProvider locale={locale}>
+			<LinksPageInner links={links} />
+		</I18nProvider>
+	);
+}
+
+function LinksPageInner({ links }: { links: LinkItem[] }) {
+	const t = useT();
+	const ref = useReveal({ stagger: 0.05, y: 16 });
+	return (
+		<OperatorPage
+			title="gdantas ─ ls ~/.links"
+			description="Linktree: talks, GitHub, LinkedIn, Medium, projetos do Gabriel Dantas."
+			active="/">
+			<div ref={ref}>
+				<Sec
+					label={t('links.section.label')}
+					title={t('links.section.title')}
+					sub={t('links.section.sub')}
+				/>
+
+				<div
+					style={{
+						marginTop: 28,
+						display: 'grid',
+						gap: 10,
+						maxWidth: 640,
+					}}>
+					{links.map((l) => {
+						const k = kindOf(l.icon, t);
+						return (
+							<a
+								key={l.url}
+								href={l.url}
+								{...(isInternal(l.url)
+									? {}
+									: { target: '_blank', rel: 'noreferrer noopener' })}
+								className="op-link-row"
+								onClick={() => posthog.capture('link_clicked', { link_title: l.title, link_type: k.tag })}
+								style={{
+									display: 'grid',
+									gridTemplateColumns: '60px 1fr 60px',
+									gap: 14,
+									alignItems: 'center',
+									padding: '14px 18px',
+									border: `1px solid ${OP.rule2}`,
+									background: OP.bg2,
+									textDecoration: 'none',
+									color: OP.fg,
+									minHeight: 56,
+									transition: 'border-color 120ms ease, background 120ms ease',
+								}}>
+								<span
+									style={{
+										fontFamily: OP.font,
+										fontSize: 10,
+										color: k.color,
+										letterSpacing: '0.12em',
+										border: `1px solid ${k.color}`,
+										padding: '3px 8px',
+										textAlign: 'center',
+									}}>
+									{k.tag}
+								</span>
+								<span
+									style={{
+										fontFamily: OP.font,
+										fontSize: 15,
+										color: OP.fg,
+										overflow: 'hidden',
+										textOverflow: 'ellipsis',
+										whiteSpace: 'nowrap',
+									}}>
+									{l.title}
+								</span>
+								<span
+									style={{
+										fontFamily: OP.font,
+										fontSize: 12,
+										color: k.color,
+										letterSpacing: '0.08em',
+										textAlign: 'right',
+									}}>
+									{isInternal(l.url) ? '→' : '↗'}
+								</span>
+							</a>
+						);
+					})}
+				</div>
+
+				<div style={{ marginTop: 28, fontSize: 13, maxWidth: 640 }}>
+					<Prompt path="~">
+						{t('links.footerPromptPre')}{' '}
+						<span style={{ color: OP.amber }}>
+							{links.length} {t('links.footerEntries')}
+						</span>
+					</Prompt>
+				</div>
+			</div>
+
+			<style jsx>{`
+				:global(.op-link-row:hover) {
+					border-color: ${OP.amber} !important;
+					background: ${OP.bg3} !important;
+				}
+			`}</style>
+		</OperatorPage>
+	);
+}

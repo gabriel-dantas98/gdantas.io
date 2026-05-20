@@ -6,6 +6,7 @@ import { NextSeo } from 'next-seo';
 import { OP } from './tokens';
 import { OperatorHeader } from './Header';
 import { OperatorFooter } from './Footer';
+import { stripLocale, withLocale, useI18n } from '~/lib/i18n';
 
 interface OperatorPageProps {
 	title: string;
@@ -31,7 +32,13 @@ export function OperatorPage({
 	children,
 }: OperatorPageProps) {
 	const router = useRouter();
+	const { locale } = useI18n();
 	const url = `${SITE_URL}${router.asPath === '/' ? '' : router.asPath}`;
+	// hreflang alternates: canonical PT (sem prefix), EN com /en/, x-default = PT.
+	const canonicalPath = stripLocale(router.asPath);
+	const ptUrl = `${SITE_URL}${canonicalPath === '/' ? '' : canonicalPath}`;
+	const enPath = withLocale(canonicalPath, 'en');
+	const enUrl = `${SITE_URL}${enPath}`;
 
 	return (
 		<>
@@ -44,6 +51,7 @@ export function OperatorPage({
 					title,
 					description,
 					url,
+					locale: locale === 'en' ? 'en_US' : 'pt_BR',
 					type: 'website',
 					site_name: 'gdantas',
 					images: [
@@ -55,6 +63,11 @@ export function OperatorPage({
 					handle: '@gdantas',
 					site: '@gdantas',
 				}}
+				languageAlternates={[
+					{ hrefLang: 'pt-BR', href: ptUrl },
+					{ hrefLang: 'en', href: enUrl },
+					{ hrefLang: 'x-default', href: ptUrl },
+				]}
 				additionalMetaTags={[
 					{ name: 'theme-color', content: OP.bg },
 					{ name: 'author', content: 'Gabriel Dantas' },

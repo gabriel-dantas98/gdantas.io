@@ -24,3 +24,4 @@ export { OperatorFooter } from './Footer';
 export { OperatorPage } from './Layout';
 export { MobileMenuDrawer } from './MobileMenuDrawer';
 export { PreviewModal } from './PreviewModal';
+export { LangSwitcher } from './LangSwitcher';

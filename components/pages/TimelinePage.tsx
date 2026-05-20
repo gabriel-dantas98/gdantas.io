@@ -1,0 +1,181 @@
+import React from 'react';
+import type { GetStaticProps } from 'next';
+
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
+import type { Timeline, TimelineEvent } from '~/types';
+import timelineData from '~/data/timeline.json';
+import { I18nProvider, useT } from '~/lib/i18n';
+
+// Parse MM-dd-yyyy → ISO date sem precisar puxar date-fns inteiro.
+// Mais ~10KB cortado do bundle da timeline.
+function parseMmDdYyyy(s: string): Date {
+	const [m, d, y] = s.split('-').map(Number);
+	return new Date(Date.UTC(y, m - 1, d));
+}
+
+function fmtYearMonth(d: Date): string {
+	const y = d.getUTCFullYear();
+	const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+	return `${y}-${m}`;
+}
+
+
+interface TimelineProps {
+	timeline: Timeline;
+}
+
+export const getStaticProps: GetStaticProps<TimelineProps> = async () => {
+	const timeline = (timelineData as TimelineEvent[])
+		.slice()
+		.sort((a, b) => +new Date(b.date) - +new Date(a.date));
+	return { props: { timeline } };
+};
+
+// Deterministic short hash so each commit gets a stable "git log" sha.
+function shaFromTitle(title: string) {
+	let h = 0;
+	for (let i = 0; i < title.length; i += 1) h = (h * 33 + title.charCodeAt(i)) >>> 0;
+	return h.toString(16).padStart(7, '0').slice(0, 7);
+}
+
+export function TimelinePage({ timeline: rawTimeline, locale = 'pt' }: TimelineProps & { locale?: 'pt' | 'en' }) {
+	return (
+		<I18nProvider locale={locale}>
+			<TimelinePageInner timeline={rawTimeline} />
+		</I18nProvider>
+	);
+}
+
+function TimelinePageInner({ timeline: rawTimeline }: { timeline: Timeline }) {
+	const t = useT();
+	const ref = useReveal({ stagger: 0.05, y: 16 });
+	const timeline = rawTimeline.map((event) => ({
+		...event,
+		_date: parseMmDdYyyy(event.date.toString()),
+	}));
+
+	return (
+		<OperatorPage
+			title="gdantas ─ git log --career"
+			description="Commits da carreira — empresas, papéis e marcos."
+			active="/timeline">
+			<div ref={ref}>
+				<Sec
+					label={t('timeline.section.label')}
+					title={t('timeline.section.title')}
+					sub={t('timeline.section.sub')}
+				/>
+
+				<div
+					className="op-timeline-card"
+					style={{
+						marginTop: 28,
+						border: `1px solid ${OP.rule}`,
+						background: 'rgba(17,14,27,0.65)',
+						padding: '24px 28px',
+						fontFamily: OP.font,
+						fontSize: 13,
+						lineHeight: 1.6,
+						color: OP.fg,
+						overflow: 'hidden',
+					}}>
+					{timeline.map((event, i) => {
+						const isHead = i === 0;
+						return (
+							<div
+								key={event.title}
+								className="op-timeline-row"
+								style={{
+									display: 'grid',
+									gridTemplateColumns: '120px 1fr',
+									gap: 18,
+									paddingBottom: 14,
+									marginBottom: 14,
+									borderBottom:
+										i === timeline.length - 1 ? 'none' : `1px dashed ${OP.rule}`,
+								}}>
+								<div>
+									<div style={{ color: OP.amber }}>{shaFromTitle(event.title)}</div>
+									<div style={{ color: OP.dim, fontSize: 11, marginTop: 2 }}>
+										{fmtYearMonth(event._date)}
+									</div>
+								</div>
+								<div>
+									<div>
+										<span style={{ color: OP.fg }}>{event.title}</span>
+										{isHead && (
+											<span
+												style={{
+													marginLeft: 10,
+													fontSize: 10,
+													padding: '2px 6px',
+													border: `1px solid ${OP.ok}`,
+													color: OP.ok,
+													letterSpacing: '0.1em',
+												}}>
+												{t('timeline.head')}
+											</span>
+										)}
+									</div>
+									<div
+										style={{
+											fontFamily: OP.sans,
+											fontSize: 14,
+											color: OP.fg,
+											opacity: 0.85,
+											marginTop: 4,
+											whiteSpace: 'pre-line',
+										}}>
+										{event.description}
+									</div>
+									{event.link && (
+										<a
+											href={event.link.url}
+											target="_blank"
+											rel="noreferrer noopener"
+											style={{
+												display: 'inline-block',
+												marginTop: 8,
+												fontFamily: OP.font,
+												fontSize: 11,
+												color: OP.violet,
+												border: `1px solid ${OP.violet}`,
+												padding: '3px 9px',
+												textDecoration: 'none',
+												letterSpacing: '0.08em',
+											}}>
+											{event.link.text} ↗
+										</a>
+									)}
+								</div>
+							</div>
+						);
+					})}
+					<div style={{ color: OP.dim, fontSize: 12 }}>
+						{t('timeline.footerPromptPre')}{' '}
+						<span style={{ color: OP.amber }}>
+							{timeline.length} {t('timeline.footerCommits')}
+						</span>{' '}
+						{t('timeline.footerNote')}
+					</div>
+				</div>
+
+				<div style={{ marginTop: 28, fontSize: 13 }}>
+					<Prompt path="~">{t('timeline.closingPrompt')}</Prompt>
+				</div>
+			</div>
+
+			<style jsx global>{`
+				@media (max-width: 640px) {
+					.op-timeline-card {
+						padding: 18px 16px !important;
+					}
+					.op-timeline-row {
+						grid-template-columns: 1fr !important;
+						gap: 6px !important;
+					}
+				}
+			`}</style>
+		</OperatorPage>
+	);
+}
