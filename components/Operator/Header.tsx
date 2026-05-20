@@ -13,6 +13,7 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
+	{ labelKey: 'nav.home', href: '/' },
 	{ labelKey: 'nav.about', href: '/about' },
 	{ labelKey: 'nav.career', href: '/timeline' },
 	{ labelKey: 'nav.doctrine', href: '/doctrine' },
