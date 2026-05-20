@@ -137,6 +137,22 @@ export default function Page(props: any) {
 }
 ```
 
+## PostHog — métricas funcionais sempre
+
+Instrumentação PostHog é **first-class** no repo, não afterthought. Cada interação relevante do usuário (clique em talk, projeto, link, CTA, contato, preview de presentation) dispara um `posthog.capture(...)` com props estruturadas. Pageviews automáticos via `_app.tsx`.
+
+### Regras
+
+- **Não remova nem renomeie eventos existentes** sem motivo declarado no PR. Nomes de evento e props formam contrato com dashboards/insights no PostHog — renomear quebra histórico silenciosamente.
+- **Toda nova interação clicável visível pro usuário deve capturar evento**. Padrão de nome: `<noun>_<verb_past>` (ex: `talk_clicked`, `cta_clicked`, `contact_link_clicked`). Props em snake_case com contexto suficiente pra segmentar (título, slug, tipo, etc).
+- **Ao mexer num componente que já tem `posthog.capture`**: confira se o evento ainda dispara depois da sua mudança (não esconda atrás de modal, não troque `onClick` por handler que esquece de chamar).
+- **Não envie PII** em props (email, nome real, telefone). Identificadores públicos (slug, título de talk) ok.
+- Refatorações que mudam estrutura de eventos exigem nota no PR: lista de eventos afetados + impacto em insights existentes.
+
+### Eventos atuais (referência rápida)
+
+`talk_clicked`, `talk_card_clicked`, `presentation_played`, `presentation_src_opened`, `project_clicked`, `writing_post_opened`, `link_clicked`, `cta_clicked`, `contact_link_clicked`.
+
 ## Commit / PR
 
 - Branches: `feat/<nome-kebab>`, `fix/<nome-kebab>`, `chore/<nome-kebab>`.
