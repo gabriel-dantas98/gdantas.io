@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { OP } from './tokens';
 
@@ -14,21 +14,57 @@ export type Talk = {
 	slides?: number;
 	youtubeId?: string;
 	slidesEmbed?: string;
+	canvaEmbed?: string;
+	pdfUrl?: string;
 	href: string;
 	links: Array<[string, string]>;
 };
 
-// Preview "CRT frame" usado no home: thumbnail YouTube quando disponível,
-// senão placeholder estilizado pra slides. O embed real fica em /presentations
-// (pra não baixar megabytes de iframes Google Slides no home).
+// IntersectionObserver pra montar iframes só quando o card chega perto da
+// viewport. Evita baixar megabytes de embed Google Slides/Canva/PDF no LCP.
+function useNearViewport<T extends HTMLElement>(margin = '300px') {
+	const ref = useRef<T | null>(null);
+	const [near, setNear] = useState(false);
+	useEffect(() => {
+		if (near || !ref.current || typeof IntersectionObserver === 'undefined') return;
+		const el = ref.current;
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						setNear(true);
+						io.disconnect();
+						return;
+					}
+				}
+			},
+			{ rootMargin: margin },
+		);
+		io.observe(el);
+		return () => io.disconnect();
+	}, [near, margin]);
+	return { ref, near };
+}
+
+// Preview "CRT frame" usado no home. Renderiza:
+// - youtubeId → thumb leve (img.youtube.com)
+// - slidesEmbed/canvaEmbed/pdfUrl → iframe lazy (só monta quando perto da
+//   viewport, via IntersectionObserver)
+// - senão → texto do preview
+//
+// Iframe fica com pointer-events:none pro clique propagar pro <a> que envolve
+// o card (vai pra /presentations#slug).
 export function TalkPreview({ talk }: { talk: Talk }) {
 	const isVideo = talk.kind === 'video';
 	const accent = isVideo ? OP.ok : OP.amber;
 	const thumb = talk.youtubeId
 		? `https://img.youtube.com/vi/${talk.youtubeId}/hqdefault.jpg`
 		: null;
+	const embed = talk.slidesEmbed || talk.canvaEmbed || talk.pdfUrl || null;
+	const { ref: hostRef, near } = useNearViewport<HTMLDivElement>();
 	return (
-        <div
+		<div
+			ref={hostRef}
 			style={{
 				aspectRatio: '16/9',
 				background: '#06080a',
@@ -36,9 +72,9 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 				borderBottom: `1px solid ${OP.rule2}`,
 				overflow: 'hidden',
 			}}>
-            {thumb && (
+			{thumb && (
 				// eslint-disable-next-line @next/next/no-img-element
-				(<img
+				<img
 					src={thumb}
 					alt={talk.title}
 					loading="lazy"
@@ -50,9 +86,27 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 						objectFit: 'cover',
 						filter: 'brightness(0.55) saturate(0.8)',
 					}}
-				/>)
+				/>
 			)}
-            {!thumb && talk.slidesEmbed && (
+			{!thumb && embed && near && (
+				<iframe
+					src={embed}
+					title={talk.title}
+					loading="lazy"
+					allow="autoplay; encrypted-media; fullscreen"
+					sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
+					style={{
+						position: 'absolute',
+						inset: 0,
+						width: '100%',
+						height: '100%',
+						border: 'none',
+						pointerEvents: 'none',
+						filter: 'brightness(0.85)',
+					}}
+				/>
+			)}
+			{!thumb && embed && !near && (
 				<div
 					style={{
 						position: 'absolute',
@@ -65,19 +119,19 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 						fontSize: 11,
 						letterSpacing: '0.1em',
 					}}>
-					[ ./slides ↗ ]
+					[ ./loading ↗ ]
 				</div>
 			)}
-            <div
+			<div
 				style={{
 					position: 'absolute',
 					inset: 0,
-					opacity: thumb || talk.slidesEmbed ? 0.4 : 0.6,
+					opacity: thumb || embed ? 0.35 : 0.6,
 					backgroundImage: `repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(255,255,255,0.025) 2px 3px), radial-gradient(ellipse at center, ${accent}11 0%, transparent 65%)`,
 					pointerEvents: 'none',
 				}}
 			/>
-            <div
+			<div
 				style={{
 					position: 'absolute',
 					top: 0,
@@ -103,7 +157,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 					{isVideo ? '▸ video' : '▤ deck'}
 				</span>
 			</div>
-            {!thumb && !talk.slidesEmbed && (
+			{!thumb && !embed && (
 				<div
 					style={{
 						position: 'absolute',
@@ -123,7 +177,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 					</div>
 				</div>
 			)}
-            <div
+			<div
 				style={{
 					position: 'absolute',
 					left: 0,
@@ -141,7 +195,7 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 				<span>{talk.date}</span>
 				<span>{talk.runtime || (isVideo ? '—:—' : `${talk.slides || '∞'} slides`)}</span>
 			</div>
-            <div
+			<div
 				style={{
 					position: 'absolute',
 					right: 18,
@@ -159,6 +213,6 @@ export function TalkPreview({ talk }: { talk: Talk }) {
 				}}>
 				{isVideo ? '▶' : '↗'}
 			</div>
-        </div>
-    );
+		</div>
+	);
 }

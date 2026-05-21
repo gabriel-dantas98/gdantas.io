@@ -58,6 +58,7 @@ const TALKS: Talk[] = [
 		title: 'Escalando engenharia com Internal Developer Portals: navegabilidade, autonomia e governança',
 		preview: 'idp.scale = navigability + autonomy + governance',
 		slides: 64,
+		canvaEmbed: 'https://www.canva.com/design/DAG1K_yOuwc/HOCw_nGAM77blCVRM9XRNw/view?embed',
 		href: 'https://www.canva.com/design/DAG1K_yOuwc/HOCw_nGAM77blCVRM9XRNw/edit',
 		links: [['canva', 'slides ↗']],
 	},
@@ -83,6 +84,7 @@ const TALKS: Talk[] = [
 		title: 'Trazendo o banco de dados para dentro da IDE com Cursor + MCP',
 		preview: '$ cursor + mcp postgres → consultas em prod sem medo',
 		slides: 38,
+		pdfUrl: 'https://drive.google.com/file/d/1Jk8cweq_AKYDymIbmPwheR5PBAmRxODh/preview',
 		href: 'https://github.com/gfranco9/Platform-Days-Database-MCP',
 		links: [
 			['drive', 'slides ↗'],
@@ -690,7 +692,18 @@ function HomePageInner() {
 						sub={t('sections.talks.sub')}
 					/>
 					<div className={styles.talksGrid} style={{ marginTop: 28 }}>
-						{TALKS.map((tk) => (
+						{TALKS.map((rawTk) => {
+							// Talks são listadas estaticamente em PT no array TALKS, mas
+							// title/preview têm chaves por slug em locales/* pra suporte EN.
+							// Fallback pro original quando a chave não existe.
+							const i18nTitle = t(`talks.home.${rawTk.slug}.title`);
+							const i18nPreview = t(`talks.home.${rawTk.slug}.preview`);
+							const tk = {
+								...rawTk,
+								title: i18nTitle.startsWith('talks.home.') ? rawTk.title : i18nTitle,
+								preview: i18nPreview.startsWith('talks.home.') ? rawTk.preview : i18nPreview,
+							};
+							return (
 							<a
 								key={tk.slug}
 								href={`/presentations#${tk.slug}`}
@@ -758,7 +771,8 @@ function HomePageInner() {
 									</div>
 								</div>
 							</a>
-						))}
+							);
+						})}
 					</div>
 					<div style={{ marginTop: 22, fontSize: 13, color: OP.dim }}>
 						<Prompt path="~/talks">ls --all</Prompt>{' '}

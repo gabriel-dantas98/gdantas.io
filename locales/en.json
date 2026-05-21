@@ -99,7 +99,41 @@
 		"kinds": { "video": "VIDEO", "audio": "AUDIO", "slides": "SLIDES", "talk": "TALK" },
 		"footerPrompt": "ls --all | wc -l →",
 		"footerEntries": "entries",
-		"footerLink": "↗ presentations (full list with inline previews)"
+		"footerLink": "↗ presentations (full list with inline previews)",
+		"home": {
+			"idp-portals": {
+				"title": "Scaling engineering with Internal Developer Portals: navigability, autonomy and governance",
+				"preview": "idp.scale = navigability + autonomy + governance"
+			},
+			"flaky-to-confident": {
+				"title": "Building with AI: from flaky to confident releases",
+				"preview": "flaky_tests → genai → root-cause → suggested-fix"
+			},
+			"cursor-mcp-db": {
+				"title": "Bringing the database into the IDE with Cursor + MCP",
+				"preview": "$ cursor + mcp postgres → prod queries, no fear"
+			},
+			"incident-mcps": {
+				"title": "Building your incident assistant with MCPs",
+				"preview": "oncall.assistant = pager + mcp + runbooks + 🤖"
+			},
+			"rag-idp": {
+				"title": "Building a RAG with data from your Internal Developer Portal",
+				"preview": "rag(idp.catalog) → answers about your own infra"
+			},
+			"qa-idp": {
+				"title": "Discover QuintoAndar's IDP",
+				"preview": "idp.case = quintoandar / backstage"
+			},
+			"backstage-tf": {
+				"title": "Backstage 💙 Terraform",
+				"preview": "backstage.scaffolder + terraform = paved road"
+			},
+			"idp-backstage": {
+				"title": "How we built our developer portal using Backstage.io",
+				"preview": "backstage.io → dev portal at QA"
+			}
+		}
 	},
 	"about": {
 		"section": { "label": "01", "title": "cat ~/.about", "sub": "who's the operator" },
