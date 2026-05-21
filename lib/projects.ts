@@ -46,7 +46,7 @@ export async function fetchProjects(): Promise<Array<Project> | null> {
 			if (repo.archived) return null;
 
 			// Strip the emoji suffix from the repo description
-			const trimmedDescription = repo.description.split(' ');
+			const trimmedDescription = (repo.description ?? '').split(' ');
 			trimmedDescription.shift();
 			const description = trimmedDescription.join(' ');
 

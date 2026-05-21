@@ -24,6 +24,7 @@ import {
 	MobileMenuDrawer,
 	type Talk,
 } from '~/components/Operator';
+import { LangSwitcher } from '~/components/Operator/LangSwitcher';
 import styles from '../../pages/home.module.css';
 import { I18nProvider, useT } from '~/lib/i18n';
 
@@ -178,9 +179,9 @@ const STACK: Array<[string, string]> = [
 ];
 
 const CTA_META: Array<{ href: string; color: string }> = [
-	{ href: 'https://cal.com/gdantas/30min', color: OP.amber },
+	{ href: 'https://www.linkedin.com/in/gabrieldantasg/', color: OP.amber },
 	{ href: 'https://www.linkedin.com/in/gabrieldantasg/', color: OP.violet },
-	{ href: 'https://github.com/gabriel-dantas98', color: OP.pager },
+	{ href: 'https://www.linkedin.com/in/gabrieldantasg/', color: OP.pager },
 ];
 
 const CONTACTS = [
@@ -371,10 +372,13 @@ function HomePageInner() {
 							</Link>
 						))}
 					</div>
-					<MobileMenuDrawer
-						items={topbarLinks.map(([label, href]) => ({ label, href }))}
-						topOffset={0}
-					/>
+					<div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+						<LangSwitcher />
+						<MobileMenuDrawer
+							items={topbarLinks.map(([label, href]) => ({ label, href }))}
+							topOffset={0}
+						/>
+					</div>
 				</div>
 
 				{/* HERO */}
