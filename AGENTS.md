@@ -170,6 +170,17 @@ Instrumentação PostHog é **first-class** no repo, não afterthought. Cada int
 - Não suba slug novo no `shortcuts.yaml` sem rodar `yarn build` antes.
 - Não suba commits que não passam no `yarn type-check`.
 
+## Hook automático — check-runs do PR
+
+Existe um hook `PostToolUse:Bash` em `.claude/settings.json` que após **todo `git push`** real (não `--dry-run`) detecta o PR aberto da branch atual e fica em `gh pr checks <pr> --watch` até concluir. Reporta ✅/❌ no final.
+
+- Script: `scripts/post-push-check.sh`.
+- Requer `gh` CLI autenticado.
+- Não bloqueia o fluxo (`exit 0` sempre).
+- Se a branch não tem PR aberto, skip silencioso.
+
+Pra pushar sem esperar, remova o bloco `hooks` de `.claude/settings.json` temporariamente.
+
 ## Comandos úteis
 
 ```bash
