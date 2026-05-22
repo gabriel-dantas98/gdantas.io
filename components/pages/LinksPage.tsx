@@ -59,15 +59,10 @@ function LinksPageInner({ links }: { links: LinkItem[] }) {
 					sub={t('links.section.sub')}
 				/>
 
-				<div
-					style={{
-						marginTop: 28,
-						display: 'grid',
-						gap: 10,
-						maxWidth: 640,
-					}}>
-					{links.map((l) => {
+				<div className="op-links-grid">
+					{links.map((l, i) => {
 						const k = kindOf(l.icon, t);
+						const arrow = isInternal(l.url) ? '→' : '↗';
 						return (
 							<a
 								key={l.url}
@@ -75,53 +70,20 @@ function LinksPageInner({ links }: { links: LinkItem[] }) {
 								{...(isInternal(l.url)
 									? {}
 									: { target: '_blank', rel: 'noreferrer noopener' })}
-								className="op-link-row"
-								onClick={() => posthog.capture('link_clicked', { link_title: l.title, link_type: k.tag })}
-								style={{
-									display: 'grid',
-									gridTemplateColumns: '60px 1fr 60px',
-									gap: 14,
-									alignItems: 'center',
-									padding: '14px 18px',
-									border: `1px solid ${OP.rule2}`,
-									background: OP.bg2,
-									textDecoration: 'none',
-									color: OP.fg,
-									minHeight: 56,
-									transition: 'border-color 120ms ease, background 120ms ease',
-								}}>
-								<span
-									style={{
-										fontFamily: OP.font,
-										fontSize: 10,
-										color: k.color,
-										letterSpacing: '0.12em',
-										border: `1px solid ${k.color}`,
-										padding: '3px 8px',
-										textAlign: 'center',
-									}}>
+								className="op-link-tile"
+								data-pos={i % 6}
+								onClick={() =>
+									posthog.capture('link_clicked', {
+										link_title: l.title,
+										link_type: k.tag,
+									})
+								}>
+								<span className="op-link-tag" style={{ color: k.color, borderColor: k.color }}>
 									{k.tag}
 								</span>
-								<span
-									style={{
-										fontFamily: OP.font,
-										fontSize: 15,
-										color: OP.fg,
-										overflow: 'hidden',
-										textOverflow: 'ellipsis',
-										whiteSpace: 'nowrap',
-									}}>
-									{l.title}
-								</span>
-								<span
-									style={{
-										fontFamily: OP.font,
-										fontSize: 12,
-										color: k.color,
-										letterSpacing: '0.08em',
-										textAlign: 'right',
-									}}>
-									{isInternal(l.url) ? '→' : '↗'}
+								<span className="op-link-title">{l.title}</span>
+								<span className="op-link-arrow" style={{ color: k.color }}>
+									{arrow}
 								</span>
 							</a>
 						);
@@ -139,9 +101,98 @@ function LinksPageInner({ links }: { links: LinkItem[] }) {
 			</div>
 
 			<style jsx>{`
-				:global(.op-link-row:hover) {
-					border-color: ${OP.amber} !important;
-					background: ${OP.bg3} !important;
+				.op-links-grid {
+					display: grid;
+					grid-template-columns: 1fr;
+					gap: 10px;
+					margin-top: 28px;
+					max-width: 640px;
+				}
+				.op-link-tile {
+					display: grid;
+					grid-template-columns: 60px 1fr 60px;
+					gap: 14px;
+					align-items: center;
+					padding: 14px 18px;
+					border: 1px solid ${OP.rule2};
+					background: ${OP.bg2};
+					text-decoration: none;
+					color: ${OP.fg};
+					min-height: 56px;
+					font-family: ${OP.font};
+					transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+				}
+				.op-link-tile:hover {
+					border-color: ${OP.amber};
+					background: ${OP.bg3};
+				}
+				.op-link-tag {
+					font-size: 10px;
+					letter-spacing: 0.12em;
+					border: 1px solid;
+					padding: 3px 8px;
+					text-align: center;
+					align-self: center;
+					justify-self: start;
+					white-space: nowrap;
+				}
+				.op-link-title {
+					font-size: 15px;
+					color: ${OP.fg};
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+				.op-link-arrow {
+					font-size: 12px;
+					letter-spacing: 0.08em;
+					text-align: right;
+				}
+
+				/* Mobile: 2-col mosaico. dense + spans variáveis dão sensação
+				   masonry sem JS. Tile 0 vira hero (2x2), tile 3 vira wide
+				   (2x1) — quebra o ritmo regular do grid. */
+				@media (max-width: 640px) {
+					.op-links-grid {
+						grid-template-columns: repeat(2, minmax(0, 1fr));
+						grid-auto-flow: dense;
+						grid-auto-rows: 96px;
+						gap: 8px;
+					}
+					.op-link-tile {
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						align-items: flex-start;
+						gap: 8px;
+						padding: 14px;
+						min-height: 0;
+					}
+					.op-link-tile[data-pos='0'] {
+						grid-column: span 2;
+						grid-row: span 2;
+					}
+					.op-link-tile[data-pos='3'] {
+						grid-column: span 2;
+					}
+					.op-link-title {
+						font-size: 15px;
+						white-space: normal;
+						line-height: 1.25;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						-webkit-box-orient: vertical;
+					}
+					.op-link-tile[data-pos='0'] .op-link-title {
+						font-size: 22px;
+						-webkit-line-clamp: 3;
+					}
+					.op-link-arrow {
+						align-self: flex-end;
+						font-size: 16px;
+						margin-top: auto;
+					}
 				}
 			`}</style>
 		</OperatorPage>

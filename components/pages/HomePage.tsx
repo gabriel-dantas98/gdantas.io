@@ -27,6 +27,7 @@ import {
 import { LangSwitcher } from '~/components/Operator/LangSwitcher';
 import styles from '../../pages/home.module.css';
 import { I18nProvider, useT } from '~/lib/i18n';
+import { BootSplash } from '~/components/Boot/BootSplash';
 
 // Topology/ClusterGrid/Marquee são below-the-fold + carregam GSAP timelines
 // pesadas. Dynamic SSR-off mantém esses chunks fora do critical path.
@@ -195,6 +196,7 @@ const CONTACTS = [
 export function HomePage({ locale = 'pt' }: { locale?: 'pt' | 'en' } = {}) {
 	return (
 		<I18nProvider locale={locale}>
+			<BootSplash />
 			<HomePageInner />
 		</I18nProvider>
 	);

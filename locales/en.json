@@ -248,6 +248,70 @@
 		"back": "← back",
 		"home": "cd ~"
 	},
+	"boot": {
+		"aria": "loading — checking if today is a good day to deploy",
+		"question": "should I deploy today?",
+		"checking": "asking the oracle…",
+		"fallback": "API offline — let's just go",
+		"skipHint": "esc · click to skip"
+	},
+	"presentation": {
+		"meta": {
+			"title": "$ ./introduce-gabriel — presentation",
+			"description": "An animated presentation of who Gabriel Dantas is, as a sequence of pipeline-style scenes."
+		},
+		"header": {
+			"label": "06",
+			"title": "$ ./introduce-gabriel",
+			"sub": "a sequence of scenes · powered by Remotion"
+		},
+		"chapters": {
+			"hero": "boot",
+			"doctrine": "doctrine",
+			"talks": "talks",
+			"projects": "projects",
+			"timeline": "timeline",
+			"writing": "writing",
+			"closing": "exit"
+		},
+		"controls": {
+			"play": "▶ play",
+			"pause": "⏸ pause",
+			"restart": "↺ restart"
+		},
+		"hero": {
+			"header": "gabriel.dantas / introduce-yourself · main · run #42",
+			"steps": {
+				"setup": "Set up job",
+				"checkout": "Checkout gabriel@main · São Paulo, BR",
+				"role": "Resolve role · Platform Engineer @ QuintoAndar",
+				"stack": "Load stack · Kubernetes · Go · Backstage · Terraform",
+				"doctrine": "Load doctrine · \"backstage work that matters\"",
+				"talks": "Index talks · 12 DevOps talks indexed",
+				"boot": "Boot complete ✓ all systems green"
+			}
+		},
+		"doctrineScene": {
+			"header": "$ cat ~/.doctrine",
+			"pillars": [
+				"platform is backstage work: invisible when it works",
+				"so others may live — we do the complex so others don't have to",
+				"favorite metric: time others gained without noticing"
+			]
+		},
+		"talksScene": { "header": "$ ls ~/talks" },
+		"projectsScene": { "header": "$ ls ~/projects" },
+		"timelineScene": { "header": "$ git log --oneline ~/.career" },
+		"writingScene": { "header": "$ cat ~/writing | head" },
+		"closing": {
+			"prompt": "$ contact gabriel --all",
+			"emailLabel": "email",
+			"githubLabel": "github",
+			"linkedinLabel": "linkedin",
+			"siteLabel": "site",
+			"exit": "[exit 0]"
+		}
+	},
 	"go": {
 		"section": { "label": "01", "title": "ls ~/.shortcuts", "sub": "url shortener as code · /go/<slug>" },
 		"colSlug": "SLUG",
