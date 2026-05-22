@@ -30,11 +30,22 @@ type Phase = 'typing' | 'checking' | 'verdict' | 'fading' | 'done';
 export function BootSplash() {
 	const t = useT();
 	const { locale } = useI18n();
+	const [mounted, setMounted] = useState(false);
 	const [phase, setPhase] = useState<Phase>('typing');
 	const [typedChars, setTypedChars] = useState(0);
 	const [verdict, setVerdict] = useState<ApiResponse | null>(null);
 	const [error, setError] = useState(false);
 	const dismissedRef = useRef(false);
+
+	// Skip sob automação (Playwright/Puppeteer setam navigator.webdriver).
+	// Evita que o overlay bloqueie clicks nos testes E2E. Roda só client-side
+	// (mounted=true) pra não criar mismatch de hidratação.
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	const isAutomated =
+		mounted && typeof navigator !== 'undefined' && Boolean((navigator as Navigator).webdriver);
 
 	const tz = useMemo(() => detectTz(), []);
 	const command = `$ curl -s "shouldideploy.today/api?tz=${tz}&lang=${locale}"`;
@@ -102,7 +113,7 @@ export function BootSplash() {
 		return () => window.removeEventListener('keydown', onKey);
 	}, [dismiss]);
 
-	if (phase === 'done') return null;
+	if (!mounted || isAutomated || phase === 'done') return null;
 
 	const status = computeStatus(verdict, error);
 
