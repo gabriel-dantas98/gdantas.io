@@ -51,3 +51,6 @@ yarn-error.log*
 
 # Cursor Short-term Memory (not shared)
 .cursor/memory/short-term/
+
+# TypeScript incremental build info
+*.tsbuildinfo
