@@ -1,0 +1,41 @@
+# gdantas — Gabriel Dantas
+
+> Gabriel Dantas (gdantas) é Platform Engineer focado em Developer Experience (DevEx). Site pessoal bilíngue (pt-BR padrão, en em `/en`) com bio, talks, apresentações, timeline de carreira e escritos sobre Internal Developer Portals, Backstage, Kubernetes, SRE/DevOps, observabilidade, AI ops, MCP e RAG sobre infraestrutura.
+
+Temas centrais: platform engineering, developer experience, internal developer portals (IDP), Backstage.io, Kubernetes, SRE, DevOps, observabilidade (Grafana/Prometheus/ELK), AI ops, MCP e RAG aplicados a plataformas de engenharia. Baseado em São Paulo, Brasil. Atualmente SRE/Platform Engineer no QuintoAndar.
+
+Domínio canônico: https://gdantas.com.br · Versão em inglês sob o prefixo `/en`.
+
+## Páginas principais
+
+- [Home](https://gdantas.com.br/): visão geral, navegação e destaques.
+- [Sobre](https://gdantas.com.br/about): bio e atuação em platform engineering e developer experience.
+- [Doutrina](https://gdantas.com.br/doctrine): princípios e crenças sobre engenharia de plataforma e cultura de software.
+- [Talks](https://gdantas.com.br/talks): palestras, podcasts e participações (DevPR Config, DevOpsDays, Platform Days, etc.).
+- [Apresentações](https://gdantas.com.br/presentations): galeria de slides e vídeos de apresentações com previews.
+- [Timeline](https://gdantas.com.br/timeline): trajetória de carreira (QuintoAndar, Helix IoT, Mandic, B4A, Glambox; formação na FIAP).
+- [Writing](https://gdantas.com.br/writing): textos e posts técnicos.
+- [Links](https://gdantas.com.br/links): linktree com canais e perfis.
+- [Sidequests](https://gdantas.com.br/sidequests): projetos paralelos e experimentos.
+- [Status](https://gdantas.com.br/status): página de status / "now".
+- [Go](https://gdantas.com.br/go): encurtador de URLs como código (`/go/<slug>`).
+
+## Versão em inglês
+
+- [Home (en)](https://gdantas.com.br/en): English homepage.
+- [About (en)](https://gdantas.com.br/en/about): bio and focus on platform engineering and developer experience.
+- [Doctrine (en)](https://gdantas.com.br/en/doctrine): engineering principles and beliefs.
+- [Talks (en)](https://gdantas.com.br/en/talks): talks, podcasts and appearances.
+- [Presentations (en)](https://gdantas.com.br/en/presentations): slide and video gallery.
+- [Timeline (en)](https://gdantas.com.br/en/timeline): career timeline.
+- [Writing (en)](https://gdantas.com.br/en/writing): technical writing.
+
+## Optional
+
+- [GitHub](https://github.com/gabriel-dantas98): código, projetos open source e repositórios de talks.
+- [LinkedIn](https://www.linkedin.com/in/gabrieldantasg/): perfil profissional.
+- [Medium](https://medium.com/@_gdantas): blog com artigos técnicos.
+- [X / Twitter](https://twitter.com/_gdantas): @_gdantas.
+- [Talk: RAG com dados do Internal Developer Portal (Platform Days 2025)](https://github.com/gabriel-dantas98/platform-talks-rag-idp): construindo um RAG sobre dados de IDP.
+- [Talk: Assistente de Incidentes com MCPs (DevPR Config 2025)](https://github.com/gabriel-dantas98/devparana-incident-agent-mcps): agente de incidentes usando MCP.
+- [Talk: Backstage + Terraform (DevOpsDays SP 2024)](https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit): integração de Backstage com Terraform.
