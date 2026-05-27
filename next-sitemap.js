@@ -6,13 +6,9 @@ const protocol = isProduction ? 'https' : 'http';
  * @type {import('next-sitemap').IConfig}
  */
 module.exports = {
-	exclude: ['/server-sitemap.xml'],
+	// Static export already emitted ./out before next-sitemap runs,
+	// so write the generated sitemap/robots into the export dir.
+	outDir: './out',
 	generateRobotsTxt: true,
-	robotsTxtOptions: {
-		additionalSitemaps: [
-			`${protocol}://${domain}/sitemap.xml`,
-			`${protocol}://${domain}/server-sitemap.xml`,
-		],
-	},
 	siteUrl: `${protocol}://${domain}`,
 };
