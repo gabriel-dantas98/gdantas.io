@@ -86,11 +86,6 @@ export function useSeoProps(
 				},
 			],
 		},
-		twitter: {
-			cardType: 'summary_large_image',
-			handle: '@_gdantas',
-			site: '@_gdantas',
-		},
 		additionalMetaTags: [
 			{ name: 'keywords', content: copy.keywords.join(', ') },
 			{ name: 'author', content: 'Gabriel Dantas' },

@@ -35,7 +35,6 @@ Domínio canônico: https://gdantas.com.br · Versão em inglês sob o prefixo `
 - [GitHub](https://github.com/gabriel-dantas98): código, projetos open source e repositórios de talks.
 - [LinkedIn](https://www.linkedin.com/in/gabrieldantasg/): perfil profissional.
 - [Medium](https://medium.com/@_gdantas): blog com artigos técnicos.
-- [X / Twitter](https://twitter.com/_gdantas): @_gdantas.
 - [Talk: RAG com dados do Internal Developer Portal (Platform Days 2025)](https://github.com/gabriel-dantas98/platform-talks-rag-idp): construindo um RAG sobre dados de IDP.
 - [Talk: Assistente de Incidentes com MCPs (DevPR Config 2025)](https://github.com/gabriel-dantas98/devparana-incident-agent-mcps): agente de incidentes usando MCP.
 - [Talk: Backstage + Terraform (DevOpsDays SP 2024)](https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/edit): integração de Backstage com Terraform.
