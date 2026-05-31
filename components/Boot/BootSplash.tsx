@@ -19,11 +19,13 @@ interface ApiResponse {
 	message: string;
 }
 
-const TYPE_INTERVAL_MS = 25;
-const CHECK_MIN_MS = 350;
-const FETCH_TIMEOUT_MS = 1800;
-const VERDICT_HOLD_MS = 4000;
-const FADE_OUT_MS = 300;
+// Mantemos o feel de "terminal carregando", mas o splash inteiro precisa
+// caber em ~2.5s pra não atrapalhar a entrada na home.
+const TYPE_INTERVAL_MS = 12;
+const CHECK_MIN_MS = 250;
+const FETCH_TIMEOUT_MS = 1200;
+const VERDICT_HOLD_MS = 1400;
+const FADE_OUT_MS = 260;
 
 type Phase = 'typing' | 'checking' | 'verdict' | 'fading' | 'done';
 
@@ -166,9 +168,14 @@ export function BootSplash() {
 						letterSpacing: '-0.04em',
 						fontWeight: 500,
 						textShadow: `0 0 36px ${status.color}66`,
+						// reserva o espaço enquanto o spinner gigante toma o lugar
+						minHeight: 'clamp(96px, 16vw, 200px)',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
 					}}
 				>
-					{status.code}
+					{phase === 'checking' ? <BigSpinner color={OP.amber} /> : status.code}
 				</div>
 				<div style={{ fontSize: 'clamp(22px, 2.6vw, 32px)', color: OP.dim }}>
 					{t('boot.question')}
@@ -239,7 +246,9 @@ interface StatusInfo {
 }
 
 function computeStatus(v: ApiResponse | null, error: boolean): StatusInfo {
-	if (error || !v) return { code: '???', color: OP.amber, verdict: '—' };
+	// No 'checking' o spinner gigante substitui o code, então este placeholder
+	// só aparece de fato em 'verdict' com erro.
+	if (error || !v) return { code: '—', color: OP.amber, verdict: '—' };
 	if (v.shouldideploy) return { code: '200', color: OP.ok, verdict: 'YES' };
 	return { code: '418', color: OP.pager, verdict: 'NO' };
 }
@@ -279,4 +288,26 @@ function Spinner() {
 		return () => window.clearInterval(id);
 	}, []);
 	return <span style={{ color: OP.amber }}>{['◐', '◓', '◑', '◒'][i]}</span>;
+}
+
+// Spinner grande que ocupa o lugar do código HTTP durante o 'checking'.
+// Usamos os mesmos glifos do Spinner pequeno pra manter coerência visual.
+function BigSpinner({ color }: { color: string }) {
+	const [i, setI] = useState(0);
+	useEffect(() => {
+		const id = window.setInterval(() => setI((n) => (n + 1) % 4), 110);
+		return () => window.clearInterval(id);
+	}, []);
+	return (
+		<span
+			style={{
+				color,
+				fontSize: '0.8em',
+				lineHeight: 1,
+				textShadow: `0 0 36px ${color}66`,
+				opacity: 0.85,
+			}}>
+			{['◐', '◓', '◑', '◒'][i]}
+		</span>
+	);
 }
