@@ -41,7 +41,9 @@ export function ProjectsPage({ stringifiedProjects, locale = 'pt' }: ProjectProp
 
 function ProjectsPageInner({ stringifiedProjects }: { stringifiedProjects: string }) {
 	const t = useT();
-	const projects = JSON.parse(stringifiedProjects) as Project[];
+	// Coalesce to [] in case getStaticProps ever serialized a null
+	// (e.g. GitHub API failure upstream) — never crash the prerender.
+	const projects = (JSON.parse(stringifiedProjects) as Project[] | null) ?? [];
 	const ref = useReveal({ stagger: 0.04, y: 16 });
 	return (
 		<OperatorPage

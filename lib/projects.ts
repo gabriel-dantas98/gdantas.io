@@ -12,7 +12,7 @@ import type { GitHubRepos, Project, ProjectPost } from '~/types';
  *
  * @TODO Switch to v3 API using GraphQL to save over-fetching
  */
-export async function fetchProjects(): Promise<Array<Project> | null> {
+export async function fetchProjects(): Promise<Array<Project>> {
 	const response = await fetch('https://api.github.com/users/gabriel-dantas98/repos', {
 		headers: {
 			...(process.env.GITHUB_PAT && {
@@ -21,9 +21,9 @@ export async function fetchProjects(): Promise<Array<Project> | null> {
 		},
 	});
 	if (response.status !== 200) {
-		const json = (await response.json()) as {
-			documentation_url: string;
-			message: string;
+		const json = (await response.json().catch(() => ({}))) as {
+			documentation_url?: string;
+			message?: string;
 		};
 
 		console.error({ error: json });
@@ -31,7 +31,9 @@ export async function fetchProjects(): Promise<Array<Project> | null> {
 			error: json,
 		});
 
-		return null;
+		// Return an empty list instead of null so the page can still
+		// prerender when GitHub rate-limits unauthenticated CI runners.
+		return [];
 	}
 
 	const json = (await response.json()) as GitHubRepos;
