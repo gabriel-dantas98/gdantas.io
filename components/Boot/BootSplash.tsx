@@ -175,7 +175,7 @@ export function BootSplash() {
 						justifyContent: 'center',
 					}}
 				>
-					{phase === 'checking' ? <BigSpinner color={OP.amber} /> : status.code}
+					{phase === 'verdict' ? status.code : <BigSpinner color={OP.amber} />}
 				</div>
 				<div style={{ fontSize: 'clamp(22px, 2.6vw, 32px)', color: OP.dim }}>
 					{t('boot.question')}
