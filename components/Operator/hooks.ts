@@ -119,21 +119,56 @@ export function useReveal({
 	useEffect(() => {
 		let cancelled = false;
 		let attempts = 0;
+		let onVisible: (() => void) | null = null;
+
+		// Garante o conteúdo visível SEM depender do tween. Usado quando a
+		// animação não deve/não pode rodar — reduced-motion, aba em background
+		// (rAF suspenso → ticker do GSAP congela → fromTo trava em opacity:0),
+		// ou GSAP indisponível. O conteúdo nunca fica preso invisível.
+		const showNow = () => {
+			const el = ref.current;
+			if (!el) return;
+			const targets = stagger ? (el.children as unknown as Element[]) : el;
+			if (window.gsap) {
+				window.gsap.set(targets, { opacity: 1, y: 0, overwrite: 'auto' });
+			} else {
+				const list = stagger ? Array.from(el.children) : [el];
+				list.forEach((n) => {
+					(n as HTMLElement).style.opacity = '1';
+					(n as HTMLElement).style.transform = 'none';
+				});
+			}
+		};
+
+		const prefersReduced =
+			typeof window.matchMedia === 'function' &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 		const start = () => {
-			if (cancelled || !ref.current || !window.gsap) {
-				if (!cancelled && attempts++ < 30) return setTimeout(start, 80);
-				return;
+			if (cancelled || !ref.current) return;
+			// reduced-motion: sem animação, conteúdo já visível.
+			if (prefersReduced) return showNow();
+			if (!window.gsap) {
+				if (attempts++ < 30) return setTimeout(start, 80);
+				return showNow(); // GSAP não chegou: mostra mesmo assim.
 			}
 			if (scroll && !window.ScrollTrigger && attempts++ < 30) {
 				return setTimeout(start, 80);
 			}
+			// Aba carregada em background (cmd+click, nova aba, sessão
+			// restaurada): o rAF está suspenso, o ticker do GSAP dorme e o tween
+			// from-opacity:0 trava invisível sem recuperar de forma confiável.
+			// Pula a animação e mostra o conteúdo direto — a entrada não seria
+			// vista mesmo.
+			if (typeof document !== 'undefined' && document.hidden) return showNow();
+
 			const el = ref.current;
 			const targets = stagger ? (el.children as unknown as Element[]) : el;
 			const trig =
 				scroll && window.ScrollTrigger
 					? { scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
 					: {};
-			window.gsap.fromTo(
+			const tween = window.gsap.fromTo(
 				targets,
 				{ opacity: 0, y },
 				{
@@ -147,10 +182,20 @@ export function useReveal({
 					...trig,
 				},
 			);
+			// Safety net (só reveals imediatos): se a aba ficar oculta antes do
+			// tween terminar, o ticker dorme e ele pode travar no meio. Ao
+			// ocultar, força o estado final — ao voltar, já está visível.
+			if (!scroll) {
+				onVisible = () => {
+					if (document.hidden) tween.progress(1);
+				};
+				document.addEventListener('visibilitychange', onVisible);
+			}
 		};
 		start();
 		return () => {
 			cancelled = true;
+			if (onVisible) document.removeEventListener('visibilitychange', onVisible);
 		};
 	}, [delay, stagger, y, duration, scroll]);
 	return ref;
