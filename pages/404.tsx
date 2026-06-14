@@ -9,7 +9,8 @@ export default function NotFoundPage() {
 		<OperatorPage
 			title="gdantas ─ 404 not found"
 			description="Página não encontrada."
-			active="/">
+			active="/"
+			noIndex>
 			<div
 				ref={ref}
 				style={{

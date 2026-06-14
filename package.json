@@ -31,6 +31,7 @@
     "type-check": "tsc",
     "format": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx,vue}\"",
     "i18n:check": "tsx scripts/i18n-check.ts",
+    "sitemap:check": "NODE_ENV=production next-sitemap --config next-sitemap.js && tsx scripts/seo-indexing-check.ts",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "e2e:install": "playwright install --with-deps chromium"

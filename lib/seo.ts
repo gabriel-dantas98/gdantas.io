@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import type { ComponentProps } from 'react';
 
-import { detectLocaleFromPath } from './i18n';
+import { detectLocaleFromPath, stripLocale, withLocale } from './i18n';
 
 const SITE_URL = 'https://gdantas.com.br';
 const SITE_NAME = 'gdantas';
@@ -62,8 +62,13 @@ export function useSeoProps(
 	const router = useRouter();
 	const locale = detectLocaleFromPath(router.asPath);
 	const copy = COPY[locale];
+	const path = router.asPath.split(/[?#]/)[0] || '/';
+	const canonicalPath = path === '/' ? '' : path;
+	const alternatePath = stripLocale(path);
+	const ptPath = alternatePath === '/' ? '' : alternatePath;
+	const enPath = withLocale(alternatePath, 'en');
 
-	const canonical = `${SITE_URL}${router.asPath === '/' ? '' : router.asPath}`;
+	const canonical = `${SITE_URL}${canonicalPath}`;
 
 	return {
 		title: copy.title,
@@ -86,6 +91,11 @@ export function useSeoProps(
 				},
 			],
 		},
+		languageAlternates: [
+			{ hrefLang: 'pt-BR', href: `${SITE_URL}${ptPath}` },
+			{ hrefLang: 'en', href: `${SITE_URL}${enPath}` },
+			{ hrefLang: 'x-default', href: `${SITE_URL}${ptPath}` },
+		],
 		additionalMetaTags: [
 			{ name: 'keywords', content: copy.keywords.join(', ') },
 			{ name: 'author', content: 'Gabriel Dantas' },
