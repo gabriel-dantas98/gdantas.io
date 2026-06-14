@@ -14,7 +14,8 @@ export default function ErrorPage() {
 		<OperatorPage
 			title={`gdantas ─ ${code}`}
 			description="Algo deu errado do nosso lado."
-			active="/">
+			active="/"
+			noIndex>
 			<div
 				ref={ref}
 				style={{

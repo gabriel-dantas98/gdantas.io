@@ -11,4 +11,10 @@ module.exports = {
 	outDir: './out',
 	generateRobotsTxt: true,
 	siteUrl: `${protocol}://${domain}`,
+	exclude: [
+		// Redirect-only shortcut targets intentionally emit noindex.
+		'/go/*',
+		// Utility error page should not compete with real content in search.
+		'/error',
+	],
 };

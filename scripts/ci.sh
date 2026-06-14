@@ -40,5 +40,13 @@ echo "📤 Generating static HTML export..."
 $RUNNER next export
 
 echo ""
+echo "🔎 Checking generated sitemap indexability..."
+if [ "$MANAGER" = "yarn" ]; then
+	yarn sitemap:check
+else
+	npm run sitemap:check
+fi
+
+echo ""
 echo "✅ Build validation completed successfully!"
 echo "📁 Static files are available in ./out"
