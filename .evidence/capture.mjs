@@ -12,11 +12,18 @@ const VIDEO_DIR = path.join(__dirname, 'video');
 
 // Key pages that were modified in this PR
 const pages = [
-  { name: 'home-pt', path: '/' },
-  { name: 'home-en', path: '/en' },
-  { name: 'doctrine-pt', path: '/doctrine' },
-  { name: 'doctrine-en', path: '/en/doctrine' },
+  { name: 'home-pt', path: '/', lang: 'pt' },
+  { name: 'home-en', path: '/en', lang: 'en' },
+  { name: 'doctrine-pt', path: '/doctrine', lang: 'pt' },
+  { name: 'doctrine-en', path: '/en/doctrine', lang: 'en' },
 ];
+
+// _app.tsx redirects / -> /en on first visit when navigator.language is
+// en-US (Playwright's default), unless localStorage.lang is already set.
+// Pin it before navigating so PT captures stay on PT routes.
+async function pinLocale(page, lang) {
+  await page.addInitScript((l) => window.localStorage.setItem('lang', l), lang);
+}
 
 const viewports = [
   { name: 'desktop', width: 1440, height: 900 },
@@ -40,14 +47,15 @@ async function captureVideo() {
   try {
     // Navigate through key pages with scrolling
     const walkthrough = [
-      { name: 'Home (PT)', path: '/' },
-      { name: 'Home (EN)', path: '/en' },
-      { name: 'Doctrine (PT)', path: '/doctrine' },
-      { name: 'Doctrine (EN)', path: '/en/doctrine' },
+      { name: 'Home (PT)', path: '/', lang: 'pt' },
+      { name: 'Home (EN)', path: '/en', lang: 'en' },
+      { name: 'Doctrine (PT)', path: '/doctrine', lang: 'pt' },
+      { name: 'Doctrine (EN)', path: '/en/doctrine', lang: 'en' },
     ];
 
     for (const item of walkthrough) {
       console.log(`Video: visiting ${item.name}...`);
+      await pinLocale(page, item.lang);
       const url = `${BASE_URL}${item.path}`;
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
       await page.waitForTimeout(800);
@@ -94,17 +102,34 @@ async function captureScreenshots() {
   const browser = await chromium.launch();
 
   for (const viewport of viewports) {
-    const context = await browser.newContext({ viewport });
+    // reduced-motion makes useReveal() show content immediately instead of
+    // animating in on scroll-into-view — needed so fullPage screenshots
+    // don't capture sections still hidden below the fold.
+    const context = await browser.newContext({ viewport, reducedMotion: 'reduce' });
     const page = await context.newPage();
 
     for (const pageInfo of pages) {
       try {
+        await pinLocale(page, pageInfo.lang);
         const url = `${BASE_URL}${pageInfo.path}`;
         console.log(`Capturing ${pageInfo.name}-${viewport.name}...`);
 
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
-        // Wait for animations to settle (GSAP)
+        // Wait for fonts/layout to settle
         await page.waitForTimeout(1500);
+
+        // Some GSAP animations (e.g. the home stack tiles) use raw
+        // ScrollTrigger without the useReveal() reduced-motion fallback, so
+        // they only fire on real scroll position, not on page load. Walk
+        // the page top to bottom so every ScrollTrigger.once('top 92%')
+        // fires before the fullPage screenshot.
+        const pageHeight = await page.evaluate(() => document.body.scrollHeight);
+        for (let y = 0; y < pageHeight; y += viewport.height) {
+          await page.evaluate((scrollY) => window.scrollTo(0, scrollY), y);
+          await page.waitForTimeout(200);
+        }
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(300);
 
         const screenshotPath = path.join(SCREENSHOTS_DIR, `${pageInfo.name}-${viewport.name}.png`);
         await page.screenshot({ path: screenshotPath, fullPage: true });
