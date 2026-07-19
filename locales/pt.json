@@ -20,7 +20,7 @@
 	},
 	"hero": {
 		"role": "platform engineer",
-		"bioP1": "6+ anos fazendo plataforma de dev. Faço parte do time de Engenharia de Plataforma do Grupo QuintoAndar, focado no nosso IDP (by Backstage.io) e na criação de ferramental pra melhorar a experiência e a produtividade dos times de desenvolvimento.",
+		"bioP1": "6+ anos construindo plataforma de dev. Trabalho no time de Engenharia de Plataforma do QuintoAndar — construo o IDP (Backstage) e o ferramental que faz dev commitar sem abrir ticket.",
 		"quote": "\"So others may live.\" — U.S. Coast Guard Rescue Swimmer",
 		"uptimeLabel": "UPTIME",
 		"statusLabel": "STATUS",
@@ -48,10 +48,10 @@
 		"manifestoP1Post": ". Geralmente, quanto menos somos percebidos e mais produtivos os times estão, melhor está sendo o nosso trabalho.",
 		"manifestoP2Pre": "O primeiro time de plataforma em que trabalhei tinha o lema ",
 		"manifestoP2Amber": "\"So Others May Live\"",
-		"manifestoP2Post": ": fazemos coisas complexas pra que outros não precisem, vamos onde outros não iriam, pra fazer aquilo que não fariam — sem ninguém notar que a gente existe.",
-		"manifestoP3Pre": "Isso é exatamente o trabalho de plataforma — que no fundo se liga com toda a cultura DevOps. No fim do dia, o que eu mais gosto é ajudar outras pessoas de tecnologia a resolver problemas ",
+		"manifestoP2Post": ": fazemos coisas complexas pra que outros não precisem — sem ninguém notar que a gente existe.",
+		"manifestoP3Pre": "O que eu mais gosto é ajudar outras pessoas de tecnologia a resolver problemas ",
 		"manifestoP3Amber": ":)",
-		"manifestoP4": "Em resumo: se conseguimos deixar o melhor caminho, com as melhores ferramentas, o mais fácil pra todos — nossa missão de plataforma está cumprida.",
+		"manifestoP4": "Se conseguimos deixar o melhor caminho, com as melhores ferramentas, o mais fácil pra todos — nossa missão de plataforma está cumprida.",
 		"sig": "— gd",
 		"sigDate": "last edited: today",
 		"roles": [
@@ -63,7 +63,7 @@
 			{
 				"tag": "ROLE 02",
 				"name": "SRE",
-				"text": "SRE é o engenheiro que trata operação como software: SLO antes do código, toil medido em horas, incidente que vira postmortem e postmortem que vira mudança real. Plantão é uma excelente forma de aprender como os sistemas funcionam, encontrar oportunidades de melhoria e os gaps de observabilidade."
+				"text": "SRE é o engenheiro que trata operação como software: SLO antes do código, toil medido em horas, incidente que vira postmortem e postmortem que vira mudança real. Plantão é onde se aprende como o sistema funciona de verdade — e onde a observabilidade mostra os buracos."
 			},
 			{
 				"tag": "ROLE 03",
@@ -74,7 +74,7 @@
 	},
 	"ping": {
 		"chrome": "CHALLENGES.txt",
-		"intro": "Plataforma é trabalho coletivo. Se você quer trocar figurinha, levar uma talk pro seu time, ou tem um projeto que precisa de uma cabeça extra — a inbox tá aberta.",
+		"intro": "Plataforma é trabalho coletivo — a inbox tá aberta.",
 		"prompt": "$ ping gd ↗",
 		"ctas": [
 			{
@@ -171,7 +171,7 @@
 				"prompt": "maker · impressão 3D · hobby sustentável",
 				"tagline": "craft em filamento — peças sob encomenda + linha própria.",
 				"bodyP1": "Marca de impressão 3D rodando em Bambu Lab A1 mini. Encomendas (Funkos personalizados, chaveiros, trofeus, brinquedos sensoriais) entram via WhatsApp; em paralelo, linha própria Funkos Santos no catálogo.",
-				"bodyP2": "Métrica: hobby sustentável — operação se paga em ≥50% de qualquer reinvestimento."
+				"bodyP2": "Métrica: hobby sustentável — a impressora paga o próprio filamento."
 			},
 			{
 				"tag": "FAITH",
@@ -186,7 +186,7 @@
 				"name": "DeployOu",
 				"prompt": "loja · camisetas tech-themed",
 				"tagline": "dev humor brasileiro — trocadilhos de DevOps em algodão.",
-				"bodyP1": "Marca de camisetas via Reserva INK (sem gestão de estoque). Foco em humor de dev br: trocadilhos de Kubernetes, SRE, Cloud Native. Tom direto, irônico, cúmplice — fala com quem entende a piada sem precisar explicar.",
+				"bodyP1": "Marca de camisetas via Reserva INK (sem gestão de estoque). Foco em humor de dev br: trocadilhos de Kubernetes, SRE, Cloud Native.",
 				"bodyP2": "Audiência: devs, SREs, platform engineers — gente que ri da própria área. Operação em modo autopilot."
 			}
 		]
@@ -204,7 +204,7 @@
 		"footerEntries": "entries",
 		"footerNote": "· feed sincronizado direto do medium/@_gdantas",
 		"readmePrompt": "cat README.txt",
-		"readmeBody": "Tudo aqui é puxado em tempo de build do feed RSS do medium/@_gdantas. Tópicos: AI ops, plataforma de dev, observabilidade, agentes pra incidente, RAG sobre infra. Cada post novo no Medium aparece nessa lista automaticamente."
+		"readmeBody": "Puxado em tempo de build do feed RSS do medium/@_gdantas."
 	},
 	"timeline": {
 		"section": { "label": "01", "title": "git log --career", "sub": "commits que importam" },

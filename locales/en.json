@@ -20,7 +20,7 @@
 	},
 	"hero": {
 		"role": "platform engineer",
-		"bioP1": "6+ years building developer platforms. I'm part of QuintoAndar Group's Platform Engineering team, focused on our IDP (Backstage.io) and building tooling that improves developer experience and productivity.",
+		"bioP1": "6+ years building developer platforms. I work on QuintoAndar's Platform Engineering team — building the IDP (Backstage) and the tooling that lets devs commit without opening a ticket.",
 		"quote": "\"So others may live.\" — U.S. Coast Guard Rescue Swimmer",
 		"uptimeLabel": "UPTIME",
 		"statusLabel": "STATUS",
@@ -48,10 +48,10 @@
 		"manifestoP1Post": ". Usually, the less we're noticed and the more productive teams are, the better we're doing.",
 		"manifestoP2Pre": "The first platform team I worked with had this motto: ",
 		"manifestoP2Amber": "\"So Others May Live\"",
-		"manifestoP2Post": " — we do the complex stuff so others don't have to, we go where others wouldn't, to do what they wouldn't — without anyone noticing we exist.",
-		"manifestoP3Pre": "That's exactly what platform is — and it ties straight back to DevOps culture. At the end of the day, what I love most is helping other engineers solve problems ",
+		"manifestoP2Post": " — we do the complex stuff so others don't have to, without anyone noticing we exist.",
+		"manifestoP3Pre": "What I love most is helping other engineers solve problems ",
 		"manifestoP3Amber": ":)",
-		"manifestoP4": "TL;DR: if we can make the best path the easiest path, with the best tools, for everyone — our platform mission is accomplished.",
+		"manifestoP4": "If we can make the best path the easiest path, with the best tools, for everyone — our platform mission is accomplished.",
 		"sig": "— gd",
 		"sigDate": "last edited: today",
 		"roles": [
@@ -63,7 +63,7 @@
 			{
 				"tag": "ROLE 02",
 				"name": "SRE",
-				"text": "SRE is the engineer who treats operations as software: SLO before code, toil measured in hours, incident turning into postmortem and postmortem into real change. On-call is an excellent way to learn how systems actually work, find improvement opportunities and observability gaps."
+				"text": "SRE is the engineer who treats operations as software: SLO before code, toil measured in hours, incident turning into postmortem and postmortem into real change. On-call is where you learn how the system really works — and where observability shows the holes."
 			},
 			{
 				"tag": "ROLE 03",
@@ -74,7 +74,7 @@
 	},
 	"ping": {
 		"chrome": "CHALLENGES.txt",
-		"intro": "Platform is teamwork. If you want to swap notes, bring a talk to your team, or you've got a project that needs an extra brain — the inbox is open.",
+		"intro": "Platform is teamwork — the inbox is open.",
 		"prompt": "$ ping gd ↗",
 		"ctas": [
 			{
@@ -171,7 +171,7 @@
 				"prompt": "maker · 3d printing · sustainable hobby",
 				"tagline": "filament craft — made-to-order pieces + own line.",
 				"bodyP1": "3D printing brand running on a Bambu Lab A1 mini. Orders (custom Funkos, keychains, trophies, sensory toys) come via WhatsApp; in parallel, the Funkos Santos line lives in the catalog.",
-				"bodyP2": "Metric: sustainable hobby — operation pays for ≥50% of any reinvestment."
+				"bodyP2": "Metric: sustainable hobby — the printer pays for its own filament."
 			},
 			{
 				"tag": "FAITH",
@@ -186,7 +186,7 @@
 				"name": "DeployOu",
 				"prompt": "store · tech-themed t-shirts",
 				"tagline": "brazilian dev humor — DevOps puns on cotton.",
-				"bodyP1": "T-shirt brand via Reserva INK (no inventory management). Brazilian dev humor: Kubernetes, SRE, Cloud Native puns. Direct, ironic, complicit tone — talks to people who get the joke without explanation.",
+				"bodyP1": "T-shirt brand via Reserva INK (no inventory management). Brazilian dev humor: Kubernetes, SRE, Cloud Native puns.",
 				"bodyP2": "Audience: devs, SREs, platform engineers — folks who laugh at their own field. Autopilot mode operation."
 			}
 		]
@@ -204,7 +204,7 @@
 		"footerEntries": "entries",
 		"footerNote": "· feed synced straight from medium/@_gdantas",
 		"readmePrompt": "cat README.txt",
-		"readmeBody": "Everything here is pulled at build time from the medium/@_gdantas RSS feed. Topics: AI ops, dev platform, observability, incident agents, RAG over infra. Every new Medium post shows up in this list automatically."
+		"readmeBody": "Pulled at build time from the medium/@_gdantas RSS feed."
 	},
 	"timeline": {
 		"section": { "label": "01", "title": "git log --career", "sub": "commits that matter" },

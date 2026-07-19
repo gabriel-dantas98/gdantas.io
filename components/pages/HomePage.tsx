@@ -109,63 +109,6 @@ const TALKS: Talk[] = [
 			['github', 'repo ↗'],
 		],
 	},
-	{
-		date: '2025-06-10',
-		event: 'Platform Days',
-		loc: 'São Paulo · BR',
-		kind: 'slides+code',
-		slug: 'rag-idp',
-		title: 'Construindo um RAG com dados do seu Internal Developer Portal',
-		preview: 'rag(idp.catalog) → answers about your own infra',
-		slides: 56,
-		slidesEmbed:
-			'https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk/embed?start=false&loop=false&delayms=3000',
-		href: 'https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk',
-		links: [
-			['gdocs', 'slides ↗'],
-			['github', 'repo ↗'],
-		],
-	},
-	{
-		date: '2025-05-16',
-		event: 'Platform Talks',
-		loc: 'Online',
-		kind: 'video',
-		slug: 'qa-idp',
-		title: "Discover QuintoAndar's IDP",
-		preview: 'idp.case = quintoandar / backstage',
-		youtubeId: 'KUsXbWtMXzc',
-		runtime: '24:00',
-		href: 'https://www.youtube.com/watch?v=KUsXbWtMXzc',
-		links: [['youtube', 'watch ↗']],
-	},
-	{
-		date: '2024-10-01',
-		event: 'DevopsDays SP',
-		loc: 'São Paulo · BR',
-		kind: 'slides',
-		slug: 'backstage-tf',
-		title: 'Backstage 💙 Terraform',
-		preview: 'backstage.scaffolder + terraform = paved road',
-		slides: 47,
-		slidesEmbed:
-			'https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/embed?start=false&loop=false&delayms=3000',
-		href: 'https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8',
-		links: [['gdocs', 'slides ↗']],
-	},
-	{
-		date: '2023-07-12',
-		event: 'QuintoAndar Tech Talk',
-		loc: 'Online',
-		kind: 'video',
-		slug: 'idp-backstage',
-		title: 'Como desenvolvemos o developer portal usando o Backstage.io',
-		preview: 'backstage.io → portal de devs no QA',
-		youtubeId: 'Y57gUwb1v3g',
-		runtime: '28:00',
-		href: 'https://www.youtube.com/watch?v=Y57gUwb1v3g',
-		links: [['youtube', 'watch ↗']],
-	},
 ];
 
 // Stack tiles — quero como dataset pra fácil edição. Renderiza no `02 cat ~/.stack`.
@@ -618,19 +561,19 @@ function HomePageInner() {
 									color: OP.fg,
 									marginTop: 14,
 								}}>
-								<p style={{ margin: '0 0 14px' }}>
+								<p style={{ margin: '0 0 22px' }}>
 									{t('doctrine.manifestoP1Pre')}
 									<span style={{ color: OP.amber }}>
 										<em>{t('doctrine.manifestoP1Amber')}</em>
 									</span>
 									{t('doctrine.manifestoP1Post')}
 								</p>
-								<p style={{ margin: '0 0 14px' }}>
+								<p style={{ margin: '0 0 22px' }}>
 									{t('doctrine.manifestoP2Pre')}
 									<span style={{ color: OP.amber }}>{t('doctrine.manifestoP2Amber')}</span>
 									{t('doctrine.manifestoP2Post')}
 								</p>
-								<p style={{ margin: '0 0 14px' }}>
+								<p style={{ margin: '0 0 22px' }}>
 									{t('doctrine.manifestoP3Pre')}
 									<span style={{ color: OP.amber }}>{t('doctrine.manifestoP3Amber')}</span>
 								</p>
@@ -782,6 +725,11 @@ function HomePageInner() {
 							↗ all talks
 						</Link>
 					</div>
+				</div>
+
+				{/* SEPARATOR PROMPT */}
+				<div style={{ marginTop: 28, fontSize: 13 }}>
+					<Prompt path="~">_<Cursor /></Prompt>
 				</div>
 
 				{/* 05 — PING --HELP */}

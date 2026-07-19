@@ -65,17 +65,17 @@ function DoctrinePageInner() {
 							maxWidth: 760,
 							marginTop: 14,
 						}}>
-						<p style={{ margin: '0 0 14px' }}>
+						<p style={{ margin: '0 0 22px' }}>
 							{t('doctrine.manifestoP1Pre')}
 							<span style={{ color: OP.amber }}>{t('doctrine.manifestoP1Amber')}</span>
 							{t('doctrine.manifestoP1Post')}
 						</p>
-						<p style={{ margin: '0 0 14px' }}>
+						<p style={{ margin: '0 0 22px' }}>
 							{t('doctrine.manifestoP2Pre')}
 							<span style={{ color: OP.amber }}>{t('doctrine.manifestoP2Amber')}</span>
 							{t('doctrine.manifestoP2Post')}
 						</p>
-						<p style={{ margin: '0 0 14px' }}>
+						<p style={{ margin: '0 0 22px' }}>
 							{t('doctrine.manifestoP3Pre')}
 							<span style={{ color: OP.amber }}>{t('doctrine.manifestoP3Amber')}</span>
 						</p>
