@@ -1,5 +1,19 @@
 [
 	{
+		"slug": "idp-hub-mcps",
+		"title": "CNCF Campinas - Transformando seu Developer Portal em um HUB de MCP's",
+		"icon": "feather:book",
+		"color": "#ff7a45",
+		"description": "Slides da apresentação que fiz no CNCF Campinas sobre como transformamos o Backstage em um hub de MCPs: Actions Registry, OAuth, os limites atuais dessa camada de IA no Developer Portal e o caminho até um AI Marketplace de MCPs, Skills, Subagents e Rules.",
+		"contentUrl": "https://docs.google.com/presentation/d/1aUIx47YCVrsTAOFaK25rTr6QvkCSscPjZQ1L6HMLXAo/edit?usp=sharing",
+		"date": "2026-07-30",
+		"location": "Campinas, SP",
+		"preview": {
+			"type": "google-slides",
+			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1aUIx47YCVrsTAOFaK25rTr6QvkCSscPjZQ1L6HMLXAo/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
 		"slug": "idp-portals",
 		"title": "DevOps Summit Bluepprint 2025 - ESCALANDO ENGENHARIA COM PORTAIS INTERNOS (IDP's): NAVEGABILIDADE, AUTONOMIA E GOVERNANÇA",
 		"icon": "feather:book",

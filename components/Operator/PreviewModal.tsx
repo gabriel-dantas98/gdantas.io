@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { OP } from './tokens';
 import type { NormalizedPreview } from '~/lib/preview';
+import { useT } from '~/lib/i18n';
 
 interface PreviewModalProps {
 	open: boolean;
@@ -14,7 +15,7 @@ interface PreviewModalProps {
 	href: string;
 }
 
-// Modal de preview: iframe do material + CTA "Conferir ↗". Portal pra body
+// Modal de preview: iframe do material + CTA "conferir ↗". Portal pra body
 // pra escapar de containing blocks (mesmo motivo do MobileMenuDrawer).
 // Fecha em backdrop click / ESC / close button.
 export function PreviewModal({
@@ -26,6 +27,7 @@ export function PreviewModal({
 	preview,
 	href,
 }: PreviewModalProps) {
+	const t = useT();
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
@@ -129,7 +131,7 @@ export function PreviewModal({
 					<button
 						type="button"
 						onClick={onClose}
-						aria-label="Fechar"
+						aria-label={t('common.close')}
 						style={{
 							background: 'transparent',
 							border: `1px solid ${OP.rule2}`,
@@ -184,8 +186,7 @@ export function PreviewModal({
 								fontSize: 14,
 								color: OP.dim,
 							}}>
-							Preview indisponível pra esse formato — clica em &ldquo;Conferir&rdquo;
-							pra abrir direto na fonte.
+							{t('common.previewUnavailable')}
 						</div>
 					)}
 				</div>
@@ -219,7 +220,7 @@ export function PreviewModal({
 							border: `1px solid ${OP.amber}`,
 							fontWeight: 500,
 						}}>
-						conferir ↗
+						{t('common.confer')}
 					</a>
 				</footer>
 			</div>

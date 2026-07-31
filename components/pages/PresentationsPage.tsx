@@ -6,8 +6,15 @@ import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator'
 import { Elements as BlogElements } from '~/components/Blog/Styles';
 import type { PresentationItem, PresentationsProps } from '~/lib/presentations-static-props';
 import { I18nProvider, useT } from '~/lib/i18n';
+import { resolveTalkCopy } from '~/lib/talk-copy';
 
-function TalkPreview({ presentation }: { presentation: PresentationItem }) {
+function TalkPreview({
+	presentation,
+	title,
+}: {
+	presentation: PresentationItem;
+	title: string;
+}) {
 	if (!presentation.preview) return null;
 	const frame: React.CSSProperties = {
 		width: '100%',
@@ -50,7 +57,7 @@ function TalkPreview({ presentation }: { presentation: PresentationItem }) {
 					<iframe
 						style={frame}
 						src={presentation.preview.slidesEmbedUrl}
-						title={presentation.title}
+						title={title}
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
 						loading="lazy"
@@ -64,7 +71,7 @@ function TalkPreview({ presentation }: { presentation: PresentationItem }) {
 					<iframe
 						style={frame}
 						src={`https://www.youtube-nocookie.com/embed/${presentation.preview.youtubeId}`}
-						title={presentation.title}
+						title={title}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
@@ -79,7 +86,7 @@ function TalkPreview({ presentation }: { presentation: PresentationItem }) {
 					<iframe
 						style={frame}
 						src={presentation.preview.spotifyEmbedUrl}
-						title={`${presentation.title} - Spotify`}
+						title={`${title} - Spotify`}
 						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 						allowFullScreen
 						loading="lazy"
@@ -93,7 +100,7 @@ function TalkPreview({ presentation }: { presentation: PresentationItem }) {
 					<iframe
 						style={frame}
 						src={presentation.preview.canvaEmbedUrl}
-						title={presentation.title}
+						title={title}
 						allowFullScreen
 						allow="clipboard-write"
 						referrerPolicy="strict-origin-when-cross-origin"
@@ -108,7 +115,7 @@ function TalkPreview({ presentation }: { presentation: PresentationItem }) {
 					<iframe
 						style={frame}
 						src={presentation.preview.pdfUrl}
-						title={presentation.title}
+						title={title}
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
 						loading="lazy"
@@ -168,6 +175,10 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 					}}>
 					{presentations.map((p, i) => {
 						const contentLink = p.contentUrl || p.url;
+						const copy = resolveTalkCopy(t, p.slug, {
+							title: p.title,
+							description: p.description,
+						});
 						return (
 							<article
 								key={`${p.title}-${i}`}
@@ -205,7 +216,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												fontWeight: 500,
 												lineHeight: 1.35,
 											}}>
-											{p.title}
+											{copy.title}
 										</h3>
 										<p
 											style={{
@@ -216,7 +227,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												lineHeight: 1.55,
 												maxWidth: 720,
 											}}>
-											{p.description}
+											{copy.description}
 										</p>
 									</div>
 									<div style={{ display: 'flex', gap: 10, flexShrink: 0 }}>
@@ -225,7 +236,12 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												href={contentLink}
 												target="_blank"
 												rel="noreferrer noopener"
-												onClick={() => posthog.capture('presentation_played', { title: p.title, preview_type: p.preview?.type })}
+												onClick={() =>
+													posthog.capture('presentation_played', {
+														title: copy.title,
+														preview_type: p.preview?.type,
+													})
+												}
 												style={{
 													fontFamily: OP.font,
 													fontSize: 11,
@@ -243,7 +259,11 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												href={p.githubUrl}
 												target="_blank"
 												rel="noreferrer noopener"
-												onClick={() => posthog.capture('presentation_src_opened', { title: p.title })}
+												onClick={() =>
+													posthog.capture('presentation_src_opened', {
+														title: copy.title,
+													})
+												}
 												style={{
 													fontFamily: OP.font,
 													fontSize: 11,
@@ -258,7 +278,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 										)}
 									</div>
 								</header>
-								<TalkPreview presentation={p} />
+								<TalkPreview presentation={p} title={copy.title} />
 							</article>
 						);
 					})}

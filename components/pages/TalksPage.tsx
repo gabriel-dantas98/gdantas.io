@@ -14,8 +14,10 @@ import {
 import { derivePreview, type NormalizedPreview, type RawPreview } from '~/lib/preview';
 import presentationsData from '~/data/presentations.json';
 import { I18nProvider, useT } from '~/lib/i18n';
+import { resolveTalkCopy } from '~/lib/talk-copy';
 
 interface RawPresentation {
+	slug?: string;
 	title: string;
 	icon: string;
 	color: string;
@@ -29,6 +31,7 @@ interface RawPresentation {
 }
 
 interface TalkItem {
+	slug?: string;
 	title: string;
 	icon: string;
 	description: string;
@@ -70,6 +73,7 @@ export const getStaticProps: GetStaticProps<TalksProps> = async () => {
 			kind: inferKind(p),
 			preview: derivePreview(p),
 		};
+		if (p.slug) item.slug = p.slug;
 		if (p.date) item.date = p.date;
 		if (p.location) item.location = p.location;
 		return item;
@@ -106,6 +110,12 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 	const activeMeta = active
 		? [active.date, active.location].filter(Boolean).join(' · ')
 		: '';
+	const activeCopy = active
+		? resolveTalkCopy(t, active.slug, {
+				title: active.title,
+				description: active.description,
+			})
+		: null;
 
 	return (
 		<OperatorPage
@@ -130,13 +140,20 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 					{talks.map((tk, i) => {
 						const k = kindTag(tk.kind);
 						const meta = [tk.date, tk.location].filter(Boolean).join(' · ');
+						const copy = resolveTalkCopy(t, tk.slug, {
+							title: tk.title,
+							description: tk.description,
+						});
 						return (
 							<button
 								key={`${tk.url}-${i}`}
 								type="button"
 								onClick={() => {
 									setActiveIdx(i);
-									posthog.capture('talk_clicked', { talk_title: tk.title, talk_type: k.tag });
+									posthog.capture('talk_clicked', {
+										talk_title: copy.title,
+										talk_type: k.tag,
+									});
 								}}
 								className="op-talk-card"
 								style={{
@@ -193,7 +210,7 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 										marginTop: 14,
 										lineHeight: 1.4,
 									}}>
-									{tk.title}
+									{copy.title}
 								</div>
 								<div
 									style={{
@@ -203,7 +220,7 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 										marginTop: 10,
 										lineHeight: 1.5,
 									}}>
-									{tk.description}
+									{copy.description}
 								</div>
 							</button>
 						);
@@ -226,11 +243,11 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 				</div>
 			</div>
 
-			{active && activeKind && (
+			{active && activeKind && activeCopy && (
 				<PreviewModal
 					open
 					onClose={() => setActiveIdx(null)}
-					title={active.title}
+					title={activeCopy.title}
 					tag={{ label: activeKind.tag, color: activeKind.color }}
 					meta={activeMeta || undefined}
 					preview={active.preview}
