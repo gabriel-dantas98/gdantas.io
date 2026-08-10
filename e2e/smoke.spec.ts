@@ -268,7 +268,7 @@ test.describe('semantic contract · indexable routes', () => {
 		test(`${route.path} exposes one localized semantic identity`, async ({ page }) => {
 			await page.addInitScript((lang) => window.localStorage.setItem('lang', lang), route.lang);
 			const requestPath = `${route.path}?utm_source=semantic-contract#metadata`;
-			await page.goto(requestPath);
+			await page.goto(requestPath, { waitUntil: 'domcontentloaded' });
 
 			await expect(page.locator('html')).toHaveAttribute('lang', route.lang);
 			await expect(page.locator('h1')).toHaveCount(1);
@@ -376,7 +376,7 @@ async function renderedCollectionUrls(
 	}
 
 	const presentationsPath = path.startsWith('/en/') ? '/en/presentations' : '/presentations';
-	await page.goto(presentationsPath);
+	await page.goto(presentationsPath, { waitUntil: 'domcontentloaded' });
 	const ids = await page.locator('article[id]').evaluateAll((articles) =>
 		articles.map((article) => article.id),
 	);
@@ -388,7 +388,7 @@ test.describe('semantic contract · structured data', () => {
 		test(`${route.path} emits valid factual JSON-LD`, async ({ page }) => {
 			const lang = route.path === '/en' || route.path.startsWith('/en/') ? 'en' : 'pt';
 			await page.addInitScript((locale) => window.localStorage.setItem('lang', locale), lang);
-			await page.goto(route.path);
+			await page.goto(route.path, { waitUntil: 'domcontentloaded' });
 			const rawSchemas = await page
 				.locator('script[type="application/ld+json"]')
 				.allTextContents();
@@ -416,7 +416,7 @@ test.describe('semantic contract · structured data', () => {
 test.describe('semantic contract · non-indexable utilities', () => {
 	test('/go is noindex and advertises no nonexistent locale mirror', async ({ page }) => {
 		await page.addInitScript(() => window.localStorage.setItem('lang', 'pt'));
-		await page.goto('/go');
+		await page.goto('/go', { waitUntil: 'domcontentloaded' });
 
 		await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/i);
 		await expect(page.locator('link[rel="alternate"]')).toHaveCount(0);
