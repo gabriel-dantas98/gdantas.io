@@ -59,7 +59,7 @@ function LinksPageInner({ links }: { links: LinkItem[] }) {
 				path,
 				name: t('seo.links.title'),
 				description: t('seo.links.description'),
-				items: links.map((link) => ({ name: link.title, url: path })),
+				items: links.map((link) => ({ name: link.title, url: link.url })),
 			})}
 			active="/">
 			<div ref={ref}>

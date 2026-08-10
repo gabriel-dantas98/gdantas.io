@@ -64,6 +64,32 @@ test('buildCollectionPage exposes real supplied items through an ItemList', () =
 	]);
 });
 
+test('buildCollectionPage preserves external and fragment item destinations', () => {
+	const collectionPage = buildCollectionPage({
+		locale: 'pt',
+		path: '/talks',
+		name: 'Talks',
+		items: [
+			{
+				name: 'Release confidence',
+				url: 'https://www.youtube.com/watch?v=uJ4BVndB6FU',
+			},
+			{
+				name: 'Backstage and Terraform',
+				url: '/presentations#backstage-tf',
+			},
+		],
+	});
+
+	assert.deepEqual(
+		collectionPage.mainEntity.itemListElement.map((item) => item.url),
+		[
+			'https://www.youtube.com/watch?v=uJ4BVndB6FU',
+			'https://gdantas.com.br/presentations#backstage-tf',
+		],
+	);
+});
+
 test('schema builders never serialize undefined values', () => {
 	const serialized = JSON.stringify([
 		buildPerson('pt'),

@@ -57,7 +57,10 @@ function ProjectsPageInner({ stringifiedProjects }: { stringifiedProjects: strin
 				path,
 				name: t('seo.projects.title'),
 				description: t('seo.projects.description'),
-				items: projects.map((project) => ({ name: shortName(project.name), url: path })),
+				items: projects.map((project) => ({
+					name: shortName(project.name),
+					url: project.url,
+				})),
 			})}
 			active="/projects">
 			<div ref={ref}>

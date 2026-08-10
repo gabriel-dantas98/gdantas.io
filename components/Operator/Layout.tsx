@@ -62,7 +62,7 @@ export function OperatorPage({
 					handle: '@gdantas',
 					site: '@gdantas',
 				}}
-				languageAlternates={languageAlternates}
+				languageAlternates={noIndex ? [] : languageAlternates}
 				additionalMetaTags={[
 					{ name: 'theme-color', content: OP.bg },
 					{ name: 'author', content: 'Gabriel Dantas' },

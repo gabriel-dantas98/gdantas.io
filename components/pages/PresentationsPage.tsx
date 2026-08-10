@@ -158,13 +158,22 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
 	const path = locale === 'en' ? '/en/presentations' : '/presentations';
-	const collectionItems = presentations.map((presentation) => ({
-		name: resolveTalkCopy(t, presentation.slug, {
-			title: presentation.title,
-			description: presentation.description,
-		}).title,
-		url: path,
-	}));
+	const collectionItems = presentations.flatMap((presentation) => {
+		const url =
+			presentation.contentUrl ||
+			presentation.url ||
+			(presentation.slug ? `${path}#${presentation.slug}` : undefined);
+		if (!url) return [];
+		return [
+			{
+				name: resolveTalkCopy(t, presentation.slug, {
+					title: presentation.title,
+					description: presentation.description,
+				}).title,
+				url,
+			},
+		];
+	});
 	return (
 		<OperatorPage
 			title={t('seo.presentations.title')}

@@ -74,6 +74,18 @@ function schemaLanguage(locale: SiteLocale): 'pt-BR' | 'en' {
 	return locale === 'pt' ? 'pt-BR' : 'en';
 }
 
+function publicItemUrl(value: string): string {
+	if (value.startsWith('/') && !value.startsWith('//')) {
+		return new URL(value, SITE_URL).href;
+	}
+
+	const url = new URL(value);
+	if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+		throw new Error('collection item URLs must use public http(s) destinations');
+	}
+	return url.href;
+}
+
 export function buildPerson(_locale: SiteLocale): PersonSchema {
 	return {
 		'@context': 'https://schema.org',
@@ -122,7 +134,7 @@ export function buildCollectionPage(input: CollectionPageInput): CollectionPageS
 			'@type': 'ListItem',
 			position: index + 1,
 			name: item.name,
-			url: canonicalUrl(item.url),
+			url: publicItemUrl(item.url),
 		})),
 	};
 

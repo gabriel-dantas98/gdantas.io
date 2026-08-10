@@ -12,6 +12,8 @@ module.exports = {
 	generateRobotsTxt: true,
 	siteUrl: `${protocol}://${domain}`,
 	exclude: [
+		// PT-only utility index has no truthful EN mirror.
+		'/go',
 		// Redirect-only shortcut targets intentionally emit noindex.
 		'/go/*',
 		// Utility error page should not compete with real content in search.

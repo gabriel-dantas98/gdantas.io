@@ -293,22 +293,95 @@ test.describe('semantic contract · indexable routes', () => {
 	}
 });
 
-const STRUCTURED_DATA_ROUTES = [
+type CollectionFidelity =
+	| { kind: 'talk-fragments' }
+	| { kind: 'article-destinations' }
+	| { kind: 'link-destinations'; selector: string };
+
+const STRUCTURED_DATA_ROUTES: Array<{
+	path: string;
+	types: string[];
+	fidelity?: CollectionFidelity;
+}> = [
 	{ path: '/', types: ['Person', 'WebSite'] },
 	{ path: '/en', types: ['Person', 'WebSite'] },
 	{ path: '/about', types: ['ProfilePage'] },
 	{ path: '/en/about', types: ['ProfilePage'] },
-	{ path: '/talks', types: ['CollectionPage'] },
-	{ path: '/en/talks', types: ['CollectionPage'] },
-	{ path: '/presentations', types: ['CollectionPage'] },
-	{ path: '/en/presentations', types: ['CollectionPage'] },
-	{ path: '/projects', types: ['CollectionPage'] },
-	{ path: '/en/projects', types: ['CollectionPage'] },
-	{ path: '/writing', types: ['CollectionPage'] },
-	{ path: '/en/writing', types: ['CollectionPage'] },
-	{ path: '/links', types: ['CollectionPage'] },
-	{ path: '/en/links', types: ['CollectionPage'] },
+	{ path: '/talks', types: ['CollectionPage'], fidelity: { kind: 'talk-fragments' } },
+	{ path: '/en/talks', types: ['CollectionPage'], fidelity: { kind: 'talk-fragments' } },
+	{
+		path: '/presentations',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'article-destinations' },
+	},
+	{
+		path: '/en/presentations',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'article-destinations' },
+	},
+	{
+		path: '/projects',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'link-destinations', selector: '.op-pod' },
+	},
+	{
+		path: '/en/projects',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'link-destinations', selector: '.op-pod' },
+	},
+	{
+		path: '/writing',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'link-destinations', selector: '.op-writing-row' },
+	},
+	{
+		path: '/en/writing',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'link-destinations', selector: '.op-writing-row' },
+	},
+	{
+		path: '/links',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'link-destinations', selector: '.op-link-tile' },
+	},
+	{
+		path: '/en/links',
+		types: ['CollectionPage'],
+		fidelity: { kind: 'link-destinations', selector: '.op-link-tile' },
+	},
 ];
+
+async function renderedCollectionUrls(
+	page: Page,
+	path: string,
+	fidelity: CollectionFidelity,
+): Promise<string[]> {
+	if (fidelity.kind === 'link-destinations') {
+		const hrefs = await page.locator(fidelity.selector).evaluateAll((elements) =>
+			elements.map((element) => element.getAttribute('href')).filter(Boolean) as string[],
+		);
+		return hrefs.map((href) => new URL(href, SITE_URL).href);
+	}
+
+	if (fidelity.kind === 'article-destinations') {
+		const destinations = await page.locator('article[id]').evaluateAll((articles) =>
+			articles.map((article) => ({
+				href: article.querySelector('header a[href]')?.getAttribute('href') || null,
+				id: article.id,
+			})),
+		);
+		return destinations.map(({ href, id }) =>
+			href ? new URL(href, SITE_URL).href : `${SITE_URL}${path}#${id}`,
+		);
+	}
+
+	const presentationsPath = path.startsWith('/en/') ? '/en/presentations' : '/presentations';
+	await page.goto(presentationsPath);
+	const ids = await page.locator('article[id]').evaluateAll((articles) =>
+		articles.map((article) => article.id),
+	);
+	return ids.map((id) => `${SITE_URL}${presentationsPath}#${id}`);
+}
 
 test.describe('semantic contract · structured data', () => {
 	for (const route of STRUCTURED_DATA_ROUTES) {
@@ -325,13 +398,29 @@ test.describe('semantic contract · structured data', () => {
 			for (const schema of schemas.filter((item) => item['@type'] === 'CollectionPage')) {
 				expect(schema.mainEntity?.['@type']).toBe('ItemList');
 				expect(Array.isArray(schema.mainEntity?.itemListElement)).toBeTruthy();
+				const itemUrls = schema.mainEntity.itemListElement.map((item: any) => item.url);
 				for (const item of schema.mainEntity.itemListElement) {
 					expect(item.name).toEqual(expect.any(String));
-					expect(item.url).toMatch(/^https:\/\/gdantas\.com\.br\//);
+					expect(item.url).toEqual(expect.any(String));
+				}
+				if (route.fidelity) {
+					const renderedUrls = await renderedCollectionUrls(page, route.path, route.fidelity);
+					expect(itemUrls).toEqual(renderedUrls);
+					expect(new Set(itemUrls).size).toBe(itemUrls.length);
 				}
 			}
 		});
 	}
+});
+
+test.describe('semantic contract · non-indexable utilities', () => {
+	test('/go is noindex and advertises no nonexistent locale mirror', async ({ page }) => {
+		await page.addInitScript(() => window.localStorage.setItem('lang', 'pt'));
+		await page.goto('/go');
+
+		await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/i);
+		await expect(page.locator('link[rel="alternate"]')).toHaveCount(0);
+	});
 });
 
 async function waitForHydration(page: Page) {

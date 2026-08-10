@@ -119,12 +119,13 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 			})
 		: null;
 	const path = locale === 'en' ? '/en/talks' : '/talks';
+	const presentationsPath = locale === 'en' ? '/en/presentations' : '/presentations';
 	const collectionItems = talks.map((talk) => ({
 		name: resolveTalkCopy(t, talk.slug, {
 			title: talk.title,
 			description: talk.description,
 		}).title,
-		url: path,
+		url: talk.slug ? `${presentationsPath}#${talk.slug}` : talk.url,
 	}));
 
 	return (

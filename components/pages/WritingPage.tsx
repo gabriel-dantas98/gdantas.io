@@ -119,7 +119,7 @@ function WritingPageInner({ posts }: { posts: MediumPost[] }) {
 				path,
 				name: t('seo.writing.title'),
 				description: t('seo.writing.description'),
-				items: posts.map((post) => ({ name: post.title, url: path })),
+				items: posts.map((post) => ({ name: post.title, url: post.href })),
 			})}
 			active="/writing">
 			<div ref={ref}>
