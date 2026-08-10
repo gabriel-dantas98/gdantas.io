@@ -244,6 +244,7 @@
 - Create: `tests/ai-readiness-scan.test.ts`
 - Create: `.github/workflows/agent-readiness.yml`
 - Create: `.agents/skills/auditing-ai-readiness/SKILL.md`
+- Create: `.agents/skills/auditing-ai-readiness/agents/openai.yaml`
 - Create: `.agents/skills/auditing-ai-readiness/references/github-pages-tradeoffs.md`
 - Modify: `.github/workflows/ci.yml`
 - Modify: `.github/workflows/nextjs.yml`
@@ -280,15 +281,23 @@
 
   Schedule weekly and allow `workflow_dispatch`; run the scanner for `https://gdantas.com.br`; always upload JSON/Markdown and append Markdown to `$GITHUB_STEP_SUMMARY`; do not fail solely because the external scanner is unavailable or an accepted check is unsupported.
 
-- [ ] **Step 7: Add the repo-local maintenance skill**
+- [ ] **Step 7: Initialize the repo-local maintenance skill**
 
-  Trigger on SEO/GEO/content/i18n/robots/sitemap/`llms*`/JSON-LD/public skills/hosting/readiness changes. Require `yarn ai:prepare`, `yarn export`, `yarn sitemap:check`, `yarn ai:check`, and relevant E2E. State the GitHub Pages limitations and explicitly forbid score-chasing with fake endpoints.
+  Run the `skill-creator` `scripts/init_skill.py` for `auditing-ai-readiness` with `--resources references` and interface values: display name `Audit AI Readiness`, short description `Audit GEO and static agent-readiness signals`, and default prompt `Use $auditing-ai-readiness to audit this site's GEO and agent-readiness changes.` Remove generated placeholders before continuing.
 
-- [ ] **Step 8: Run workflow/static validation**
+- [ ] **Step 8: Write the skill from the observed RED failures**
+
+  Trigger on SEO/GEO/content/i18n/robots/sitemap/`llms*`/JSON-LD/public skills/hosting/readiness changes. Five no-skill controls all omitted `yarn ai:prepare`, `yarn sitemap:check`, and `yarn ai:check`; one accepted a missing sitemap; one used `yarn start` instead of serving `out/`; accepted scanner gaps were vague. Shape an exact evidence recipe requiring `yarn ai:prepare`, `yarn export`, `yarn sitemap:check`, `yarn ai:check`, and relevant E2E against `out/`. Separate deterministic blockers from the accepted GitHub Pages limitations in the reference. Keep the explicit rule against fake endpoints concise because 3/3 separate controls already refused them without guidance.
+
+- [ ] **Step 9: Validate and forward-test the skill**
+
+  Run `skill-creator/scripts/quick_validate.py` on the folder, confirm `SKILL.md` stays under 500 words, and run five fresh-context applications of the same workflow scenario with the skill. Passing behavior names the exact repo commands in order, requires sitemap/public skill/digest, rejects fake capabilities, and treats only documented GitHub Pages limitations/external scanner availability as non-blocking. If a new rationalization appears, add one focused counter and re-test it.
+
+- [ ] **Step 10: Run workflow/static validation**
 
   Run: `yarn test:unit && yarn ai:prepare && yarn type-check && yarn i18n:check`
 
-- [ ] **Step 9: Commit**
+- [ ] **Step 11: Commit**
 
   Commit message: `ci: mantém agent readiness verificável sem fingir runtime`
 
