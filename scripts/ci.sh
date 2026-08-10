@@ -32,6 +32,10 @@ echo "🌐 Checking i18n key parity (pt vs en)..."
 $RUNNER tsx scripts/i18n-check.ts || $RUNNER ts-node scripts/i18n-check.ts
 
 echo ""
+echo "🤖 Preparing public Agent Skills discovery metadata..."
+$MANAGER run ai:prepare
+
+echo ""
 echo "🏗️  Building with Next.js..."
 $RUNNER next build
 
@@ -46,6 +50,10 @@ if [ "$MANAGER" = "yarn" ]; then
 else
 	npm run sitemap:check
 fi
+
+echo ""
+echo "🤖 Checking deterministic AI readiness signals..."
+$MANAGER run ai:check
 
 echo ""
 echo "✅ Build validation completed successfully!"
