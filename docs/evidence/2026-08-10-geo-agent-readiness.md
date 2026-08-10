@@ -105,9 +105,13 @@ O build passou de 333 kB para 334 kB de First Load JS compartilhado e da home
 (arredondamento do relatório Next.js). No trace Lighthouse da home, scripts
 locais continuaram em 13 requisições e passaram de 400.959 B para 402.964 B:
 +2.005 B (+0,50%), concentrados no classificador de referral e no chunk comum.
-Não houve nova dependência em `package.json`/lockfile nem novo padrão de URL,
-origem ou requisição no navegador. JSON-LD, `llms*`, robots e Agent Skills são
-bytes estáticos e não geram hidratação ou fetch client-side.
+Não houve nova dependência em `package.json`/lockfile nem nova requisição no
+trace Lighthouse medido, que navegou sem referrer de IA. Em uma landing com
+referrer reconhecido, o site emite uma vez o evento `ai_referral_landed` pelo
+PostHog já inicializado; esse caminho condicional não foi medido separadamente
+e pode compartilhar ou adicionar transporte para a origem de analytics.
+JSON-LD, `llms*`, robots e Agent Skills são bytes estáticos e não geram
+hidratação ou fetch client-side.
 
 As medições locais não mostram regressão material de FCP, LCP, TBT ou CLS. Isso
 é evidência de laboratório, não garantia de Web Vitals de campo depois do
