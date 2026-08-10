@@ -11,6 +11,7 @@ import 'nprogress/nprogress.css';
 import 'windi.css';
 
 import { colors, useClick } from '~/lib';
+import { buildAiReferralEvent } from '~/lib/ai-referrals';
 import { ensureGsap } from '~/lib/gsap-loader';
 import { fontVars } from '~/lib/fonts';
 import { I18nProvider, detectLocaleFromPath, withLocale } from '~/lib/i18n';
@@ -86,6 +87,12 @@ export default function App({ Component, pageProps }: AppProps) {
 				debug: process.env.NODE_ENV === 'development',
 			},
 		);
+
+		const aiReferral = buildAiReferralEvent({
+			referrer: document.referrer,
+			path: window.location.pathname,
+		});
+		if (aiReferral) posthog.capture('ai_referral_landed', aiReferral);
 	});
 
 	return (

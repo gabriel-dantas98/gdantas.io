@@ -1,11 +1,8 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import {
-	buildAiReferralEvent,
-	classifyAiReferral,
-	inferContentType,
-} from '../lib/ai-referrals';
+import { buildAiReferralEvent, classifyAiReferral, inferContentType } from '../lib/ai-referrals';
 
 test('classifyAiReferral recognizes AI referrer hostnames at hostname boundaries', () => {
 	assert.equal(classifyAiReferral('https://chatgpt.com/share/abc'), 'chatgpt');
@@ -37,22 +34,46 @@ test('inferContentType classifies locale-prefixed and root content paths', () =>
 });
 
 test('buildAiReferralEvent emits a privacy-safe landing event for an AI referral', () => {
-	assert.deepEqual(
-		buildAiReferralEvent({
-			referrer: 'https://www.perplexity.ai/search?q=Gabriel+Dantas#answer',
-			path: '/en/talks/?utm_source=perplexity#top',
-		}),
-		{
-			ai_source: 'perplexity',
-			landing_path: '/en/talks',
-			locale: 'en',
-			content_type: 'talks',
-		},
-	);
+	const event = buildAiReferralEvent({
+		referrer: 'https://www.perplexity.ai/search?q=Gabriel+Dantas#answer',
+		path: '/en/talks/?utm_source=perplexity#top',
+	});
+
+	assert.deepEqual(event, {
+		ai_source: 'perplexity',
+		landing_path: '/en/talks',
+		locale: 'en',
+		content_type: 'talks',
+	});
+	assert.deepEqual(Object.keys(event || {}).sort(), [
+		'ai_source',
+		'content_type',
+		'landing_path',
+		'locale',
+	]);
 });
 
 test('buildAiReferralEvent ignores empty, internal, and non-AI referrers', () => {
 	assert.equal(buildAiReferralEvent({ referrer: '', path: '/about' }), null);
-	assert.equal(buildAiReferralEvent({ referrer: 'https://gdantas.com.br/en', path: '/about' }), null);
-	assert.equal(buildAiReferralEvent({ referrer: 'https://www.google.com', path: '/about' }), null);
+	assert.equal(
+		buildAiReferralEvent({ referrer: 'https://gdantas.com.br/en', path: '/about' }),
+		null,
+	);
+	assert.equal(
+		buildAiReferralEvent({ referrer: 'https://www.google.com', path: '/about' }),
+		null,
+	);
+});
+
+test('the app captures the privacy-safe event once in its initial-load effect', () => {
+	const appSource = readFileSync(new URL('../pages/_app.tsx', import.meta.url), 'utf8');
+	const posthogInit = appSource.indexOf('posthog.init(');
+	const referralBuilder = appSource.indexOf('buildAiReferralEvent({');
+	const referralCapture = appSource.indexOf("posthog.capture('ai_referral_landed', aiReferral)");
+
+	assert.equal(appSource.match(/useEffectOnce\(\(\) => \{/g)?.length, 1);
+	assert.ok(posthogInit > -1);
+	assert.ok(referralBuilder > posthogInit);
+	assert.ok(referralCapture > referralBuilder);
+	assert.equal(appSource.match(/posthog\.capture\('ai_referral_landed'/g)?.length, 1);
 });
