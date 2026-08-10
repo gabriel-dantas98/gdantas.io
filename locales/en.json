@@ -97,6 +97,12 @@
 	"talks": {
 		"section": { "label": "01", "title": "ls ~/talks", "sub": "recent · slides + video + audio" },
 		"kinds": { "video": "VIDEO", "audio": "AUDIO", "slides": "SLIDES", "talk": "TALK" },
+		"detail": {
+			"back": "← all talks",
+			"open": "open content ↗",
+			"source": "./src ↗",
+			"previewUnavailable": "preview unavailable"
+		},
 		"footerPrompt": "ls --all | wc -l →",
 		"footerEntries": "entries",
 		"footerLink": "↗ presentations (full list with inline previews)",

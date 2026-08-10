@@ -1,42 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import posthog from 'posthog-js';
 
-import {
-	OP,
-	Sec,
-	Prompt,
-	OperatorPage,
-	PreviewModal,
-	useReveal,
-} from '~/components/Operator';
-import { derivePreview, type NormalizedPreview, type RawPreview } from '~/lib/preview';
+import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
+import type { RawPreview } from '~/lib/preview';
 import presentationsData from '~/data/presentations.json';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT, withLocale } from '~/lib/i18n';
 
 interface RawPresentation {
+	slug: string;
 	title: string;
 	icon: string;
-	color: string;
 	description: string;
-	url?: string;
-	contentUrl?: string;
-	githubUrl?: string;
 	date?: string;
 	location?: string;
 	preview?: RawPreview;
 }
 
 interface TalkItem {
+	slug: string;
 	title: string;
-	icon: string;
 	description: string;
-	url: string;
 	date?: string;
 	location?: string;
 	kind: 'video' | 'audio' | 'slides' | 'talk';
-	preview: NormalizedPreview | null;
 }
 
 interface TalksProps {
@@ -57,18 +45,16 @@ function inferKind(p: RawPresentation): TalkItem['kind'] {
 	return 'talk';
 }
 
-// Source of truth única: presentations.json. /talks mostra cards leves; o
-// preview embeddado abre num modal (PreviewModal) quando o usuário clica.
+// Source of truth única: presentations.json. /talks mostra cards leves que
+// levam para as páginas estáticas individuais; embeds só carregam no detalhe.
 export const getStaticProps: GetStaticProps<TalksProps> = async () => {
 	const raw = presentationsData as RawPresentation[];
 	const talks: TalkItem[] = raw.map((p) => {
 		const item: TalkItem = {
+			slug: p.slug,
 			title: p.title,
-			icon: p.icon,
 			description: p.description,
-			url: p.contentUrl || p.url || 'https://github.com/gabriel-dantas98',
 			kind: inferKind(p),
-			preview: derivePreview(p),
 		};
 		if (p.date) item.date = p.date;
 		if (p.location) item.location = p.location;
@@ -94,24 +80,19 @@ export function TalksPage({ talks, locale = 'pt' }: TalksProps & { locale?: 'pt'
 
 function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
-	const [activeIdx, setActiveIdx] = useState<number | null>(null);
-	const active = activeIdx != null ? talks[activeIdx] : null;
 
 	const kindTag = (kind: TalkItem['kind']) => ({
 		tag: t(`talks.kinds.${kind}`),
 		color: KIND_COLORS[kind],
 	});
-	const activeKind = active ? kindTag(active.kind) : null;
-	const activeMeta = active
-		? [active.date, active.location].filter(Boolean).join(' · ')
-		: '';
-
 	return (
 		<OperatorPage
 			title="gdantas ─ ls ~/talks"
 			description="Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops."
-			active="/talks">
+			active="/talks"
+		>
 			<div ref={ref}>
 				<Sec
 					label={t('talks.section.label')}
@@ -126,17 +107,21 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 						display: 'grid',
 						gridTemplateColumns: 'repeat(2, 1fr)',
 						gap: 14,
-					}}>
-					{talks.map((tk, i) => {
+					}}
+				>
+					{talks.map((tk) => {
 						const k = kindTag(tk.kind);
 						const meta = [tk.date, tk.location].filter(Boolean).join(' · ');
 						return (
-							<button
-								key={`${tk.url}-${i}`}
-								type="button"
+							<Link
+								key={tk.slug}
+								href={withLocale(`/talks/${tk.slug}`, locale)}
 								onClick={() => {
-									setActiveIdx(i);
-									posthog.capture('talk_clicked', { talk_title: tk.title, talk_type: k.tag });
+									posthog.capture('talk_clicked', {
+										talk_title: tk.title,
+										talk_type: k.tag,
+										talk_slug: tk.slug,
+									});
 								}}
 								className="op-talk-card"
 								style={{
@@ -148,9 +133,11 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 									color: OP.fg,
 									font: 'inherit',
 									cursor: 'pointer',
+									textDecoration: 'none',
 									width: '100%',
 									transition: 'border-color 120ms ease, background 120ms ease',
-								}}>
+								}}
+							>
 								<div
 									style={{
 										display: 'flex',
@@ -158,7 +145,8 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 										alignItems: 'center',
 										gap: 8,
 										flexWrap: 'wrap',
-									}}>
+									}}
+								>
 									<span
 										style={{
 											fontFamily: OP.font,
@@ -167,7 +155,8 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 											letterSpacing: '0.12em',
 											border: `1px solid ${k.color}`,
 											padding: '2px 8px',
-										}}>
+										}}
+									>
 										{k.tag}
 									</span>
 									{meta && (
@@ -177,11 +166,18 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 												fontSize: 11,
 												color: OP.dim,
 												letterSpacing: '0.04em',
-											}}>
+											}}
+										>
 											{meta}
 										</span>
 									)}
-									<span style={{ fontFamily: OP.font, fontSize: 11, color: OP.amber }}>
+									<span
+										style={{
+											fontFamily: OP.font,
+											fontSize: 11,
+											color: OP.amber,
+										}}
+									>
 										{t('common.preview')}
 									</span>
 								</div>
@@ -192,7 +188,8 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 										color: OP.fg,
 										marginTop: 14,
 										lineHeight: 1.4,
-									}}>
+									}}
+								>
 									{tk.title}
 								</div>
 								<div
@@ -202,10 +199,11 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 										color: OP.dim,
 										marginTop: 10,
 										lineHeight: 1.5,
-									}}>
+									}}
+								>
 									{tk.description}
 								</div>
-							</button>
+							</Link>
 						);
 					})}
 				</div>
@@ -219,24 +217,13 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 						·{' '}
 						<Link
 							href="/presentations"
-							style={{ color: OP.amber, textDecoration: 'none' }}>
+							style={{ color: OP.amber, textDecoration: 'none' }}
+						>
 							{t('talks.footerLink')}
 						</Link>
 					</Prompt>
 				</div>
 			</div>
-
-			{active && activeKind && (
-				<PreviewModal
-					open
-					onClose={() => setActiveIdx(null)}
-					title={active.title}
-					tag={{ label: activeKind.tag, color: activeKind.color }}
-					meta={activeMeta || undefined}
-					preview={active.preview}
-					href={active.url}
-				/>
-			)}
 
 			<style jsx>{`
 				@media (max-width: 720px) {
