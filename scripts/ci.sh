@@ -32,6 +32,14 @@ echo "🌐 Checking i18n key parity (pt vs en)..."
 $RUNNER tsx scripts/i18n-check.ts || $RUNNER ts-node scripts/i18n-check.ts
 
 echo ""
+echo "🖼️  Checking talks catalog and deterministic social images..."
+if [ "$MANAGER" = "yarn" ]; then
+	yarn talks:check
+else
+	npm run talks:check
+fi
+
+echo ""
 echo "🏗️  Building with Next.js..."
 $RUNNER next build
 

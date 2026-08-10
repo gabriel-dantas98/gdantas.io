@@ -1,4 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
+import presentations from '../data/presentations.json';
+
+const TALK_COUNT = presentations.length;
 
 // Bloqueia PostHog em todos os testes — site dispara captura e em CI isso
 // gera ruído + latência. Não afeta funcionalidade visível.
@@ -36,7 +39,7 @@ const EN_ROUTES: RouteCase[] = PT_ROUTES.map((r) => ({
 test.describe('smoke · PT routes', () => {
 	for (const r of PT_ROUTES) {
 		test(`GET ${r.path} renderiza`, async ({ page }) => {
-			const res = await page.goto(r.path);
+			const res = await page.goto(r.path, { waitUntil: 'domcontentloaded' });
 			expect(res?.ok(), `${r.path} retornou status ${res?.status()}`).toBeTruthy();
 			await expect(page.locator('body')).toContainText(r.expect);
 		});
@@ -46,7 +49,7 @@ test.describe('smoke · PT routes', () => {
 test.describe('smoke · EN routes', () => {
 	for (const r of EN_ROUTES) {
 		test(`GET ${r.path} renderiza`, async ({ page }) => {
-			const res = await page.goto(r.path);
+			const res = await page.goto(r.path, { waitUntil: 'domcontentloaded' });
 			expect(res?.ok(), `${r.path} retornou status ${res?.status()}`).toBeTruthy();
 		});
 	}
@@ -79,33 +82,47 @@ test.describe('golden flows · home', () => {
 		void ctaSection;
 	});
 
-	test('card de talk leva pra /presentations#<slug>', async ({ page }) => {
+	test('card mais recente leva para a página individual da talk', async ({ page }) => {
 		await page.goto('/');
 		// `.click()` aguarda o elemento ficar estável após hydration — evita
 		// "Element is not attached to the DOM" quando o card re-monta.
-		await page.locator('a[href="/presentations#backstage-tf"]').first().click();
-		await expect(page).toHaveURL(/\/presentations#backstage-tf/);
-		await expect(page.locator('#backstage-tf')).toBeVisible();
+		await page.locator('a[href="/talks/idp-hub-mcps"]').first().click();
+		await expect(page).toHaveURL(/\/talks\/idp-hub-mcps$/);
+	});
+
+	test('homepage serve uma imagem social fallback válida', async ({ page }) => {
+		await page.goto('/');
+		const socialImage = '/og/default.png';
+		await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+			'content',
+			`https://gdantas.com.br${socialImage}`,
+		);
+		const response = await page.request.get(socialImage);
+		expect(response.status()).toBe(200);
+		expect(response.headers()['content-type']).toContain('image/png');
+	});
+
+	test('home EN mantém cards e listagem no mirror /en', async ({ page }) => {
+		await page.goto('/en');
+		await expect(page.locator('main a[href^="/en/talks/"]')).toHaveCount(TALK_COUNT);
+		await expect(page.locator('main a[href="/en/talks"]')).toBeVisible();
 	});
 });
 
 test.describe('golden flows · navegação', () => {
-	const SLUGS_HOME = [
-		'idp-portals',
-		'flaky-to-confident',
-		'cursor-mcp-db',
-		'incident-mcps',
-		'rag-idp',
-		'qa-idp',
-		'backstage-tf',
-		'idp-backstage',
-	];
+	test('home e /talks expõem exatamente as mesmas páginas individuais', async ({ page }) => {
+		await page.goto('/');
+		const homeTalks = await page
+			.locator('main a[href^="/talks/"]')
+			.evaluateAll((links) => links.map((link) => link.getAttribute('href')).sort());
 
-	test('todos os slugs do home existem como id em /presentations', async ({ page }) => {
-		await page.goto('/presentations');
-		for (const slug of SLUGS_HOME) {
-			await expect(page.locator(`#${slug}`), `slug #${slug} ausente`).toHaveCount(1);
-		}
+		await page.goto('/talks');
+		const talksIndex = await page
+			.locator('main a[href^="/talks/"]')
+			.evaluateAll((links) => links.map((link) => link.getAttribute('href')).sort());
+
+		expect(homeTalks).toEqual(talksIndex);
+		expect(homeTalks).toHaveLength(TALK_COUNT);
 	});
 
 	test('Header em /about tem link de volta pra home', async ({ page }) => {
@@ -138,6 +155,14 @@ test.describe('golden flows · páginas individuais de talks', () => {
 			'content',
 			'article',
 		);
+		const socialImage = `/og/talks/${TALK_SLUG}.png`;
+		await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+			'content',
+			`https://gdantas.com.br${socialImage}`,
+		);
+		const imageResponse = await page.request.get(socialImage);
+		expect(imageResponse.status()).toBe(200);
+		expect(imageResponse.headers()['content-type']).toContain('image/png');
 		expect(await page.locator('script[type="application/ld+json"]').textContent()).toContain(
 			'PresentationDigitalDocument',
 		);
@@ -157,6 +182,12 @@ test.describe('golden flows · páginas individuais de talks', () => {
 			'href',
 			`https://gdantas.com.br/talks/${TALK_SLUG}`,
 		);
+		const socialImage = `/og/talks/${TALK_SLUG}-en.png`;
+		await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+			'content',
+			`https://gdantas.com.br${socialImage}`,
+		);
+		expect((await page.request.get(socialImage)).status()).toBe(200);
 	});
 
 	test('card da listagem navega para a página individual', async ({ page }) => {

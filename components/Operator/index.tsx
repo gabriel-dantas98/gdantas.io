@@ -19,6 +19,7 @@ export { HeroIconRain } from './HeroIconRain';
 export { Topology } from './Topology';
 export { ClusterGrid } from './ClusterGrid';
 export { TalkPreview, type Talk } from './TalkPreview';
+export { TalkCard } from './TalkCard';
 export { OperatorHeader } from './Header';
 export { OperatorFooter } from './Footer';
 export { OperatorPage } from './Layout';
