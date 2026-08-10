@@ -3,6 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 // Bloqueia PostHog em todos os testes — site dispara captura e em CI isso
 // gera ruído + latência. Não afeta funcionalidade visível.
 test.beforeEach(async ({ page }) => {
+	await page.addInitScript(() => window.localStorage.setItem('lang', 'pt'));
 	await page.route('**/posthog.com/**', (route) => route.abort());
 	await page.route('**/i.posthog.com/**', (route) => route.abort());
 	await page.route('**/us.i.posthog.com/**', (route) => route.abort());
@@ -71,9 +72,9 @@ test.describe('golden flows · home', () => {
 	test('CTAs do ping --help apontam todos pro LinkedIn', async ({ page }) => {
 		await page.goto('/');
 		const ctaSection = page.locator('text=ping --help').first().locator('..').locator('..');
-		const hrefs = await page.locator('a[href*="linkedin.com/in/gabrieldantasg"]').evaluateAll(
-			(els) => els.map((el) => (el as HTMLAnchorElement).href),
-		);
+		const hrefs = await page
+			.locator('a[href*="linkedin.com/in/gabrieldantasg"]')
+			.evaluateAll((els) => els.map((el) => (el as HTMLAnchorElement).href));
 		expect(hrefs.length).toBeGreaterThanOrEqual(3);
 		void ctaSection;
 	});
@@ -118,6 +119,51 @@ test.describe('golden flows · navegação', () => {
 		await page.goto('/about');
 		await page.getByLabel(/abrir menu|open menu/i).click();
 		await expect(page.getByRole('dialog').getByRole('link', { name: /home/i })).toBeVisible();
+	});
+});
+
+test.describe('golden flows · páginas individuais de talks', () => {
+	const TALK_SLUG = 'idp-hub-mcps';
+
+	test('página individual PT expõe conteúdo e SEO próprios', async ({ page }) => {
+		await page.goto(`/talks/${TALK_SLUG}`);
+		await expect(
+			page.getByRole('heading', { name: /Transformando seu Developer Portal/i }),
+		).toBeVisible();
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`https://gdantas.com.br/talks/${TALK_SLUG}`,
+		);
+		await expect(page.locator('meta[property="og:type"]')).toHaveAttribute(
+			'content',
+			'article',
+		);
+		expect(await page.locator('script[type="application/ld+json"]').textContent()).toContain(
+			'PresentationDigitalDocument',
+		);
+	});
+
+	test('página individual EN tem canonical e alternates próprios', async ({ page }) => {
+		const response = await page.goto(`/en/talks/${TALK_SLUG}`);
+		expect(response?.ok()).toBeTruthy();
+		await expect(
+			page.getByRole('heading', { name: /Turning your Developer Portal/i }),
+		).toBeVisible();
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`https://gdantas.com.br/en/talks/${TALK_SLUG}`,
+		);
+		await expect(page.locator('link[hreflang="pt-BR"]')).toHaveAttribute(
+			'href',
+			`https://gdantas.com.br/talks/${TALK_SLUG}`,
+		);
+	});
+
+	test('card da listagem navega para a página individual', async ({ page }) => {
+		await page.goto('/talks');
+		await waitForHydration(page);
+		await page.locator(`a[href="/talks/${TALK_SLUG}"]`).click({ force: true });
+		await expect(page).toHaveURL(new RegExp(`/talks/${TALK_SLUG}$`));
 	});
 });
 
