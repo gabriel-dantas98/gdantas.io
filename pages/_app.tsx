@@ -24,6 +24,8 @@ NProgress.configure({
 	speed: 800,
 });
 
+const documentsWithAiReferralCapture = new WeakSet<Document>();
+
 import { reportWebVitals as axiomReportWebVitals } from 'next-axiom';
 import type { NextWebVitalsMetric } from 'next/app';
 
@@ -88,11 +90,16 @@ export default function App({ Component, pageProps }: AppProps) {
 			},
 		);
 
-		const aiReferral = buildAiReferralEvent({
-			referrer: document.referrer,
-			path: window.location.pathname,
-		});
-		if (aiReferral) posthog.capture('ai_referral_landed', aiReferral);
+		if (!documentsWithAiReferralCapture.has(document)) {
+			const aiReferral = buildAiReferralEvent({
+				referrer: document.referrer,
+				path: window.location.pathname,
+			});
+			if (aiReferral) {
+				documentsWithAiReferralCapture.add(document);
+				posthog.capture('ai_referral_landed', aiReferral);
+			}
+		}
 	});
 
 	return (
