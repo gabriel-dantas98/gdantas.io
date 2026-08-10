@@ -54,6 +54,7 @@ test.describe('smoke · EN routes', () => {
 
 test.describe('golden flows · home', () => {
 	test('LangSwitcher na home troca de PT pra EN', async ({ page }) => {
+		await page.addInitScript(() => window.localStorage.setItem('lang', 'pt'));
 		await page.goto('/');
 		// Após o click, o botão vira disabled (estado ativo da nova lingua) e
 		// o auto-retry do Playwright falha. Promise.all garante que a espera
@@ -63,8 +64,7 @@ test.describe('golden flows · home', () => {
 		await Promise.all([
 			page.waitForURL(/\/en\/?$/),
 			page
-				.getByRole('button', { name: /Switch to English/i })
-				.first()
+				.locator('button[aria-label="Switch to English"]:visible')
 				.click({ force: true, noWaitAfter: true }),
 		]);
 	});
