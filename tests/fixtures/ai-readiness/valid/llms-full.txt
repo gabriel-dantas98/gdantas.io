@@ -1,0 +1,9 @@
+# gdantas — public source index
+
+- [Portuguese home](https://gdantas.com.br/)
+- [English home](https://gdantas.com.br/en)
+- [Portuguese about](https://gdantas.com.br/about)
+- [English about](https://gdantas.com.br/en/about)
+- [Portuguese talks](https://gdantas.com.br/talks)
+- [English talks](https://gdantas.com.br/en/talks)
+- [Agent Skill](https://gdantas.com.br/.well-known/agent-skills/exploring-gdantas/SKILL.md)

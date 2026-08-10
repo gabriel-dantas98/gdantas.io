@@ -1,0 +1,50 @@
+# gdantas — expanded public source index
+
+This static file helps readers and agents find Gabriel Dantas's canonical public pages. It does not advertise an API, an action interface, content negotiation, or any server-side agent capability.
+
+## Identity and focus
+
+Gabriel Dantas presents his work around Platform Engineering and Developer Experience, including Internal Developer Portals, Backstage, Kubernetes, SRE/DevOps, observability, AI ops, MCP, and retrieval-augmented generation applied to engineering platforms.
+
+- [Home — Portuguese](https://gdantas.com.br/)
+- [Home — English](https://gdantas.com.br/en)
+- [About — Portuguese](https://gdantas.com.br/about)
+- [About — English](https://gdantas.com.br/en/about)
+
+## Engineering principles and career
+
+- [Doctrine — Portuguese](https://gdantas.com.br/doctrine): published engineering principles and operating roles.
+- [Doctrine — English](https://gdantas.com.br/en/doctrine): English mirror of the doctrine page.
+- [Timeline — Portuguese](https://gdantas.com.br/timeline): public career roles and milestones.
+- [Timeline — English](https://gdantas.com.br/en/timeline): English mirror of the career timeline.
+- [Status — Portuguese](https://gdantas.com.br/status): current public operator/status page.
+- [Status — English](https://gdantas.com.br/en/status): English mirror of the status page.
+
+## Talks and presentations
+
+The site catalogues public talks, podcasts, slide decks, videos, and event appearances. Use each linked primary material for claims that go beyond the catalogue summary.
+
+- [Talks — Portuguese](https://gdantas.com.br/talks)
+- [Talks — English](https://gdantas.com.br/en/talks)
+- [Presentations — Portuguese](https://gdantas.com.br/presentations)
+- [Presentations — English](https://gdantas.com.br/en/presentations)
+- [Animated introduction — Portuguese](https://gdantas.com.br/presentation)
+- [Animated introduction — English](https://gdantas.com.br/en/presentation)
+
+## Writing, projects, and public links
+
+- [Writing — Portuguese](https://gdantas.com.br/writing): technical posts and source links.
+- [Writing — English](https://gdantas.com.br/en/writing): English mirror of the writing index.
+- [Projects — Portuguese](https://gdantas.com.br/projects): public repositories and experiments.
+- [Projects — English](https://gdantas.com.br/en/projects): English mirror of the projects page.
+- [Sidequests — Portuguese](https://gdantas.com.br/sidequests): public side projects and hobbies.
+- [Sidequests — English](https://gdantas.com.br/en/sidequests): English mirror of the sidequests page.
+- [Links — Portuguese](https://gdantas.com.br/links): public channels and profiles.
+- [Links — English](https://gdantas.com.br/en/links): English mirror of the links page.
+
+## Citation guidance
+
+Treat these indexes as navigation aids. Cite the most specific canonical page containing the fact, preserve the requested language, and distinguish the site's own statements from external resources it references.
+
+- [Evidence-first exploration skill](https://gdantas.com.br/.well-known/agent-skills/exploring-gdantas/SKILL.md)
+- [Agent Skills discovery index](https://gdantas.com.br/.well-known/agent-skills/index.json)

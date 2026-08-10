@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "exploring-gdantas",
+      "type": "skill-md",
+      "description": "Explore Gabriel Dantas's public site using evidence-first browsing and page-specific citations.",
+      "url": "/.well-known/agent-skills/exploring-gdantas/SKILL.md",
+      "digest": "sha256:e2d240d5cf8e37037d8b2e88c12f6daba45585a2f5554bf7ff05498443c3a563"
+    }
+  ]
+}

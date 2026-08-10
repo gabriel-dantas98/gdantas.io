@@ -31,6 +31,8 @@
     "type-check": "tsc",
     "format": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx,vue}\"",
     "i18n:check": "tsx scripts/i18n-check.ts",
+    "ai:prepare": "tsx scripts/agent-skill-index.ts",
+    "ai:check": "tsx scripts/ai-readiness-check.ts",
     "test:unit": "tsx --test tests/*.test.ts",
     "sitemap:check": "NODE_ENV=production next-sitemap --config next-sitemap.js && tsx scripts/seo-indexing-check.ts",
     "e2e": "playwright test",

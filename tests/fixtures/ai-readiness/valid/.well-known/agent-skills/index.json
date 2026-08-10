@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "exploring-gdantas",
+      "type": "skill-md",
+      "description": "Explore this fixture with page-specific citations.",
+      "url": "/.well-known/agent-skills/exploring-gdantas/SKILL.md",
+      "digest": "sha256:ea409ec4bb1b62a9c138e5500759eb49220a8ab00b602067294391c7e0f33da4"
+    }
+  ]
+}
