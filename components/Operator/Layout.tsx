@@ -14,13 +14,14 @@ interface OperatorPageProps {
 	active?: string;
 	noIndex?: boolean;
 	openGraphType?: 'website' | 'article';
+	socialImage?: string;
 	jsonLd?: Record<string, unknown>;
 	children: React.ReactNode;
 }
 
 const SITE_URL = 'https://gdantas.com.br';
 const DEFAULT_DESC = "Hey 👋 I'm Gabriel, a site reliability engineer";
-const OG_IMAGE = 'https://gdantas.com.br/banner.png';
+const DEFAULT_OG_IMAGE = 'https://gdantas.com.br/og/default.png';
 
 // Layout padrão das páginas Operator: NextSeo (OG + twitter + canonical) +
 // Head (theme-color) + header sticky + main + footer. Fontes vêm do
@@ -32,6 +33,7 @@ export function OperatorPage({
 	active,
 	noIndex,
 	openGraphType = 'website',
+	socialImage = DEFAULT_OG_IMAGE,
 	jsonLd,
 	children,
 }: OperatorPageProps) {
@@ -58,7 +60,7 @@ export function OperatorPage({
 					locale: locale === 'en' ? 'en_US' : 'pt_BR',
 					type: openGraphType,
 					site_name: 'gdantas',
-					images: [{ url: OG_IMAGE, alt: description, width: 1280, height: 720 }],
+					images: [{ url: socialImage, alt: title, width: 1200, height: 630 }],
 				}}
 				twitter={{
 					cardType: 'summary_large_image',

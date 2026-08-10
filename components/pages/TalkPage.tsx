@@ -6,6 +6,7 @@ import { OP, OperatorPage, PresentationPreview, Prompt } from '~/components/Oper
 import { I18nProvider, useI18n, useT, withLocale } from '~/lib/i18n';
 import type { TalkPageProps } from '~/lib/talk-static-props';
 import { resolveTalkCopy } from '~/lib/talk-copy';
+import { getTalkSocialImagePath } from '~/lib/talks';
 
 const SITE_URL = 'https://gdantas.com.br';
 
@@ -29,6 +30,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 		description: presentation.description,
 	});
 	const path = withLocale(`/talks/${slug}`, locale);
+	const socialImage = `${SITE_URL}${getTalkSocialImagePath(slug, locale)}`;
 	const contentLink = presentation.contentUrl || presentation.url;
 	const previewType = presentation.preview?.type || 'talk';
 	const meta = [presentation.date, presentation.location].filter(Boolean).join(' · ');
@@ -39,6 +41,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 		description: copy.description,
 		datePublished: presentation.date,
 		url: `${SITE_URL}${path}`,
+		image: socialImage,
 		contentUrl: contentLink,
 		inLanguage: locale === 'en' ? 'en' : 'pt-BR',
 		author: {
@@ -54,6 +57,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 			description={copy.description}
 			active="/talks"
 			openGraphType="article"
+			socialImage={socialImage}
 			jsonLd={jsonLd}
 		>
 			<article>

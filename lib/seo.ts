@@ -7,7 +7,7 @@ import { detectLocaleFromPath, stripLocale, withLocale } from './i18n';
 
 const SITE_URL = 'https://gdantas.com.br';
 const SITE_NAME = 'gdantas';
-const OG_IMAGE = 'https://gdantas.com.br/banner.png';
+const OG_IMAGE = 'https://gdantas.com.br/og/default.png';
 
 const COPY = {
 	pt: {
@@ -85,8 +85,8 @@ export function useSeoProps(
 				{
 					url: OG_IMAGE,
 					alt: copy.description,
-					width: 1280,
-					height: 720,
+					width: 1200,
+					height: 630,
 					type: 'image/png',
 				},
 			],
