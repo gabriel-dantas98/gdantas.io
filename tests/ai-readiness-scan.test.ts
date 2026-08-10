@@ -1,4 +1,7 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
 
 import {
@@ -6,6 +9,7 @@ import {
 	compareSupportedChecks,
 	normalizeScanReport,
 	renderScanMarkdown,
+	writeScanArtifacts,
 } from '../scripts/ai-readiness-scan';
 
 const RECORDED_SCAN = {
@@ -527,4 +531,37 @@ test('rejects credential-bearing target URLs before calling the public scanner',
 	assert.equal(requests, 0);
 	assert.doesNotMatch(JSON.stringify(payload), /scanner-user|do-not-send-this-password/);
 	assert.match(JSON.stringify(payload), /target URL must not contain credentials/);
+});
+
+test('writes artifacts inside the output directory when scanner scannedAt attempts traversal', () => {
+	const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ai-readiness-scan-'));
+	const outputDir = path.join(root, 'reports');
+	const outsidePath = path.join(root, 'outside.json');
+	const requestedAt = '2026-08-10T14:16:27.359Z';
+
+	try {
+		const written = writeScanArtifacts(
+			{
+				url: 'https://gdantas.com.br',
+				scannedAt: '../../outside',
+				level: 1,
+				levelName: 'Basic Web Presence',
+				checks: {},
+			},
+			outputDir,
+			requestedAt,
+		);
+
+		assert.deepEqual(
+			written.map((file) => path.relative(outputDir, file)),
+			[
+				'ai-readiness-2026-08-10T14-16-27-359Z.json',
+				'ai-readiness-2026-08-10T14-16-27-359Z.md',
+			],
+		);
+		assert.ok(written.every((file) => file.startsWith(`${outputDir}${path.sep}`)));
+		assert.equal(fs.existsSync(outsidePath), false);
+	} finally {
+		fs.rmSync(root, { recursive: true, force: true });
+	}
 });

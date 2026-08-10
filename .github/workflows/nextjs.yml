@@ -68,13 +68,17 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Unit tests
+        run: ${{ steps.detect-package-manager.outputs.manager }} run test:unit
       - name: Prepare Agent Skills discovery metadata
         run: ${{ steps.detect-package-manager.outputs.manager }} run ai:prepare
+      - name: Check Agent Skills discovery metadata drift
+        run: git diff --exit-code -- public/.well-known/agent-skills/index.json
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
-      - name: Generate sitemap.xml and robots.txt
+      - name: Generate sitemap.xml
         run: npx next-sitemap --config next-sitemap.js
         env:
           NODE_ENV: production

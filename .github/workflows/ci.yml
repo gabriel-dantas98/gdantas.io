@@ -48,8 +48,14 @@ jobs:
       - name: Type-check
         run: yarn type-check
 
+      - name: Unit tests
+        run: yarn test:unit
+
       - name: Prepare Agent Skills discovery metadata
         run: yarn ai:prepare
+
+      - name: Check Agent Skills discovery metadata drift
+        run: git diff --exit-code -- public/.well-known/agent-skills/index.json
 
       - name: Build
         run: yarn build

@@ -239,7 +239,16 @@ export function renderScanMarkdown(report: NormalizedScanReport): string {
 }
 
 function artifactTimestamp(value: string): string {
-	return value.replace(/[:.]/g, '-');
+	return value.replace(/[^0-9A-Za-z_-]/g, '-');
+}
+
+function artifactPath(outputDir: string, filename: string): string {
+	const resolvedOutputDir = path.resolve(outputDir);
+	const resolved = path.resolve(resolvedOutputDir, filename);
+	if (!resolved.startsWith(`${resolvedOutputDir}${path.sep}`)) {
+		throw new Error('scan artifact path escaped the output directory');
+	}
+	return resolved;
 }
 
 function warningPayload(
@@ -321,6 +330,22 @@ export async function collectScanPayload(
 	}
 }
 
+export function writeScanArtifacts(
+	payload: unknown,
+	outputDir: string,
+	requestedAt: string,
+): string[] {
+	const report = normalizeScanReport(payload);
+	const basename = `ai-readiness-${artifactTimestamp(requestedAt)}`;
+	const jsonPath = artifactPath(outputDir, `${basename}.json`);
+	const markdownPath = artifactPath(outputDir, `${basename}.md`);
+
+	fs.mkdirSync(path.resolve(outputDir), { recursive: true });
+	fs.writeFileSync(jsonPath, `${JSON.stringify(payload, null, 2)}\n`);
+	fs.writeFileSync(markdownPath, renderScanMarkdown(report));
+	return [jsonPath, markdownPath];
+}
+
 async function main(): Promise<void> {
 	const target = process.argv[2] || DEFAULT_TARGET;
 	const outputDir = path.resolve(process.argv[3] || DEFAULT_OUTPUT_DIR);
@@ -328,14 +353,8 @@ async function main(): Promise<void> {
 	const payload = await collectScanPayload(target, requestedAt);
 
 	const report = normalizeScanReport(payload);
-	const timestamp = artifactTimestamp(report.scannedAt || requestedAt);
-	const basename = `ai-readiness-${timestamp}`;
-	fs.mkdirSync(outputDir, { recursive: true });
-	fs.writeFileSync(
-		path.join(outputDir, `${basename}.json`),
-		`${JSON.stringify(payload, null, 2)}\n`,
-	);
-	fs.writeFileSync(path.join(outputDir, `${basename}.md`), renderScanMarkdown(report));
+	const written = writeScanArtifacts(payload, outputDir, requestedAt);
+	const basename = path.basename(written[0], '.json');
 
 	console.log(`[ai:scan] wrote ${path.relative(process.cwd(), outputDir)}/${basename}.{json,md}`);
 	for (const warning of report.warnings) console.warn(`[ai:scan] WARNING ${warning}`);
