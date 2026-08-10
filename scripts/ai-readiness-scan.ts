@@ -124,7 +124,10 @@ export function normalizeScanReport(payload: unknown): NormalizedScanReport {
 	} else {
 		for (const [categoryName, categoryValue] of Object.entries(categories)) {
 			const category = record(categoryValue);
-			if (!category) continue;
+			if (!category) {
+				warnings.push(`Scanner response discarded malformed category ${categoryName}`);
+				continue;
+			}
 
 			for (const [checkName, checkValue] of Object.entries(category)) {
 				const check = record(checkValue);
@@ -133,6 +136,9 @@ export function normalizeScanReport(payload: unknown): NormalizedScanReport {
 					typeof check.status !== 'string' ||
 					typeof check.message !== 'string'
 				) {
+					warnings.push(
+						`Scanner response discarded malformed check ${categoryName}.${checkName}`,
+					);
 					continue;
 				}
 
@@ -145,6 +151,7 @@ export function normalizeScanReport(payload: unknown): NormalizedScanReport {
 				checks.push({ id, status, message: check.message, policy: policyFor(id) });
 			}
 		}
+		if (checks.length === 0) warnings.push('Scanner response contained no valid checks');
 	}
 
 	return { url, scannedAt, level, levelName, checks, warnings };
@@ -243,12 +250,18 @@ function warningPayload(
 	return { url: target, scannedAt, error: message };
 }
 
-async function requestScan(target: string, scannedAt: string): Promise<unknown> {
+type ScanFetch = typeof fetch;
+
+async function requestScan(
+	target: string,
+	scannedAt: string,
+	scanFetch: ScanFetch,
+): Promise<unknown> {
 	const controller = new AbortController();
 	const timeout = setTimeout(() => controller.abort(), 30_000);
 
 	try {
-		const response = await fetch(SCANNER_ENDPOINT, {
+		const response = await scanFetch(SCANNER_ENDPOINT, {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify({ url: target }),
@@ -284,22 +297,35 @@ async function requestScan(target: string, scannedAt: string): Promise<unknown> 
 	}
 }
 
+function validatedTarget(target: string): string {
+	const targetUrl = new URL(target);
+	if (!['http:', 'https:'].includes(targetUrl.protocol)) {
+		throw new Error('target must use http or https');
+	}
+	if (targetUrl.username || targetUrl.password) {
+		throw new Error('target URL must not contain credentials');
+	}
+	return targetUrl.href;
+}
+
+export async function collectScanPayload(
+	target: string,
+	scannedAt: string,
+	scanFetch: ScanFetch = fetch,
+): Promise<unknown> {
+	try {
+		return await requestScan(validatedTarget(target), scannedAt, scanFetch);
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		return warningPayload('invalid target', scannedAt, `Scanner request skipped: ${message}`);
+	}
+}
+
 async function main(): Promise<void> {
 	const target = process.argv[2] || DEFAULT_TARGET;
 	const outputDir = path.resolve(process.argv[3] || DEFAULT_OUTPUT_DIR);
 	const requestedAt = new Date().toISOString();
-	let payload: unknown;
-
-	try {
-		const targetUrl = new URL(target);
-		if (!['http:', 'https:'].includes(targetUrl.protocol)) {
-			throw new Error('target must use http or https');
-		}
-		payload = await requestScan(targetUrl.href, requestedAt);
-	} catch (error) {
-		const message = error instanceof Error ? error.message : String(error);
-		payload = warningPayload(target, requestedAt, `Scanner request skipped: ${message}`);
-	}
+	const payload = await collectScanPayload(target, requestedAt);
 
 	const report = normalizeScanReport(payload);
 	const timestamp = artifactTimestamp(report.scannedAt || requestedAt);

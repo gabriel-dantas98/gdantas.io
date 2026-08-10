@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+	collectScanPayload,
 	compareSupportedChecks,
 	normalizeScanReport,
 	renderScanMarkdown,
@@ -471,4 +472,59 @@ test('ignores additive unknown response fields without throwing', () => {
 
 	assert.doesNotThrow(() => normalizeScanReport(payload));
 	assert.equal(normalizeScanReport(payload).checks.length, 21);
+});
+
+test('warns when malformed categories and checks are discarded from a partial response', () => {
+	const report = normalizeScanReport({
+		url: 'https://gdantas.com.br',
+		scannedAt: '2026-08-10T14:16:27.359Z',
+		level: 1,
+		levelName: 'Basic Web Presence',
+		checks: {
+			discoverability: {
+				robotsTxt: { status: 'pass', message: 'robots.txt found' },
+				sitemap: { status: 'pass' },
+			},
+			discovery: ['not', 'a', 'category'],
+		},
+	});
+
+	assert.deepEqual(report.checks.map((check) => check.id), ['discoverability.robotsTxt']);
+	assert.deepEqual(report.warnings, [
+		'Scanner response discarded malformed check discoverability.sitemap',
+		'Scanner response discarded malformed category discovery',
+	]);
+});
+
+test('warns when a scanner response contains no valid checks', () => {
+	const report = normalizeScanReport({
+		url: 'https://gdantas.com.br',
+		scannedAt: '2026-08-10T14:16:27.359Z',
+		level: 1,
+		levelName: 'Basic Web Presence',
+		checks: { discoverability: { sitemap: null } },
+	});
+
+	assert.deepEqual(report.checks, []);
+	assert.deepEqual(report.warnings, [
+		'Scanner response discarded malformed check discoverability.sitemap',
+		'Scanner response contained no valid checks',
+	]);
+});
+
+test('rejects credential-bearing target URLs before calling the public scanner', async () => {
+	let requests = 0;
+	const secret = 'do-not-send-this-password';
+	const payload = await collectScanPayload(
+		`https://scanner-user:${secret}@private.example/path`,
+		'2026-08-10T14:16:27.359Z',
+		async () => {
+			requests += 1;
+			throw new Error('request must not run');
+		},
+	);
+
+	assert.equal(requests, 0);
+	assert.doesNotMatch(JSON.stringify(payload), /scanner-user|do-not-send-this-password/);
+	assert.match(JSON.stringify(payload), /target URL must not contain credentials/);
 });
