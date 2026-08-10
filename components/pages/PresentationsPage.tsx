@@ -5,8 +5,9 @@ import posthog from 'posthog-js';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import { Elements as BlogElements } from '~/components/Blog/Styles';
 import type { PresentationItem, PresentationsProps } from '~/lib/presentations-static-props';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
 import { resolveTalkCopy } from '~/lib/talk-copy';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 function TalkPreview({
 	presentation,
@@ -154,14 +155,31 @@ export function PresentationsPage({ presentations, locale = 'pt' }: Presentation
 
 function PresentationsPageInner({ presentations }: { presentations: PresentationItem[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
+	const path = locale === 'en' ? '/en/presentations' : '/presentations';
+	const collectionItems = presentations.map((presentation) => ({
+		name: resolveTalkCopy(t, presentation.slug, {
+			title: presentation.title,
+			description: presentation.description,
+		}).title,
+		url: path,
+	}));
 	return (
 		<OperatorPage
-			title="gdantas ─ presentations"
-			description="Apresentações com preview embeddado — slides, vídeos, podcasts."
+			title={t('seo.presentations.title')}
+			description={t('seo.presentations.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.presentations.title'),
+				description: t('seo.presentations.description'),
+				items: collectionItems,
+			})}
 			active="/talks">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label="01"
 					title="ls ~/talks --preview"
 					sub="cada talk com preview embeddado"

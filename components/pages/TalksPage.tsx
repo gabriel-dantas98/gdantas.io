@@ -13,8 +13,9 @@ import {
 } from '~/components/Operator';
 import { derivePreview, type NormalizedPreview, type RawPreview } from '~/lib/preview';
 import presentationsData from '~/data/presentations.json';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
 import { resolveTalkCopy } from '~/lib/talk-copy';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 interface RawPresentation {
 	slug?: string;
@@ -98,6 +99,7 @@ export function TalksPage({ talks, locale = 'pt' }: TalksProps & { locale?: 'pt'
 
 function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
 	const [activeIdx, setActiveIdx] = useState<number | null>(null);
 	const active = activeIdx != null ? talks[activeIdx] : null;
@@ -116,14 +118,30 @@ function TalksPageInner({ talks }: { talks: TalkItem[] }) {
 				description: active.description,
 			})
 		: null;
+	const path = locale === 'en' ? '/en/talks' : '/talks';
+	const collectionItems = talks.map((talk) => ({
+		name: resolveTalkCopy(t, talk.slug, {
+			title: talk.title,
+			description: talk.description,
+		}).title,
+		url: path,
+	}));
 
 	return (
 		<OperatorPage
-			title="gdantas ─ ls ~/talks"
-			description="Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops."
+			title={t('seo.talks.title')}
+			description={t('seo.talks.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.talks.title'),
+				description: t('seo.talks.description'),
+				items: collectionItems,
+			})}
 			active="/talks">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('talks.section.label')}
 					title={t('talks.section.title')}
 					sub={t('talks.section.sub')}

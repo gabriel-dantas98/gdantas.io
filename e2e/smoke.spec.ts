@@ -20,6 +20,7 @@ const PT_ROUTES: RouteCase[] = [
 	{ path: '/doctrine', expect: /(doctrine|manifesto)/i },
 	{ path: '/talks', expect: /ls ~\/talks/i },
 	{ path: '/presentations', expect: /presentations|talks/i },
+	{ path: '/presentation', expect: /introduce-gabriel/i },
 	{ path: '/projects', expect: /projects/i },
 	{ path: '/sidequests', expect: /sidequests/i },
 	{ path: '/writing', expect: /writing/i },
@@ -126,6 +127,211 @@ test.describe('golden flows · /go shortener', () => {
 		const res = await page.goto('/go');
 		expect(res?.ok()).toBeTruthy();
 	});
+});
+
+interface SemanticRouteCase {
+	path: string;
+	lang: 'pt' | 'en';
+	title: string;
+	description: string;
+	canonical: string;
+	alternates: Record<'pt-BR' | 'en' | 'x-default', string>;
+}
+
+const SITE_URL = 'https://gdantas.com.br';
+
+const SEMANTIC_ROUTES: SemanticRouteCase[] = [
+	{
+		path: '/',
+		lang: 'pt',
+		title: 'gdantas — platform engineer · devex',
+		description:
+			'Gabriel Dantas — platform engineering e developer experience. Internal Developer Portals, Backstage, Kubernetes, AI ops, observabilidade e RAG sobre infra.',
+		canonical: SITE_URL,
+		alternates: { 'pt-BR': SITE_URL, en: `${SITE_URL}/en`, 'x-default': SITE_URL },
+	},
+	{
+		path: '/en',
+		lang: 'en',
+		title: 'gdantas — platform engineer · devex',
+		description:
+			'Gabriel Dantas — platform engineering and developer experience. Internal Developer Portals, Backstage, Kubernetes, AI ops, observability and RAG over infrastructure.',
+		canonical: `${SITE_URL}/en`,
+		alternates: { 'pt-BR': SITE_URL, en: `${SITE_URL}/en`, 'x-default': SITE_URL },
+	},
+	...[
+		{
+			path: '/about',
+			title: 'gdantas ─ cat ~/.about',
+			ptDescription: 'Quem é o operador. SRE, plataforma, Backstage, AI ops.',
+			enDescription: 'Meet the operator: SRE, platform engineering, Backstage and AI ops.',
+		},
+		{
+			path: '/timeline',
+			title: 'gdantas ─ git log --career',
+			ptDescription: 'Commits da carreira — empresas, papéis e marcos.',
+			enDescription: 'Career commits — companies, roles and milestones.',
+		},
+		{
+			path: '/doctrine',
+			title: 'gdantas ─ cat ~/.doctrine',
+			ptDescription: 'Princípios e papéis de operação. So others may live.',
+			enDescription: 'Principles and operating roles. So others may live.',
+		},
+		{
+			path: '/talks',
+			title: 'gdantas ─ ls ~/talks',
+			ptDescription: 'Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops.',
+			enDescription: 'Talks, podcasts and slides — platform engineering, Backstage and AI ops.',
+		},
+		{
+			path: '/presentations',
+			title: 'gdantas ─ presentations',
+			ptDescription: 'Apresentações com preview embeddado — slides, vídeos, podcasts.',
+			enDescription: 'Presentations with embedded previews — slides, videos and podcasts.',
+		},
+		{
+			path: '/presentation',
+			ptTitle: '$ ./introduce-gabriel — apresentação',
+			enTitle: '$ ./introduce-gabriel — presentation',
+			ptDescription:
+				'Uma apresentação animada de quem é Gabriel Dantas, em sequência de cenas estilo pipeline.',
+			enDescription:
+				'An animated presentation of who Gabriel Dantas is, as a sequence of pipeline-style scenes.',
+		},
+		{
+			path: '/projects',
+			title: 'gdantas ─ kubectl get projects',
+			ptDescription: 'Repositórios e experimentos públicos — plataforma, AI ops, side-projects.',
+			enDescription:
+				'Public repositories and experiments — platform engineering, AI ops and side projects.',
+		},
+		{
+			path: '/sidequests',
+			title: 'gdantas ─ ls ~/.sidequests',
+			ptDescription:
+				'Projetos paralelos e hobbies do Gabriel — impressão 3D (3Dantas), trabalho voluntário (Novarum) e loja de camisetas tech (DeployOu).',
+			enDescription:
+				"Gabriel's side projects and hobbies — 3D printing (3Dantas), volunteer work (Novarum) and a tech t-shirt shop (DeployOu).",
+		},
+		{
+			path: '/writing',
+			title: 'gdantas ─ tail -f ~/.writing',
+			ptDescription:
+				'Notas e posts publicados no medium/@_gdantas. AI ops, plataforma, observabilidade.',
+			enDescription:
+				'Notes and posts published at medium/@_gdantas. AI ops, platform engineering and observability.',
+		},
+		{
+			path: '/links',
+			title: 'gdantas ─ ls ~/.links',
+			ptDescription: 'Linktree: talks, GitHub, LinkedIn, Medium, projetos do Gabriel Dantas.',
+			enDescription: 'Linktree: talks, GitHub, LinkedIn, Medium and Gabriel Dantas projects.',
+		},
+		{
+			path: '/status',
+			title: 'gdantas ─ systemctl status',
+			ptDescription: 'Status do operador — Lanyard / Discord presence.',
+			enDescription: 'Operator status — Lanyard / Discord presence.',
+		},
+	].flatMap((route) => {
+		const ptCanonical = `${SITE_URL}${route.path}`;
+		const enCanonical = `${SITE_URL}/en${route.path}`;
+		const alternates = {
+			'pt-BR': ptCanonical,
+			en: enCanonical,
+			'x-default': ptCanonical,
+		};
+		return [
+			{
+				path: route.path,
+				lang: 'pt' as const,
+				title: route.ptTitle || route.title || '',
+				description: route.ptDescription,
+				canonical: ptCanonical,
+				alternates,
+			},
+			{
+				path: `/en${route.path}`,
+				lang: 'en' as const,
+				title: route.enTitle || route.title || '',
+				description: route.enDescription,
+				canonical: enCanonical,
+				alternates,
+			},
+		];
+	}),
+];
+
+test.describe('semantic contract · indexable routes', () => {
+	for (const route of SEMANTIC_ROUTES) {
+		test(`${route.path} exposes one localized semantic identity`, async ({ page }) => {
+			await page.addInitScript((lang) => window.localStorage.setItem('lang', lang), route.lang);
+			const requestPath = `${route.path}?utm_source=semantic-contract#metadata`;
+			await page.goto(requestPath);
+
+			await expect(page.locator('html')).toHaveAttribute('lang', route.lang);
+			await expect(page.locator('h1')).toHaveCount(1);
+			await expect(page.locator('h1')).toBeVisible();
+			await expect(page).toHaveTitle(route.title);
+			await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+				'content',
+				route.description,
+			);
+			await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+				'href',
+				route.canonical,
+			);
+
+			for (const [hrefLang, href] of Object.entries(route.alternates)) {
+				await expect(page.locator(`link[rel="alternate"][hreflang="${hrefLang}"]`))
+					.toHaveCount(1);
+				await expect(page.locator(`link[rel="alternate"][hreflang="${hrefLang}"]`))
+					.toHaveAttribute('href', href);
+			}
+		});
+	}
+});
+
+const STRUCTURED_DATA_ROUTES = [
+	{ path: '/', types: ['Person', 'WebSite'] },
+	{ path: '/en', types: ['Person', 'WebSite'] },
+	{ path: '/about', types: ['ProfilePage'] },
+	{ path: '/en/about', types: ['ProfilePage'] },
+	{ path: '/talks', types: ['CollectionPage'] },
+	{ path: '/en/talks', types: ['CollectionPage'] },
+	{ path: '/presentations', types: ['CollectionPage'] },
+	{ path: '/en/presentations', types: ['CollectionPage'] },
+	{ path: '/projects', types: ['CollectionPage'] },
+	{ path: '/en/projects', types: ['CollectionPage'] },
+	{ path: '/writing', types: ['CollectionPage'] },
+	{ path: '/en/writing', types: ['CollectionPage'] },
+	{ path: '/links', types: ['CollectionPage'] },
+	{ path: '/en/links', types: ['CollectionPage'] },
+];
+
+test.describe('semantic contract · structured data', () => {
+	for (const route of STRUCTURED_DATA_ROUTES) {
+		test(`${route.path} emits valid factual JSON-LD`, async ({ page }) => {
+			const lang = route.path === '/en' || route.path.startsWith('/en/') ? 'en' : 'pt';
+			await page.addInitScript((locale) => window.localStorage.setItem('lang', locale), lang);
+			await page.goto(route.path);
+			const rawSchemas = await page
+				.locator('script[type="application/ld+json"]')
+				.allTextContents();
+			const schemas = rawSchemas.map((raw) => JSON.parse(raw));
+			expect(schemas.map((schema) => schema['@type'])).toEqual(route.types);
+
+			for (const schema of schemas.filter((item) => item['@type'] === 'CollectionPage')) {
+				expect(schema.mainEntity?.['@type']).toBe('ItemList');
+				expect(Array.isArray(schema.mainEntity?.itemListElement)).toBeTruthy();
+				for (const item of schema.mainEntity.itemListElement) {
+					expect(item.name).toEqual(expect.any(String));
+					expect(item.url).toMatch(/^https:\/\/gdantas\.com\.br\//);
+				}
+			}
+		});
+	}
 });
 
 async function waitForHydration(page: Page) {

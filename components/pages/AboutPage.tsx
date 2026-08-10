@@ -3,7 +3,8 @@ import React from 'react';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import ProfilePicture from '../../public/profile-photo-720.jpg';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
+import { buildProfilePage } from '~/lib/structured-data';
 
 
 export function AboutPage({ locale = 'pt' }: { locale?: 'pt' | 'en' }) {
@@ -16,6 +17,7 @@ export function AboutPage({ locale = 'pt' }: { locale?: 'pt' | 'en' }) {
 
 function AboutPageInner() {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.07, y: 22 });
 	const facts = [0, 1, 2, 3, 4, 5].map((i) => ({
 		k: t(`about.facts[${i}].k`),
@@ -23,11 +25,13 @@ function AboutPageInner() {
 	}));
 	return (
 		<OperatorPage
-			title="gdantas ─ cat ~/.about"
-			description="Quem é o operador. SRE, plataforma, Backstage, AI ops."
+			title={t('seo.about.title')}
+			description={t('seo.about.description')}
+			structuredData={buildProfilePage(locale, locale === 'en' ? '/en/about' : '/about')}
 			active="/about">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('about.section.label')}
 					title={t('about.section.title')}
 					sub={t('about.section.sub')}

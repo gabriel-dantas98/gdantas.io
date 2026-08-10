@@ -6,17 +6,19 @@ import { NextSeo } from 'next-seo';
 import { OP } from './tokens';
 import { OperatorHeader } from './Header';
 import { OperatorFooter } from './Footer';
-import { stripLocale, withLocale, useI18n } from '~/lib/i18n';
+import { useI18n } from '~/lib/i18n';
+import { StructuredData } from '~/components/Seo/StructuredData';
+import { alternateUrls, canonicalUrl } from '~/lib/site-metadata';
 
 interface OperatorPageProps {
 	title: string;
 	description?: string;
 	active?: string;
 	noIndex?: boolean;
+	structuredData?: object | object[];
 	children: React.ReactNode;
 }
 
-const SITE_URL = 'https://gdantas.com.br';
 const DEFAULT_DESC = "Hey 👋 I'm Gabriel, a site reliability engineer";
 const OG_IMAGE = 'https://gdantas.com.br/banner.png';
 
@@ -29,16 +31,13 @@ export function OperatorPage({
 	description = DEFAULT_DESC,
 	active,
 	noIndex,
+	structuredData,
 	children,
 }: OperatorPageProps) {
 	const router = useRouter();
 	const { locale } = useI18n();
-	const url = `${SITE_URL}${router.asPath === '/' ? '' : router.asPath}`;
-	// hreflang alternates: canonical PT (sem prefix), EN com /en/, x-default = PT.
-	const canonicalPath = stripLocale(router.asPath);
-	const ptUrl = `${SITE_URL}${canonicalPath === '/' ? '' : canonicalPath}`;
-	const enPath = withLocale(canonicalPath, 'en');
-	const enUrl = `${SITE_URL}${enPath}`;
+	const url = canonicalUrl(router.asPath);
+	const languageAlternates = alternateUrls(router.asPath);
 
 	return (
 		<>
@@ -63,11 +62,7 @@ export function OperatorPage({
 					handle: '@gdantas',
 					site: '@gdantas',
 				}}
-				languageAlternates={[
-					{ hrefLang: 'pt-BR', href: ptUrl },
-					{ hrefLang: 'en', href: enUrl },
-					{ hrefLang: 'x-default', href: ptUrl },
-				]}
+				languageAlternates={languageAlternates}
 				additionalMetaTags={[
 					{ name: 'theme-color', content: OP.bg },
 					{ name: 'author', content: 'Gabriel Dantas' },
@@ -82,6 +77,7 @@ export function OperatorPage({
 					.op-nav-link:hover { color: ${OP.amber} !important; }
 				`}</style>
 			</Head>
+			{structuredData && <StructuredData data={structuredData} />}
 			<div
 				style={{
 					minHeight: '100vh',

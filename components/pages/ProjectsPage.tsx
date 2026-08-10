@@ -5,7 +5,8 @@ import posthog from 'posthog-js';
 import { fetchProjects } from '~/lib/projects';
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import type { Project } from '~/types';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 
 interface ProjectProps {
@@ -41,17 +42,27 @@ export function ProjectsPage({ stringifiedProjects, locale = 'pt' }: ProjectProp
 
 function ProjectsPageInner({ stringifiedProjects }: { stringifiedProjects: string }) {
 	const t = useT();
+	const { locale } = useI18n();
 	// Coalesce to [] in case getStaticProps ever serialized a null
 	// (e.g. GitHub API failure upstream) — never crash the prerender.
 	const projects = (JSON.parse(stringifiedProjects) as Project[] | null) ?? [];
 	const ref = useReveal({ stagger: 0.04, y: 16 });
+	const path = locale === 'en' ? '/en/projects' : '/projects';
 	return (
 		<OperatorPage
-			title="gdantas ─ kubectl get projects"
-			description="Repositórios e experimentos públicos — plataforma, AI ops, side-projects."
+			title={t('seo.projects.title')}
+			description={t('seo.projects.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.projects.title'),
+				description: t('seo.projects.description'),
+				items: projects.map((project) => ({ name: shortName(project.name), url: path })),
+			})}
 			active="/projects">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('projects.section.label')}
 					title={t('projects.section.title')}
 					sub={t('projects.section.sub')}

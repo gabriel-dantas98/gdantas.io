@@ -26,8 +26,10 @@ import {
 } from '~/components/Operator';
 import { LangSwitcher } from '~/components/Operator/LangSwitcher';
 import styles from '../../pages/home.module.css';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
 import { BootSplash } from '~/components/Boot/BootSplash';
+import { StructuredData } from '~/components/Seo/StructuredData';
+import { buildPerson, buildWebSite } from '~/lib/structured-data';
 
 // Topology/ClusterGrid/Marquee são below-the-fold + carregam GSAP timelines
 // pesadas. Dynamic SSR-off mantém esses chunks fora do critical path.
@@ -204,7 +206,11 @@ export function HomePage({ locale = 'pt' }: { locale?: 'pt' | 'en' } = {}) {
 
 function HomePageInner() {
 	const t = useT();
-	const seo = useSeoProps();
+	const { locale } = useI18n();
+	const seo = useSeoProps({
+		title: t('seo.home.title'),
+		description: t('seo.home.description'),
+	});
 	const heroRef = useReveal({ stagger: 0.08, delay: 0.1, y: 22 });
 	const topoRef = useReveal({ stagger: 0.05, y: 30, scroll: true });
 	const stackRef = useReveal({ stagger: 0.04, y: 14, scroll: true });
@@ -284,6 +290,7 @@ function HomePageInner() {
 	return (
         <>
             <NextSeo {...seo} />
+			<StructuredData data={[buildPerson(locale), buildWebSite(locale)]} />
             <Head>
 				<style>{`html, body { background: ${OP.bg}; scroll-behavior: smooth; } body { font-family: ${OP.sans}; color: ${OP.fg}; margin: 0; }`}</style>
 			</Head>
@@ -398,10 +405,10 @@ function HomePageInner() {
 								<Cursor />
 							</Prompt>
 						</div>
-						<div
+						<h1
 							className={`${styles.heroTitle} ${styles.amberGlow}`}
 							style={{
-								marginTop: 18,
+								margin: '18px 0 0',
 								fontSize: 88,
 								lineHeight: 0.96,
 								fontWeight: 500,
@@ -422,7 +429,7 @@ function HomePageInner() {
 								}}>
 								/ {t('hero.role')}
 							</span>
-						</div>
+						</h1>
 						<div className={styles.heroGrid}>
 							<div
 								style={{

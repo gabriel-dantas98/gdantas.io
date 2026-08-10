@@ -17,11 +17,12 @@ function StatusPageInner() {
 	const ref = useReveal({ stagger: 0.06, y: 18 });
 	return (
 		<OperatorPage
-			title="gdantas ─ systemctl status"
-			description="Status do operador — Lanyard / Discord presence."
+			title={t('seo.status.title')}
+			description={t('seo.status.description')}
 			active="/">
 			<div ref={ref} style={{ maxWidth: 520 }}>
 				<Sec
+					as="h1"
 					label={t('status.section.label')}
 					title={t('status.section.title')}
 					sub={t('status.section.sub')}
