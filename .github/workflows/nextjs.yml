@@ -70,6 +70,8 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Unit tests
         run: ${{ steps.detect-package-manager.outputs.manager }} run test:unit
+      - name: Validate talks catalog and social images
+        run: ${{ steps.detect-package-manager.outputs.manager }} run talks:check
       - name: Prepare Agent Skills discovery metadata
         run: ${{ steps.detect-package-manager.outputs.manager }} run ai:prepare
       - name: Check Agent Skills discovery metadata drift

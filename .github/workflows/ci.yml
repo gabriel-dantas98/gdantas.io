@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   validate:
-    name: Lint + type-check + i18n parity + build
+    name: Lint + type-check + content gates + build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -41,6 +41,9 @@ jobs:
 
       - name: i18n key parity (pt vs en)
         run: yarn i18n:check
+
+      - name: Talks catalog and deterministic social images
+        run: yarn talks:check
 
       - name: Lint
         run: yarn lint

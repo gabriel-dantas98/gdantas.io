@@ -1,4 +1,5 @@
-import { HomePage } from '~/components/pages/HomePage';
-export default function Page() {
-	return <HomePage locale="pt" />;
+import { HomePage, getStaticProps } from '~/components/pages/HomePage';
+export { getStaticProps };
+export default function Page(props: any) {
+	return <HomePage {...props} locale="pt" />;
 }

@@ -261,6 +261,7 @@ function requiredSchemaTypes(pathname: string): string[] {
 	if (['/talks', '/presentations', '/projects', '/writing', '/links'].includes(unprefixed)) {
 		return ['CollectionPage'];
 	}
+	if (/^\/talks\/[^/]+$/.test(unprefixed)) return ['PresentationDigitalDocument'];
 	return [];
 }
 

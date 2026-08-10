@@ -145,6 +145,41 @@ test('fails missing JSON-LD on a required profile route', () => {
 	assertOnlyFailure(outDir, 'html:json-ld', /\/about.*ProfilePage.*missing/i);
 });
 
+test('fails a talk detail route without PresentationDigitalDocument JSON-LD', () => {
+	const outDir = copyFixture();
+	for (const prefix of ['', 'en/']) {
+		const source = path.join(outDir, prefix, 'talks.html');
+		const target = path.join(outDir, prefix, 'talks', 'example.html');
+		fs.mkdirSync(path.dirname(target), { recursive: true });
+		const route = prefix ? '/en/talks/example' : '/talks/example';
+		const sourceRoute = prefix ? '/en/talks' : '/talks';
+		let html = fs
+			.readFileSync(source, 'utf8')
+			.replaceAll(sourceRoute, route)
+			.replace(/<script type="application\/ld\+json">.*?<\/script>/, '');
+		if (prefix) {
+			html = html.replaceAll(
+				'https://gdantas.com.br/talks"',
+				'https://gdantas.com.br/talks/example"',
+			);
+		}
+		fs.writeFileSync(target, html);
+	}
+	replace(
+		outDir,
+		'sitemap-0.xml',
+		'</urlset>',
+		'<url><loc>https://gdantas.com.br/talks/example</loc><priority>0.7</priority></url>\n' +
+			'<url><loc>https://gdantas.com.br/en/talks/example</loc><priority>0.7</priority></url>\n' +
+			'</urlset>',
+	);
+	assertOnlyFailure(
+		outDir,
+		'html:json-ld',
+		/\/talks\/example.*PresentationDigitalDocument.*missing/i,
+	);
+});
+
 test('fails required JSON-LD without the schema.org context', () => {
 	const outDir = copyFixture();
 	replace(outDir, 'en/talks.html', '"@context":"https://schema.org",', '');
