@@ -8,7 +8,8 @@ import pt from '../locales/pt.json';
 import { validateSkillIndex } from './agent-skill-index';
 
 const SITE_URL = 'https://gdantas.com.br';
-const CONTENT_SIGNAL = 'Content-Signal: ai-train=no, search=yes, ai-input=yes';
+const CONTENT_SIGNAL_VALUE = 'ai-train=no, search=yes, ai-input=yes';
+const CONTENT_SIGNAL = `Content-Signal: ${CONTENT_SIGNAL_VALUE}`;
 
 const CHECK_IDS = [
 	'sitemap:routes',
@@ -46,6 +47,26 @@ interface RouteDocument {
 interface SeoCopy {
 	title: string;
 	description: string;
+}
+
+interface SchemaNode {
+	value: Record<string, unknown>;
+	context: unknown;
+}
+
+interface RobotsDirective {
+	name: string;
+	value: string;
+}
+
+interface RobotsGroup {
+	userAgents: string[];
+	directives: RobotsDirective[];
+}
+
+interface ParsedRobots {
+	groups: RobotsGroup[];
+	directives: RobotsDirective[];
 }
 
 const SEO_COPY = {
@@ -193,6 +214,13 @@ function collectSitemap(
 					fail('sitemap:routes', `[${name}] route URL is not canonical: ${loc}`);
 					continue;
 				}
+				const canonicalLocation = canonicalForPath(url.pathname);
+				if (loc !== canonicalLocation) {
+					fail(
+						'sitemap:routes',
+						`[${loc}] sitemap canonical location must be ${canonicalLocation}`,
+					);
+				}
 				urls.push(url);
 			} catch {
 				fail('sitemap:routes', `[${name}] route URL is invalid: ${loc}`);
@@ -205,16 +233,25 @@ function collectSitemap(
 	return { urls, xmlFiles };
 }
 
-function schemaTypes(value: unknown): string[] {
-	if (Array.isArray(value)) return value.flatMap(schemaTypes);
+function schemaNodes(value: unknown, inheritedContext?: unknown): SchemaNode[] {
+	if (Array.isArray(value)) {
+		return value.flatMap((item) => schemaNodes(item, inheritedContext));
+	}
 	if (typeof value !== 'object' || value === null) return [];
 	const object = value as Record<string, unknown>;
-	const ownTypes = Array.isArray(object['@type'])
-		? object['@type'].filter((item): item is string => typeof item === 'string')
-		: typeof object['@type'] === 'string'
-		? [object['@type']]
-		: [];
-	return [...ownTypes, ...schemaTypes(object['@graph'])];
+	const context = object['@context'] ?? inheritedContext;
+	const ownNode = object['@type'] ? [{ value: object, context }] : [];
+	return [...ownNode, ...schemaNodes(object['@graph'], context)];
+}
+
+function hasSchemaType(value: unknown, expectedType: string): boolean {
+	return Array.isArray(value) ? value.includes(expectedType) : value === expectedType;
+}
+
+function hasSchemaOrgContext(context: unknown): boolean {
+	return Array.isArray(context)
+		? context.includes('https://schema.org')
+		: context === 'https://schema.org';
 }
 
 function requiredSchemaTypes(pathname: string): string[] {
@@ -227,8 +264,110 @@ function requiredSchemaTypes(pathname: string): string[] {
 	return [];
 }
 
+function validateRequiredSchema(node: SchemaNode, type: string, canonical: string): string[] {
+	const errors: string[] = [];
+	const schema = node.value;
+	if (!hasSchemaOrgContext(node.context)) {
+		errors.push(`${type} must declare @context https://schema.org`);
+	}
+	const expectedUrl = type === 'Person' || type === 'WebSite' ? SITE_URL : canonical;
+	if (schema.url !== expectedUrl) {
+		errors.push(`${type} must use the canonical url ${expectedUrl}`);
+	}
+
+	if (type === 'Person' && schema['@id'] !== `${SITE_URL}/#person`) {
+		errors.push(`Person must use the stable ${SITE_URL}/#person identity`);
+	}
+	if (type === 'WebSite' && schema['@id'] !== `${SITE_URL}/#website`) {
+		errors.push(`WebSite must use the stable ${SITE_URL}/#website identity`);
+	}
+	if (type === 'ProfilePage') {
+		const mainEntity = schema.mainEntity;
+		if (
+			typeof mainEntity !== 'object' ||
+			mainEntity === null ||
+			(mainEntity as Record<string, unknown>)['@id'] !== `${SITE_URL}/#person`
+		) {
+			errors.push(`ProfilePage mainEntity must reference ${SITE_URL}/#person`);
+		}
+	}
+	if (type === 'CollectionPage') {
+		const mainEntity = schema.mainEntity;
+		const itemList =
+			typeof mainEntity === 'object' && mainEntity !== null
+				? (mainEntity as Record<string, unknown>)
+				: undefined;
+		if (
+			!itemList ||
+			!hasSchemaType(itemList['@type'], 'ItemList') ||
+			!Array.isArray(itemList.itemListElement)
+		) {
+			errors.push('CollectionPage mainEntity must be an ItemList with itemListElement');
+		}
+	}
+
+	return errors;
+}
+
 function markdownTargets(content: string): string[] {
 	return Array.from(content.matchAll(/\[[^\]]+\]\(([^)]+)\)/g), (match) => match[1].trim());
+}
+
+function parseRobots(content: string): ParsedRobots {
+	const groups: RobotsGroup[] = [];
+	const directives: RobotsDirective[] = [];
+	let currentGroup: RobotsGroup | undefined;
+	let currentGroupHasRules = false;
+
+	for (const rawLine of content.split(/\r?\n/)) {
+		const line = rawLine.replace(/#.*$/, '').trim();
+		if (!line) continue;
+		const separator = line.indexOf(':');
+		if (separator === -1) continue;
+		const directive = {
+			name: line.slice(0, separator).trim().toLowerCase(),
+			value: line.slice(separator + 1).trim(),
+		};
+		directives.push(directive);
+
+		if (directive.name === 'user-agent') {
+			if (!currentGroup || currentGroupHasRules) {
+				currentGroup = { userAgents: [], directives: [] };
+				groups.push(currentGroup);
+				currentGroupHasRules = false;
+			}
+			currentGroup.userAgents.push(directive.value.toLowerCase());
+			continue;
+		}
+
+		if (currentGroup) {
+			currentGroup.directives.push(directive);
+			currentGroupHasRules = true;
+		}
+	}
+
+	return { groups, directives };
+}
+
+function robotsGroupForAgent(robots: ParsedRobots, userAgent: string): RobotsGroup | undefined {
+	const normalizedAgent = userAgent.toLowerCase();
+	return robots.groups.find((group) => group.userAgents.includes(normalizedAgent));
+}
+
+function groupExplicitlyAllowsRoot(group: RobotsGroup): boolean {
+	const rules = group.directives.filter(
+		(directive) =>
+			(directive.name === 'allow' || directive.name === 'disallow') &&
+			directive.value.length > 0 &&
+			'/'.startsWith(directive.value),
+	);
+	if (!rules.some((directive) => directive.name === 'allow' && directive.value === '/')) {
+		return false;
+	}
+	const longest = Math.max(...rules.map((directive) => directive.value.length));
+	return rules.some(
+		(directive) => directive.value.length === longest && directive.name === 'allow',
+	);
 }
 
 export function auditExport(outDir: string): AuditResult {
@@ -401,10 +540,21 @@ export function auditExport(outDir: string): AuditResult {
 				);
 			}
 		}
-		const types = parsedSchemas.flatMap(schemaTypes);
+		const nodes = parsedSchemas.flatMap((schema) => schemaNodes(schema));
 		for (const requiredType of requiredSchemaTypes(route.url.pathname)) {
-			if (!types.includes(requiredType)) {
+			const node = nodes.find((candidate) =>
+				hasSchemaType(candidate.value['@type'], requiredType),
+			);
+			if (!node) {
 				fail('html:json-ld', `[${routeLabel}] required ${requiredType} JSON-LD is missing`);
+				continue;
+			}
+			for (const error of validateRequiredSchema(
+				node,
+				requiredType,
+				canonicalForPath(route.url.pathname),
+			)) {
+				fail('html:json-ld', `[${routeLabel}] ${error}`);
 			}
 		}
 	}
@@ -451,24 +601,43 @@ export function auditExport(outDir: string): AuditResult {
 	if (!fs.existsSync(robotsPath)) {
 		fail('artifacts:robots', '[robots.txt] file is missing');
 	} else {
-		const robots = fs.readFileSync(robotsPath, 'utf8');
-		if (!robots.includes(CONTENT_SIGNAL)) {
+		const robots = parseRobots(fs.readFileSync(robotsPath, 'utf8'));
+		const wildcardGroup = robotsGroupForAgent(robots, '*');
+		const hasApprovedSignal = wildcardGroup?.directives.some(
+			(directive) =>
+				directive.name === 'content-signal' && directive.value === CONTENT_SIGNAL_VALUE,
+		);
+		if (!hasApprovedSignal) {
 			fail(
 				'artifacts:robots',
-				`[robots.txt] approved Content-Signal is missing: ${CONTENT_SIGNAL}`,
+				`[robots.txt] active wildcard Content-Signal is missing: ${CONTENT_SIGNAL}`,
 			);
 		}
-		if (!/^Sitemap:\s*https:\/\/gdantas\.com\.br\/sitemap\.xml\s*$/im.test(robots)) {
+		if (
+			!robots.directives.some(
+				(directive) =>
+					directive.name === 'sitemap' && directive.value === `${SITE_URL}/sitemap.xml`,
+			)
+		) {
 			fail('artifacts:robots', '[robots.txt] canonical Sitemap declaration is missing');
 		}
-		if (!/User-agent:\s*\*[\s\S]*?Allow:\s*\//i.test(robots)) {
-			fail('artifacts:robots', '[robots.txt] wildcard crawler access is missing');
+		if (!wildcardGroup || !groupExplicitlyAllowsRoot(wildcardGroup)) {
+			fail(
+				'artifacts:robots',
+				'[robots.txt] wildcard group root is blocked or not explicitly allowed',
+			);
 		}
 		for (const agent of ['OAI-SearchBot', 'ChatGPT-User']) {
-			if (!new RegExp(`User-agent:\\s*${agent}`, 'i').test(robots)) {
+			const group = robotsGroupForAgent(robots, agent);
+			if (!group) {
 				fail(
 					'artifacts:robots',
 					`[robots.txt] explicit search/grounding agent is missing: ${agent}`,
+				);
+			} else if (!groupExplicitlyAllowsRoot(group)) {
+				fail(
+					'artifacts:robots',
+					`[robots.txt] ${agent} group root is blocked or not explicitly allowed`,
 				);
 			}
 		}

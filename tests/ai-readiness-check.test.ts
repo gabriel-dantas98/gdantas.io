@@ -133,7 +133,7 @@ test('fails invalid JSON-LD on a required collection route', () => {
 	replace(
 		outDir,
 		'talks.html',
-		'{"@context":"https://schema.org","@type":"CollectionPage","url":"https://gdantas.com.br/talks"}',
+		'{"@context":"https://schema.org","@type":"CollectionPage","url":"https://gdantas.com.br/talks","mainEntity":{"@type":"ItemList","itemListElement":[]}}',
 		'{not-json}',
 	);
 	assertOnlyFailure(outDir, 'html:json-ld', /\/talks.*invalid JSON/i);
@@ -143,6 +143,44 @@ test('fails missing JSON-LD on a required profile route', () => {
 	const outDir = copyFixture();
 	replace(outDir, 'about.html', /<script type="application\/ld\+json">.*?<\/script>/, '');
 	assertOnlyFailure(outDir, 'html:json-ld', /\/about.*ProfilePage.*missing/i);
+});
+
+test('fails required JSON-LD without the schema.org context', () => {
+	const outDir = copyFixture();
+	replace(outDir, 'en/talks.html', '"@context":"https://schema.org",', '');
+	assertOnlyFailure(outDir, 'html:json-ld', /\/en\/talks.*CollectionPage.*@context/i);
+});
+
+test('fails a home principal entity whose url is not canonical', () => {
+	const outDir = copyFixture();
+	replace(
+		outDir,
+		'index.html',
+		'"@id":"https://gdantas.com.br/#person","url":"https://gdantas.com.br"',
+		'"@id":"https://gdantas.com.br/#person","url":"https://gdantas.com.br/about"',
+	);
+	assertOnlyFailure(outDir, 'html:json-ld', /gdantas\.com\.br\/.*Person.*canonical url/i);
+});
+
+test('fails a ProfilePage without the factual Person mainEntity', () => {
+	const outDir = copyFixture();
+	replace(outDir, 'about.html', ',"mainEntity":{"@id":"https://gdantas.com.br/#person"}', '');
+	assertOnlyFailure(outDir, 'html:json-ld', /\/about.*ProfilePage.*mainEntity.*#person/i);
+});
+
+test('fails a bare CollectionPage without its factual ItemList', () => {
+	const outDir = copyFixture();
+	replace(
+		outDir,
+		'talks.html',
+		'{"@context":"https://schema.org","@type":"CollectionPage","url":"https://gdantas.com.br/talks","mainEntity":{"@type":"ItemList","itemListElement":[]}}',
+		'{"@type":"CollectionPage"}',
+	);
+	assertOnlyFailure(
+		outDir,
+		'html:json-ld',
+		/\/talks.*CollectionPage.*(?:@context|canonical url|ItemList)/i,
+	);
 });
 
 test('fails when a sitemap route is noindex', () => {
@@ -162,6 +200,17 @@ test('fails synthetic sitemap changefreq and lastmod values', () => {
 	assertOnlyFailure(outDir, 'sitemap:freshness', /changefreq.*lastmod/i);
 });
 
+test('fails a sitemap location with a trailing slash that its canonical omits', () => {
+	const outDir = copyFixture();
+	replace(
+		outDir,
+		'sitemap-0.xml',
+		'<loc>https://gdantas.com.br/about</loc>',
+		'<loc>https://gdantas.com.br/about/</loc>',
+	);
+	assertOnlyFailure(outDir, 'sitemap:routes', /\/about\/.*canonical location.*\/about/i);
+});
+
 test('fails when llms-full.txt is missing', () => {
 	const outDir = copyFixture();
 	fs.unlinkSync(path.join(outDir, 'llms-full.txt'));
@@ -178,6 +227,39 @@ test('fails robots.txt without the approved Content-Signal', () => {
 	const outDir = copyFixture();
 	replace(outDir, 'robots.txt', 'Content-Signal: ai-train=no, search=yes, ai-input=yes\n', '');
 	assertOnlyFailure(outDir, 'artifacts:robots', /Content-Signal.*missing/i);
+});
+
+test('fails when the approved Content-Signal appears only in a comment', () => {
+	const outDir = copyFixture();
+	replace(
+		outDir,
+		'robots.txt',
+		'Content-Signal: ai-train=no, search=yes, ai-input=yes',
+		'# Content-Signal: ai-train=no, search=yes, ai-input=yes',
+	);
+	assertOnlyFailure(outDir, 'artifacts:robots', /active wildcard.*Content-Signal.*missing/i);
+});
+
+test('fails when the wildcard group disallows the site root', () => {
+	const outDir = copyFixture();
+	replace(
+		outDir,
+		'robots.txt',
+		'User-agent: *\nContent-Signal: ai-train=no, search=yes, ai-input=yes\nAllow: /',
+		'User-agent: *\nContent-Signal: ai-train=no, search=yes, ai-input=yes\nDisallow: /',
+	);
+	assertOnlyFailure(outDir, 'artifacts:robots', /wildcard.*root.*blocked/i);
+});
+
+test('fails when OAI-SearchBot is explicitly blocked', () => {
+	const outDir = copyFixture();
+	replace(
+		outDir,
+		'robots.txt',
+		'User-agent: OAI-SearchBot\nAllow: /',
+		'User-agent: OAI-SearchBot\nDisallow: /',
+	);
+	assertOnlyFailure(outDir, 'artifacts:robots', /OAI-SearchBot.*root.*blocked/i);
 });
 
 test('fails robots.txt without the canonical sitemap declaration', () => {
