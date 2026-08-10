@@ -109,6 +109,7 @@ test.describe('golden flows · navegação', () => {
 	});
 
 	test('Header em /about tem link de volta pra home', async ({ page }) => {
+		await page.addInitScript(() => window.localStorage.setItem('lang', 'pt'));
 		await page.goto('/about');
 		const homeLink = page.locator('header a[href="/"]').first();
 		await expect(homeLink).toBeVisible();
