@@ -94,8 +94,18 @@ function toCanvaEmbed(link?: string) {
 	return undefined;
 }
 
-export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
+export async function loadPresentations(): Promise<PresentationItem[]> {
 	const raw = presentationsData as PresentationItemRaw[];
+	const seenSlugs = new Set<string>();
+	for (const item of raw) {
+		if (!item.slug) {
+			throw new Error(`Presentation "${item.title}" is missing a slug`);
+		}
+		if (seenSlugs.has(item.slug)) {
+			throw new Error(`Duplicate presentation slug: "${item.slug}"`);
+		}
+		seenSlugs.add(item.slug);
+	}
 
 	const presentations: PresentationItem[] = [];
 	for (const item of raw as PresentationItemRaw[]) {
@@ -175,5 +185,9 @@ export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
 		presentations.push(item as PresentationItem);
 	}
 
-	return { props: { presentations } };
+	return presentations;
+}
+
+export const getStaticProps: GetStaticProps<PresentationsProps> = async () => {
+	return { props: { presentations: await loadPresentations() } };
 };
