@@ -56,11 +56,12 @@ function TimelinePageInner({ timeline: rawTimeline }: { timeline: Timeline }) {
 
 	return (
 		<OperatorPage
-			title="gdantas ─ git log --career"
-			description="Commits da carreira — empresas, papéis e marcos."
+			title={t('seo.timeline.title')}
+			description={t('seo.timeline.description')}
 			active="/timeline">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('timeline.section.label')}
 					title={t('timeline.section.title')}
 					sub={t('timeline.section.sub')}

@@ -24,11 +24,12 @@ function DoctrinePageInner() {
 
 	return (
 		<OperatorPage
-			title="gdantas ─ cat ~/.doctrine"
-			description="Princípios e papéis de operação. So others may live."
+			title={t('seo.doctrine.title')}
+			description={t('seo.doctrine.description')}
 			active="/doctrine">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('sections.doctrine.label')}
 					title={t('sections.doctrine.title')}
 					sub={t('sections.doctrine.sub')}

@@ -27,6 +27,7 @@ function main(): void {
 	const urls = childSitemaps.flatMap(readUrls);
 	const badUrls = urls.filter((url) => {
 		if (!url.startsWith(SITE_URL)) return true;
+		if (url === `${SITE_URL}/go`) return true;
 		if (url.startsWith(`${SITE_URL}/go/`)) return true;
 		if (url === `${SITE_URL}/error`) return true;
 		return false;

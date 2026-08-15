@@ -16,7 +16,6 @@
 /out/
 
 # next-sitemap
-public/robots.txt
 public/sitemap*.xml
 
 # production

@@ -16,7 +16,58 @@
 		"play": "./play ↗",
 		"preview": "./preview ↗",
 		"confer": "check it out ↗",
+		"previewUnavailable": "Preview unavailable for this format — hit \"Check it out\" to open the source.",
 		"langSwitchLabel": "Switch language"
+	},
+	"seo": {
+		"home": {
+			"title": "gdantas — platform engineer · devex",
+			"description": "Gabriel Dantas — platform engineering and developer experience. Internal Developer Portals, Backstage, Kubernetes, AI ops, observability and RAG over infrastructure."
+		},
+		"about": {
+			"title": "gdantas ─ cat ~/.about",
+			"description": "Meet the operator: SRE, platform engineering, Backstage and AI ops."
+		},
+		"doctrine": {
+			"title": "gdantas ─ cat ~/.doctrine",
+			"description": "Principles and operating roles. So others may live."
+		},
+		"links": {
+			"title": "gdantas ─ ls ~/.links",
+			"description": "Linktree: talks, GitHub, LinkedIn, Medium and Gabriel Dantas projects."
+		},
+		"presentation": {
+			"title": "$ ./introduce-gabriel — presentation",
+			"description": "An animated presentation of who Gabriel Dantas is, as a sequence of pipeline-style scenes."
+		},
+		"presentations": {
+			"title": "gdantas ─ presentations",
+			"description": "Presentations with embedded previews — slides, videos and podcasts."
+		},
+		"projects": {
+			"title": "gdantas ─ kubectl get projects",
+			"description": "Public repositories and experiments — platform engineering, AI ops and side projects."
+		},
+		"sidequests": {
+			"title": "gdantas ─ ls ~/.sidequests",
+			"description": "Gabriel's side projects and hobbies — 3D printing (3Dantas), volunteer work (Novarum) and a tech t-shirt shop (DeployOu)."
+		},
+		"status": {
+			"title": "gdantas ─ systemctl status",
+			"description": "Operator status — Lanyard / Discord presence."
+		},
+		"talks": {
+			"title": "gdantas ─ ls ~/talks",
+			"description": "Talks, podcasts and slides — platform engineering, Backstage and AI ops."
+		},
+		"timeline": {
+			"title": "gdantas ─ git log --career",
+			"description": "Career commits — companies, roles and milestones."
+		},
+		"writing": {
+			"title": "gdantas ─ tail -f ~/.writing",
+			"description": "Notes and posts published at medium/@_gdantas. AI ops, platform engineering and observability."
+		}
 	},
 	"hero": {
 		"role": "platform engineer",
@@ -97,9 +148,73 @@
 	"talks": {
 		"section": { "label": "01", "title": "ls ~/talks", "sub": "recent · slides + video + audio" },
 		"kinds": { "video": "VIDEO", "audio": "AUDIO", "slides": "SLIDES", "talk": "TALK" },
+		"detail": {
+			"back": "← all talks",
+			"open": "open content ↗",
+			"source": "./src ↗",
+			"previewUnavailable": "preview unavailable"
+		},
 		"footerPrompt": "ls --all | wc -l →",
 		"footerEntries": "entries",
 		"footerLink": "↗ presentations (full list with inline previews)",
+		"items": {
+			"idp-hub-mcps": {
+				"title": "CNCF Campinas - Turning your Developer Portal into an MCP Hub",
+				"description": "Slides from my CNCF Campinas talk on how we turned Backstage into an MCP hub: Actions Registry, OAuth, the current limits of this AI layer in the Developer Portal, and the path to an AI Marketplace of MCPs, Skills, Subagents and Rules."
+			},
+			"idp-portals": {
+				"title": "DevOps Summit Bluepprint 2025 - SCALING ENGINEERING WITH INTERNAL DEVELOPER PORTALS (IDPs): NAVIGABILITY, AUTONOMY AND GOVERNANCE",
+				"description": "Slides from my talk at DevOps Summit Bluepprint 2025 in São Paulo"
+			},
+			"flaky-to-confident": {
+				"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
+				"description": "Tech Talk on QuintoAndar's channel about applying GenAI to the release validation loop — using test data for actionable insights, fast root-cause on failures, and immediate fix suggestions."
+			},
+			"cursor-mcp-db": {
+				"title": "Platform Days 2025 - Bringing the database into the IDE with Cursor and MCP: production queries without fear",
+				"description": "Code & slides from my Platform Days 2025 talk in São Paulo"
+			},
+			"incident-mcps": {
+				"title": "DevPR Config 2025 - 10-year special - Building your incident assistant with MCPs",
+				"description": "Code & slides from my DevPR Config 2025 talk in Paraná"
+			},
+			"rag-idp": {
+				"title": "Platform Days 2025 - Building a RAG with data from your Internal Developer Portal",
+				"description": "Slides from my Platform Days SP 2025 talk"
+			},
+			"qa-idp": {
+				"title": "Discover QuintoAndar's IDP - Platform Talks",
+				"description": "Talk on QuintoAndar's Internal Developer Portal at Platform Talks"
+			},
+			"comunidade-backstage": {
+				"title": "Comunidade DevOps - Backstage - building your Internal Developer Portal",
+				"description": "Walkthrough of what you gain with an IDP, plus some of the Backstage experience."
+			},
+			"backstage-tf": {
+				"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
+				"description": "Slides from my DevopsDays SP 2024 talk"
+			},
+			"tech-leadership-rocks": {
+				"title": "Tech Leadership Rocks - Developer platforms with Victor Fonseca, Gabriel Dantas, Leo Vieira and Caio Queiroz",
+				"description": "Episode with Victor Fonseca, Leo Vieira and Caio Queiroz on building a developer platform with Backstage at QuintoAndar."
+			},
+			"idp-backstage": {
+				"title": "Tech Talk - How we built the developer portal with Backstage.io",
+				"description": "Tech Talk on QuintoAndar's channel covering how we use Backstage.io"
+			},
+			"carreira-sre": {
+				"title": "SRE careers: with Daniel Requena (SRE at iFood), Gabriel Dantas (SRE at QuintoAndar) and Bruno Pereira",
+				"description": "A chat about SRE careers"
+			},
+			"quintocast-backstage": {
+				"title": "QuintoCast - Backstage: Making QuintoAndar engineering navigable",
+				"description": "QuintoAndar tech teams' podcast — the journey of building an engineering portal with Backstage.io"
+			},
+			"jornada-devops": {
+				"title": "DevOps Journey: History and Practice",
+				"description": "Slides from a talk for Senac students on DevOps culture and Platform Engineering"
+			}
+		},
 		"home": {
 			"idp-portals": {
 				"title": "Scaling engineering with Internal Developer Portals: navigability, autonomy and governance",
@@ -240,10 +355,6 @@
 		"skipHint": "esc · click to skip"
 	},
 	"presentation": {
-		"meta": {
-			"title": "$ ./introduce-gabriel — presentation",
-			"description": "An animated presentation of who Gabriel Dantas is, as a sequence of pipeline-style scenes."
-		},
 		"header": {
 			"label": "06",
 			"title": "$ ./introduce-gabriel",

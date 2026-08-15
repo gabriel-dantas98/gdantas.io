@@ -4,7 +4,8 @@ import Parser from 'rss-parser';
 import posthog from 'posthog-js';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 type MediumPost = {
 	date: string;
@@ -104,16 +105,26 @@ export function WritingPage({ posts, locale = 'pt' }: WritingPageProps & { local
 
 function WritingPageInner({ posts }: { posts: MediumPost[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 16 });
 	const hasPosts = posts.length > 0;
+	const path = locale === 'en' ? '/en/writing' : '/writing';
 
 	return (
 		<OperatorPage
-			title="gdantas ─ tail -f ~/.writing"
-			description="Notas e posts publicados no medium/@_gdantas. AI ops, plataforma, observabilidade."
+			title={t('seo.writing.title')}
+			description={t('seo.writing.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.writing.title'),
+				description: t('seo.writing.description'),
+				items: posts.map((post) => ({ name: post.title, url: post.href })),
+			})}
 			active="/writing">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('writing.section.label')}
 					title={t('writing.section.title')}
 					sub={t('writing.section.sub')}

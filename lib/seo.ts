@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 
 import type { ComponentProps } from 'react';
 
-import { detectLocaleFromPath, stripLocale, withLocale } from './i18n';
+import { detectLocaleFromPath } from './i18n';
+import { alternateUrls, canonicalUrl } from './site-metadata';
 
-const SITE_URL = 'https://gdantas.com.br';
 const SITE_NAME = 'gdantas';
-const OG_IMAGE = 'https://gdantas.com.br/banner.png';
+const OG_IMAGE = 'https://gdantas.com.br/og/default.png';
 
 const COPY = {
 	pt: {
@@ -62,21 +62,17 @@ export function useSeoProps(
 	const router = useRouter();
 	const locale = detectLocaleFromPath(router.asPath);
 	const copy = COPY[locale];
-	const path = router.asPath.split(/[?#]/)[0] || '/';
-	const canonicalPath = path === '/' ? '' : path;
-	const alternatePath = stripLocale(path);
-	const ptPath = alternatePath === '/' ? '' : alternatePath;
-	const enPath = withLocale(alternatePath, 'en');
-
-	const canonical = `${SITE_URL}${canonicalPath}`;
+	const title = props.title || copy.title;
+	const description = props.description || copy.description;
+	const canonical = canonicalUrl(router.asPath);
 
 	return {
-		title: copy.title,
-		description: copy.description,
+		title,
+		description,
 		canonical,
 		openGraph: {
-			title: copy.title,
-			description: copy.description,
+			title,
+			description,
 			site_name: SITE_NAME,
 			url: canonical,
 			type: 'website',
@@ -84,18 +80,14 @@ export function useSeoProps(
 			images: [
 				{
 					url: OG_IMAGE,
-					alt: copy.description,
-					width: 1280,
-					height: 720,
+					alt: description,
+					width: 1200,
+					height: 630,
 					type: 'image/png',
 				},
 			],
 		},
-		languageAlternates: [
-			{ hrefLang: 'pt-BR', href: `${SITE_URL}${ptPath}` },
-			{ hrefLang: 'en', href: `${SITE_URL}${enPath}` },
-			{ hrefLang: 'x-default', href: `${SITE_URL}${ptPath}` },
-		],
+		languageAlternates: alternateUrls(router.asPath),
 		additionalMetaTags: [
 			{ name: 'keywords', content: copy.keywords.join(', ') },
 			{ name: 'author', content: 'Gabriel Dantas' },

@@ -1,6 +1,22 @@
 [
 	{
+		"slug": "idp-hub-mcps",
+		"event": "CNCF Campinas",
+		"title": "CNCF Campinas - Transformando seu Developer Portal em um HUB de MCP's",
+		"icon": "feather:book",
+		"color": "#ff7a45",
+		"description": "Slides da apresentação que fiz no CNCF Campinas sobre como transformamos o Backstage em um hub de MCPs: Actions Registry, OAuth, os limites atuais dessa camada de IA no Developer Portal e o caminho até um AI Marketplace de MCPs, Skills, Subagents e Rules.",
+		"contentUrl": "https://docs.google.com/presentation/d/1aUIx47YCVrsTAOFaK25rTr6QvkCSscPjZQ1L6HMLXAo/edit?usp=sharing",
+		"date": "2026-07-30",
+		"location": "Campinas, SP",
+		"preview": {
+			"type": "google-slides",
+			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1aUIx47YCVrsTAOFaK25rTr6QvkCSscPjZQ1L6HMLXAo/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
 		"slug": "idp-portals",
+		"event": "DevOps Summit BP",
 		"title": "DevOps Summit Blueprint 2025 - ESCALANDO ENGENHARIA COM PORTAIS INTERNOS (IDP's): NAVEGABILIDADE, AUTONOMIA E GOVERNANÇA",
 		"icon": "feather:book",
 		"color": "#4568dc",
@@ -15,6 +31,7 @@
 	},
 	{
 		"slug": "flaky-to-confident",
+		"event": "QuintoAndar Tech Talks",
 		"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -29,6 +46,7 @@
 	},
 	{
 		"slug": "cursor-mcp-db",
+		"event": "Platform Days",
 		"title": "Platform Days 2025 - Trazendo o banco de dados para dentro da IDE com Cursor e MCP: Consultas em produção sem medo",
 		"icon": "feather:book",
 		"color": "#7b50ad",
@@ -44,6 +62,7 @@
 	},
 	{
 		"slug": "incident-mcps",
+		"event": "DevPR Config · 10 anos",
 		"title": "DevPR Config 2025 - especial 10 anos - Criando seu Assistente de Incidentes com MCP's",
 		"icon": "feather:book",
 		"color": "#15a04d",
@@ -59,6 +78,7 @@
 	},
 	{
 		"slug": "rag-idp",
+		"event": "Platform Days",
 		"title": "Platform Days 2025 - Construindo um RAG com dados do seu Internal Developer Portal",
 		"icon": "feather:book",
 		"color": "#51f086",
@@ -74,6 +94,7 @@
 	},
 	{
 		"slug": "qa-idp",
+		"event": "Platform Talks",
 		"title": "Discover QuintoAndar's IDP - Platform Talks",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -87,6 +108,7 @@
 	},
 	{
 		"slug": "comunidade-backstage",
+		"event": "Comunidade DevOps",
 		"title": "Comunidade DevOps - Backstage - construindo seu Internal Developer Portal",
 		"icon": "feather:book",
 		"color": "#9b59b6",
@@ -100,6 +122,7 @@
 	},
 	{
 		"slug": "backstage-tf",
+		"event": "DevopsDays SP",
 		"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
 		"icon": "feather:book",
 		"color": "#ffba00",
@@ -114,6 +137,7 @@
 	},
 	{
 		"slug": "tech-leadership-rocks",
+		"event": "Tech Leadership Rocks",
 		"title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
 		"icon": "feather:headphones",
 		"color": "#1ed760",
@@ -127,6 +151,7 @@
 	},
 	{
 		"slug": "idp-backstage",
+		"event": "QuintoAndar Tech Talk",
 		"title": "Tech Talk -  Como desenvolvemos o developer portal usando o Backstage.io",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -141,6 +166,7 @@
 	},
 	{
 		"slug": "carreira-sre",
+		"event": "Carreira SRE",
 		"title": "Carreira SRE: com Daniel Requena SRE no Ifood, Gabriel Dantas SRE no Quinto Andar e Bruno Pereira",
 		"icon": "feather:youtube",
 		"color": "#c4302b",
@@ -155,6 +181,7 @@
 	},
 	{
 		"slug": "quintocast-backstage",
+		"event": "QuintoCast",
 		"title": "QuintoCast - Backstage: Tornando a Engenharia do QuintoAndar navegável",
 		"icon": "feather:headphones",
 		"color": "#1ed760",
@@ -167,6 +194,7 @@
 	},
 	{
 		"slug": "jornada-devops",
+		"event": "Senac",
 		"title": "Jornada DevOps: História e Prática",
 		"icon": "feather:book",
 		"color": "#ffba00",
