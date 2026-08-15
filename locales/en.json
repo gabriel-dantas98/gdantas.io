@@ -160,39 +160,39 @@
 		"items": {
 			"idp-hub-mcps": {
 				"title": "CNCF Campinas - Turning your Developer Portal into an MCP Hub",
-				"description": "Slides from my CNCF Campinas talk on how we turned Backstage into an MCP hub: Actions Registry, OAuth, the current limits of this AI layer in the Developer Portal, and the path to an AI Marketplace of MCPs, Skills, Subagents and Rules."
+				"description": "Backstage as an MCP hub: Actions Registry, OAuth and the road to a marketplace of MCPs, Skills and Subagents."
 			},
 			"idp-portals": {
-				"title": "DevOps Summit Bluepprint 2025 - SCALING ENGINEERING WITH INTERNAL DEVELOPER PORTALS (IDPs): NAVIGABILITY, AUTONOMY AND GOVERNANCE",
-				"description": "Slides from my talk at DevOps Summit Bluepprint 2025 in São Paulo"
+				"title": "DevOps Summit Blueprint 2025 - SCALING ENGINEERING WITH INTERNAL DEVELOPER PORTALS (IDPs): NAVIGABILITY, AUTONOMY AND GOVERNANCE",
+				"description": "Scaling engineering with Internal Developer Portals: navigability, autonomy and governance."
 			},
 			"flaky-to-confident": {
 				"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
-				"description": "Tech Talk on QuintoAndar's channel about applying GenAI to the release validation loop — using test data for actionable insights, fast root-cause on failures, and immediate fix suggestions."
+				"description": "GenAI on the release validation loop: test data → root-cause → instant fix suggestions."
 			},
 			"cursor-mcp-db": {
 				"title": "Platform Days 2025 - Bringing the database into the IDE with Cursor and MCP: production queries without fear",
-				"description": "Code & slides from my Platform Days 2025 talk in São Paulo"
+				"description": "Cursor + MCP postgres: production queries without fear, straight from the IDE."
 			},
 			"incident-mcps": {
 				"title": "DevPR Config 2025 - 10-year special - Building your incident assistant with MCPs",
-				"description": "Code & slides from my DevPR Config 2025 talk in Paraná"
+				"description": "Building an incident assistant: pager + MCP + runbooks + genai."
 			},
 			"rag-idp": {
 				"title": "Platform Days 2025 - Building a RAG with data from your Internal Developer Portal",
-				"description": "Slides from my Platform Days SP 2025 talk"
+				"description": "RAG on your IDP data: answers about your own infra."
 			},
 			"qa-idp": {
 				"title": "Discover QuintoAndar's IDP - Platform Talks",
-				"description": "Talk on QuintoAndar's Internal Developer Portal at Platform Talks"
+				"description": "QuintoAndar's IDP case: Backstage in production."
 			},
 			"comunidade-backstage": {
 				"title": "Comunidade DevOps - Backstage - building your Internal Developer Portal",
-				"description": "Walkthrough of what you gain with an IDP, plus some of the Backstage experience."
+				"description": "What an IDP buys you: self-service, paved roads, dev experience."
 			},
 			"backstage-tf": {
 				"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
-				"description": "Slides from my DevopsDays SP 2024 talk"
+				"description": "Backstage Scaffolder + Terraform: a paved road for IaC."
 			},
 			"tech-leadership-rocks": {
 				"title": "Tech Leadership Rocks - Developer platforms with Victor Fonseca, Gabriel Dantas, Leo Vieira and Caio Queiroz",
@@ -200,7 +200,7 @@
 			},
 			"idp-backstage": {
 				"title": "Tech Talk - How we built the developer portal with Backstage.io",
-				"description": "Tech Talk on QuintoAndar's channel covering how we use Backstage.io"
+				"description": "Building a dev portal with Backstage: QuintoAndar's case."
 			},
 			"carreira-sre": {
 				"title": "SRE careers: with Daniel Requena (SRE at iFood), Gabriel Dantas (SRE at QuintoAndar) and Bruno Pereira",
@@ -212,25 +212,7 @@
 			},
 			"jornada-devops": {
 				"title": "DevOps Journey: History and Practice",
-				"description": "Slides from a talk for Senac students on DevOps culture and Platform Engineering"
-			}
-		},
-		"home": {
-			"idp-portals": {
-				"title": "Scaling engineering with Internal Developer Portals: navigability, autonomy and governance",
-				"preview": "idp.scale = navigability + autonomy + governance"
-			},
-			"flaky-to-confident": {
-				"title": "Building with AI: from flaky to confident releases",
-				"preview": "flaky_tests → genai → root-cause → suggested-fix"
-			},
-			"cursor-mcp-db": {
-				"title": "Bringing the database into the IDE with Cursor + MCP",
-				"preview": "$ cursor + mcp postgres → prod queries, no fear"
-			},
-			"incident-mcps": {
-				"title": "Building your incident assistant with MCPs",
-				"preview": "oncall.assistant = pager + mcp + runbooks + 🤖"
+				"description": "DevOps culture and Platform Engineering: history and practice."
 			}
 		}
 	},
