@@ -29,15 +29,25 @@ export function Prompt({
 	return (
 		<span style={{ fontFamily: OP.font }}>
 			<span style={{ color: OP.ok }}>gd@platform</span>
-			<span style={{ color: OP.dim }}>:</span>
+			<span aria-hidden="true" style={{ color: OP.dim }}>:</span>
 			<span style={{ color: OP.amber }}>{path}</span>
-			<span style={{ color: OP.dim }}>$</span>{' '}
+			<span aria-hidden="true" style={{ color: OP.dim }}>$</span>{' '}
 			<span style={{ color: OP.fg }}>{children}</span>
 		</span>
 	);
 }
 
-export function Sec({ label, title, sub }: { label: string; title: string; sub?: string }) {
+export function Sec({
+	label,
+	title,
+	sub,
+	as: Heading = 'h2',
+}: {
+	label: string;
+	title: string;
+	sub?: string;
+	as?: 'h1' | 'h2';
+}) {
 	return (
 		<div style={{ display: 'flex', alignItems: 'baseline', gap: 18, flexWrap: 'wrap' }}>
 			<span
@@ -49,7 +59,7 @@ export function Sec({ label, title, sub }: { label: string; title: string; sub?:
 				}}>
 				{label}
 			</span>
-			<h2
+			<Heading
 				style={{
 					margin: 0,
 					fontFamily: OP.font,
@@ -59,10 +69,10 @@ export function Sec({ label, title, sub }: { label: string; title: string; sub?:
 					color: OP.fg,
 				}}>
 				{title}
-			</h2>
+			</Heading>
 			{sub && (
 				<span style={{ fontFamily: OP.font, fontSize: 13, color: OP.dim }}>
-					{'// '}
+					<span aria-hidden="true">{'// '}</span>
 					{sub}
 				</span>
 			)}

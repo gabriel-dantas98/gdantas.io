@@ -1,0 +1,6 @@
+# gdantas
+
+- [Home](https://gdantas.com.br/)
+- [About](https://gdantas.com.br/about)
+- [Talks](https://gdantas.com.br/talks)
+- [Full index](https://gdantas.com.br/llms-full.txt)

@@ -1,0 +1,4 @@
+interface:
+    display_name: 'Audit AI Readiness'
+    short_description: 'Audit GEO and static agent-readiness signals'
+    default_prompt: "Use $auditing-ai-readiness to audit this site's GEO and agent-readiness changes."

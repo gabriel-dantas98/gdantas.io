@@ -40,11 +40,12 @@ function PresentationPageInner() {
 	const { locale } = useI18n();
 	return (
 		<OperatorPage
-			title={t('presentation.meta.title')}
-			description={t('presentation.meta.description')}
+			title={t('seo.presentation.title')}
+			description={t('seo.presentation.description')}
 			active="/presentation"
 		>
 			<Sec
+				as="h1"
 				label={t('presentation.header.label')}
 				title={t('presentation.header.title')}
 				sub={t('presentation.header.sub')}

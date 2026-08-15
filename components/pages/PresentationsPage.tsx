@@ -10,8 +10,9 @@ import {
 	useReveal,
 } from '~/components/Operator';
 import type { PresentationItem, PresentationsProps } from '~/lib/presentations-static-props';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
 import { resolveTalkCopy } from '~/lib/talk-copy';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 export function PresentationsPage({
 	presentations,
@@ -26,15 +27,40 @@ export function PresentationsPage({
 
 function PresentationsPageInner({ presentations }: { presentations: PresentationItem[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
+	const path = locale === 'en' ? '/en/presentations' : '/presentations';
+	const collectionItems = presentations.flatMap((presentation) => {
+		const url =
+			presentation.contentUrl ||
+			presentation.url ||
+			(presentation.slug ? `${path}#${presentation.slug}` : undefined);
+		if (!url) return [];
+		return [
+			{
+				name: resolveTalkCopy(t, presentation.slug, {
+					title: presentation.title,
+					description: presentation.description,
+				}).title,
+				url,
+			},
+		];
+	});
 	return (
 		<OperatorPage
-			title="gdantas ─ presentations"
-			description="Apresentações com preview embeddado — slides, vídeos, podcasts."
-			active="/talks"
-		>
+			title={t('seo.presentations.title')}
+			description={t('seo.presentations.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.presentations.title'),
+				description: t('seo.presentations.description'),
+				items: collectionItems,
+			})}
+			active="/talks">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label="01"
 					title="ls ~/talks --preview"
 					sub="cada talk com preview embeddado"

@@ -27,6 +27,7 @@ export default function GoIndexPage({ shortcuts }: GoIndexProps) {
 		<OperatorPage
 			title="gdantas ─ ls ~/.shortcuts"
 			description="URL shortener as code · /go/<slug>"
+			noIndex
 			active="/go">
 			<div ref={ref}>
 				<Sec

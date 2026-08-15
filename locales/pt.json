@@ -19,6 +19,56 @@
 		"previewUnavailable": "Preview indisponível pra esse formato — clica em \"Conferir\" pra abrir direto na fonte.",
 		"langSwitchLabel": "Mudar idioma"
 	},
+	"seo": {
+		"home": {
+			"title": "gdantas — platform engineer · devex",
+			"description": "Gabriel Dantas — platform engineering e developer experience. Internal Developer Portals, Backstage, Kubernetes, AI ops, observabilidade e RAG sobre infra."
+		},
+		"about": {
+			"title": "gdantas ─ cat ~/.about",
+			"description": "Quem é o operador. SRE, plataforma, Backstage, AI ops."
+		},
+		"doctrine": {
+			"title": "gdantas ─ cat ~/.doctrine",
+			"description": "Princípios e papéis de operação. So others may live."
+		},
+		"links": {
+			"title": "gdantas ─ ls ~/.links",
+			"description": "Linktree: talks, GitHub, LinkedIn, Medium, projetos do Gabriel Dantas."
+		},
+		"presentation": {
+			"title": "$ ./introduce-gabriel — apresentação",
+			"description": "Uma apresentação animada de quem é Gabriel Dantas, em sequência de cenas estilo pipeline."
+		},
+		"presentations": {
+			"title": "gdantas ─ presentations",
+			"description": "Apresentações com preview embeddado — slides, vídeos, podcasts."
+		},
+		"projects": {
+			"title": "gdantas ─ kubectl get projects",
+			"description": "Repositórios e experimentos públicos — plataforma, AI ops, side-projects."
+		},
+		"sidequests": {
+			"title": "gdantas ─ ls ~/.sidequests",
+			"description": "Projetos paralelos e hobbies do Gabriel — impressão 3D (3Dantas), trabalho voluntário (Novarum) e loja de camisetas tech (DeployOu)."
+		},
+		"status": {
+			"title": "gdantas ─ systemctl status",
+			"description": "Status do operador — Lanyard / Discord presence."
+		},
+		"talks": {
+			"title": "gdantas ─ ls ~/talks",
+			"description": "Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops."
+		},
+		"timeline": {
+			"title": "gdantas ─ git log --career",
+			"description": "Commits da carreira — empresas, papéis e marcos."
+		},
+		"writing": {
+			"title": "gdantas ─ tail -f ~/.writing",
+			"description": "Notas e posts publicados no medium/@_gdantas. AI ops, plataforma, observabilidade."
+		}
+	},
 	"hero": {
 		"role": "platform engineer",
 		"bioP1": "6+ anos fazendo plataforma de dev. Faço parte do time de Engenharia de Plataforma do Grupo QuintoAndar, focado no nosso IDP (by Backstage.io) e na criação de ferramental pra melhorar a experiência e a produtividade dos times de desenvolvimento.",
@@ -321,10 +371,6 @@
 		"skipHint": "esc · click pra pular"
 	},
 	"presentation": {
-		"meta": {
-			"title": "$ ./introduce-gabriel — apresentação",
-			"description": "Uma apresentação animada de quem é Gabriel Dantas, em sequência de cenas estilo pipeline."
-		},
 		"header": {
 			"label": "06",
 			"title": "$ ./introduce-gabriel",

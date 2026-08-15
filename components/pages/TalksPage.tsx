@@ -3,9 +3,11 @@ import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 
 import { OP, Sec, Prompt, OperatorPage, TalkCard, useReveal } from '~/components/Operator';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT, withLocale } from '~/lib/i18n';
 import type { TalkSummary } from '~/lib/talks';
 import { getTalkSummaries } from '~/lib/talks-static-props';
+import { resolveTalkCopy } from '~/lib/talk-copy';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 interface TalksProps {
 	talks: TalkSummary[];
@@ -27,15 +29,32 @@ export function TalksPage({ talks, locale = 'pt' }: TalksProps & { locale?: 'pt'
 
 function TalksPageInner({ talks }: { talks: TalkSummary[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
+	const path = locale === 'en' ? '/en/talks' : '/talks';
+	const collectionItems = talks.map((talk) => ({
+		name: resolveTalkCopy(t, talk.slug, {
+			title: talk.title,
+			description: talk.description,
+		}).title,
+		url: withLocale(`/talks/${talk.slug}`, locale),
+	}));
+
 	return (
 		<OperatorPage
-			title="gdantas ─ ls ~/talks"
-			description="Talks, podcasts e slides — engenharia de plataforma, Backstage, AI ops."
-			active="/talks"
-		>
+			title={t('seo.talks.title')}
+			description={t('seo.talks.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.talks.title'),
+				description: t('seo.talks.description'),
+				items: collectionItems,
+			})}
+			active="/talks">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('talks.section.label')}
 					title={t('talks.section.title')}
 					sub={t('talks.section.sub')}
@@ -63,7 +82,7 @@ function TalksPageInner({ talks }: { talks: TalkSummary[] }) {
 						</span>{' '}
 						·{' '}
 						<Link
-							href="/presentations"
+							href={withLocale('/presentations', locale)}
 							style={{ color: OP.amber, textDecoration: 'none' }}
 						>
 							{t('talks.footerLink')}
