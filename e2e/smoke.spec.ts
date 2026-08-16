@@ -87,8 +87,8 @@ test.describe('golden flows · home', () => {
 		await page.goto('/');
 		// `.click()` aguarda o elemento ficar estável após hydration — evita
 		// "Element is not attached to the DOM" quando o card re-monta.
-		await page.locator('a[href="/talks/idp-hub-mcps"]').first().click();
-		await expect(page).toHaveURL(/\/talks\/idp-hub-mcps$/);
+		await page.locator('a[href="/talks/engenharia-navegavel"]').first().click();
+		await expect(page).toHaveURL(/\/talks\/engenharia-navegavel$/);
 	});
 
 	test('homepage serve uma imagem social fallback válida', async ({ page }) => {

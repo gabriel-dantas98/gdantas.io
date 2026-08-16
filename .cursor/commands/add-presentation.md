@@ -1,52 +1,18 @@
 # Adicionar Apresentação
 
-Adiciona uma nova apresentação ao arquivo `data/presentations.json` seguindo o mesmo processo automatizado.
+**Skill canônica:** `.agents/skills/adding-a-talk/SKILL.md`
 
-## Processo
+Não siga o schema antigo (`url` + `preview.youtubeId` sem slug). O pipeline atual é:
 
-1. **Acessar o link fornecido** usando o browser para extrair informações:
+1. Extrair título / evento / data / local / URL do conteúdo.
+2. Criar slug kebab único (`^[a-z0-9][a-z0-9-]{0,63}$`).
+3. Inserir no topo de `data/presentations.json` (mais recente primeiro) com `slug`, `event`, `contentUrl`, `date`, `location`, `preview`.
+4. Google Slides: `preview.slidesEmbedUrl` = `https://docs.google.com/presentation/d/<ID>/embed?start=false&loop=false&delayms=3000`.
+5. Adicionar `talks.items.<slug>.{title,description}` em `locales/pt.json` **e** `locales/en.json`.
+6. Prepend em `data/talks.json` (Remotion, 5 cards).
+7. Atualizar a contagem em `presentation.hero.steps.talks` (PT+EN) se estiver hardcoded.
+8. `yarn talks:og` → commitar `public/og/talks/<slug>.png` e `<slug>-en.png`.
+9. Se for a talk mais recente, atualizar o seletor em `e2e/smoke.spec.ts` (`a[href="/talks/<slug>"]`).
+10. `yarn i18n:check && yarn talks:check && yarn type-check && yarn build`.
 
-    - Título do vídeo/apresentação
-    - Descrição completa (expandir se necessário)
-    - Data de publicação/transmissão
-    - Localização (se disponível)
-
-2. **Extrair informações do YouTube** (se for link do YouTube):
-
-    - YouTube ID do vídeo
-    - Título completo
-    - Descrição (primeira parte ou resumo relevante)
-    - Data formatada como YYYY-MM-DD
-
-3. **Criar entrada no formato correto**:
-
-    ```json
-    {
-      "title": "Título extraído",
-      "icon": "feather:youtube" (ou "feather:book" para outros tipos),
-      "color": "#c4302b" (vermelho para YouTube, ou outra cor apropriada),
-      "description": "Descrição em português baseada no conteúdo",
-      "contentUrl": "URL fornecida",
-      "date": "YYYY-MM-DD",
-      "location": "Online" (ou localização se disponível),
-      "preview": {
-        "type": "youtube",
-        "youtubeId": "ID_EXTRAIDO"
-      }
-    }
-    ```
-
-4. **Adicionar ao arquivo** `data/presentations.json`:
-
-    - Inserir no início do array
-    - Reorganizar TODAS as entradas por data (mais recente primeiro)
-    - Itens sem data ficam no final
-
-5. **Validações**:
-    - Verificar se a apresentação já existe (por URL ou YouTube ID)
-    - Garantir formato JSON válido
-    - Manter indentação com tabs
-
-## Exemplo de uso
-
-Quando o usuário fornecer uma URL do YouTube ou outro link de apresentação, seguir este processo automaticamente.
+Não criar page shells. Não adicionar `talks.home.*`. Não pular i18n nem OG.

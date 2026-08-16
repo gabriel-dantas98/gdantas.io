@@ -55,39 +55,24 @@ MIT © [Ben Dixon](https://github.com/gabriel-dantas98/gdantas.io/blob/main/LICE
 
 This project is inspired by [nuro.dev](https://github.com/NuroDev/nuro.dev)
 
-## Presentations
+## Presentations / talks
 
-Add entries to `data/presentations.json` to manage the `/presentations` page.
+Canonical recipe: `.agents/skills/adding-a-talk/SKILL.md` (Cursor command: `.cursor/commands/add-presentation.md`).
 
-Each item supports:
+Add the talk to `data/presentations.json` **and** `talks.items.<slug>` in both `locales/pt.json` and `locales/en.json`, then run `yarn talks:og`. Individual pages (`/talks/<slug>`, `/en/talks/<slug>`), home cards, `/talks`, `/presentations`, sitemap and OG images all derive from that slug.
 
--   `title` (string)
--   `description` (string)
--   `icon` (string, iconify id)
--   `color` (string, hex)
--   `url` (string, canonical link, optional; prefer `contentUrl`)
--   `contentUrl` (string, optional; link do conteúdo para o botão principal)
--   `githubUrl` (string, opcional; link do repositório)
--   `date` (string, optional)
--   `location` (string, optional)
+Each `presentations.json` item supports:
+
+-   `slug` (required, kebab-case)
+-   `event` (required)
+-   `title` / `description` (fallback; locales win at render)
+-   `icon` (iconify id) / `color` (hex)
+-   `contentUrl` (canonical content link; `url` is legacy)
+-   `githubUrl` (optional companion repo)
+-   `date` (`YYYY-MM-DD`) / `location`
 -   `preview` (optional object):
-    -   Google Slides:
-        ```json
-        {
-        	"type": "google-slides",
-        	"slidesEmbedUrl": "https://docs.google.com/presentation/.../embed?start=false&loop=false&delayms=3000"
-        }
-        ```
-    -   YouTube:
-        ```json
-        { "type": "youtube", "youtubeId": "Y57gUwb1v3g" }
-        ```
-    -   GitHub README snippet (rendered with MDX styles):
-        ```json
-        { "type": "github-readme", "readmeMarkdown": "# Title\nSome markdown..." }
-        ```
+    -   Google Slides — **must** set `slidesEmbedUrl` (`.../embed?start=false&loop=false&delayms=3000`)
+    -   YouTube: `{ "type": "youtube", "youtubeId": "..." }`
+    -   Canva / Spotify / PDF as in existing entries
 
-Notes:
-
--   We render README markdown at build time using `next-mdx-remote` with the same blog remark/rehype plugins.
--   If you want to fetch README from GitHub dynamically, wire a serverless API or fetch during `getStaticProps` with a token and put the markdown into `readmeMarkdown`.
+Then: `yarn i18n:check && yarn talks:check && yarn type-check && yarn build`.
