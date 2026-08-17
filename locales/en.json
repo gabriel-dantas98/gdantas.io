@@ -158,6 +158,10 @@
 		"footerEntries": "entries",
 		"footerLink": "↗ presentations (full list with inline previews)",
 		"items": {
+			"engenharia-navegavel": {
+				"title": "Codecon Summit 2026 - Making your engineering navigable",
+				"description": "Slides from Codecon Summit 2026 in Curitiba — making engineering navigable with Internal Developer Portals."
+			},
 			"idp-hub-mcps": {
 				"title": "CNCF Campinas - Turning your Developer Portal into an MCP Hub",
 				"description": "Slides from my CNCF Campinas talk on how we turned Backstage into an MCP hub: Actions Registry, OAuth, the current limits of this AI layer in the Developer Portal, and the path to an AI Marketplace of MCPs, Skills, Subagents and Rules."
@@ -398,7 +402,7 @@
 				"role": "Resolve role · Platform Engineer @ QuintoAndar",
 				"stack": "Load stack · Kubernetes · Go · Backstage · Terraform",
 				"doctrine": "Load doctrine · \"backstage work that matters\"",
-				"talks": "Index talks · 12 DevOps talks indexed",
+				"talks": "Index talks · 15 DevOps talks indexed",
 				"boot": "Boot complete ✓ all systems green"
 			}
 		},

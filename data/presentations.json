@@ -1,5 +1,20 @@
 [
 	{
+		"slug": "engenharia-navegavel",
+		"event": "Codecon Summit",
+		"title": "Codecon Summit 2026 - Tornando sua Engenharia Navegável",
+		"icon": "feather:book",
+		"color": "#ffe600",
+		"description": "Slides da talk no Codecon Summit 2026 em Curitiba: como tornar a engenharia navegável com Internal Developer Portals.",
+		"contentUrl": "https://docs.google.com/presentation/d/1sYWscL09tUXO0_Ptq0Hcs7IhLaxxhZudtoFWfz4zs7w/edit?usp=sharing",
+		"date": "2026-08-15",
+		"location": "Curitiba, PR",
+		"preview": {
+			"type": "google-slides",
+			"slidesEmbedUrl": "https://docs.google.com/presentation/d/1sYWscL09tUXO0_Ptq0Hcs7IhLaxxhZudtoFWfz4zs7w/embed?start=false&loop=false&delayms=3000"
+		}
+	},
+	{
 		"slug": "idp-hub-mcps",
 		"event": "CNCF Campinas",
 		"title": "CNCF Campinas - Transformando seu Developer Portal em um HUB de MCP's",
