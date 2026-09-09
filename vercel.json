@@ -13,10 +13,6 @@
 			"destination": "https://cal.com/gdantasdev"
 		},
 		{
-			"source": "/cloud-fix",
-			"destination": "https://gist.githubusercontent.com/gabriel-dantas98/2c5b40ddc24d37c08e22c4d6574db066/raw/eva-fix-windows.ps1"
-		},
-		{
 			"source": "/cv",
 			"destination": "https://read.cv/gdantas"
 		},
