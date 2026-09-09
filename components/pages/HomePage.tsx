@@ -513,19 +513,19 @@ function HomePageInner({ talks }: HomePageProps) {
 									color: OP.fg,
 									marginTop: 14,
 								}}>
-								<p style={{ margin: '0 0 14px' }}>
+								<p style={{ margin: '0 0 22px' }}>
 									{t('doctrine.manifestoP1Pre')}
 									<span style={{ color: OP.amber }}>
 										<em>{t('doctrine.manifestoP1Amber')}</em>
 									</span>
 									{t('doctrine.manifestoP1Post')}
 								</p>
-								<p style={{ margin: '0 0 14px' }}>
+								<p style={{ margin: '0 0 22px' }}>
 									{t('doctrine.manifestoP2Pre')}
 									<span style={{ color: OP.amber }}>{t('doctrine.manifestoP2Amber')}</span>
 									{t('doctrine.manifestoP2Post')}
 								</p>
-								<p style={{ margin: '0 0 14px' }}>
+								<p style={{ margin: '0 0 22px' }}>
 									{t('doctrine.manifestoP3Pre')}
 									<span style={{ color: OP.amber }}>{t('doctrine.manifestoP3Amber')}</span>
 								</p>
@@ -603,6 +603,11 @@ function HomePageInner({ talks }: HomePageProps) {
 							↗ all talks
 						</Link>
 					</div>
+				</div>
+
+				{/* SEPARATOR PROMPT */}
+				<div style={{ marginTop: 28, fontSize: 13 }}>
+					<Prompt path="~">_<Cursor /></Prompt>
 				</div>
 
 				{/* 05 — PING --HELP */}

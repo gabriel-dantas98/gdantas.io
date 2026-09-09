@@ -24,7 +24,7 @@
 	{
 		"date": "09-01-2019",
 		"title": "Partner @ Helix IoT Platform",
-		"description": "Uma plataforma resiliente e orientada a microsserviços, com uma maneira intuitiva e fácil de implantar seus aplicativos de IoT.",
+		"description": "Parceiro técnico numa plataforma de IoT: arquitetura de microsserviços, deployment intuitivo.",
 		"icon": "feather:briefcase",
 		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
@@ -35,7 +35,7 @@
 	{
 		"date": "09-01-2018",
 		"title": "Estágio em DevOps - Mandic/Rivendel",
-		"description": "- Sustentação de múltiplos ambientes \n- Implementação de Pipelines de CI/CD \n- Melhoria continua de arquiteturas utilizando IaC",
+		"description": "Sustentação de ambientes, implementação de CI/CD, arquitetura via IaC.",
 		"icon": "feather:briefcase",
 		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
@@ -46,7 +46,7 @@
 	{
 		"date": "09-01-2017",
 		"title": "Estágio de TI - B4A",
-		"description": "- Acompanhamento e gerenciamento de duas infraestruturas AWS distintas. \n- Configuração de jobs do Jenkins para deploy na AWS. \n- Desenvolvimento de tasks para diferentes plataformas da empresa. \n- Uso de Docker para Conteinerização de ambientes de DEV/PROD.",
+		"description": "Gerenciamento de infra AWS, CI/CD via Jenkins, conteinerização com Docker.",
 		"icon": "feather:briefcase",
 		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {
@@ -57,7 +57,7 @@
 	{
 		"date": "08-01-2016",
 		"title": "Estágio de Infraestrutura - Glambox",
-		"description": "- Gerenciamento e manutenção da infraestrutura de rede. \n- Administração de contas emails, grupos e funcionalidades GSuite. \n- Suporte a colaboradores da empresa.",
+		"description": "Infraestrutura de rede, administração GSuite, suporte a time.",
 		"icon": "feather:briefcase",
 		"brandIcon": "https://play-lh.googleusercontent.com/4femv-L8CLg8ctK1p7v5fL0k3ld_nbPAjE9tSeTvr8FFVx5CGVmK5vs8svQuccSXs8k=w240-h480",
 		"link": {

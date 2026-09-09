@@ -71,7 +71,7 @@
 	},
 	"hero": {
 		"role": "platform engineer",
-		"bioP1": "6+ years building developer platforms. I'm part of QuintoAndar Group's Platform Engineering team, focused on our IDP (Backstage.io) and building tooling that improves developer experience and productivity.",
+		"bioP1": "6+ years building developer platforms. I work on QuintoAndar's Platform Engineering team — building the IDP (Backstage) and the tooling that lets devs commit without opening a ticket.",
 		"quote": "\"So others may live.\" — U.S. Coast Guard Rescue Swimmer",
 		"uptimeLabel": "UPTIME",
 		"statusLabel": "STATUS",
@@ -99,10 +99,10 @@
 		"manifestoP1Post": ". Usually, the less we're noticed and the more productive teams are, the better we're doing.",
 		"manifestoP2Pre": "The first platform team I worked with had this motto: ",
 		"manifestoP2Amber": "\"So Others May Live\"",
-		"manifestoP2Post": " — we do the complex stuff so others don't have to, we go where others wouldn't, to do what they wouldn't — without anyone noticing we exist.",
-		"manifestoP3Pre": "That's exactly what platform is — and it ties straight back to DevOps culture. At the end of the day, what I love most is helping other engineers solve problems ",
+		"manifestoP2Post": " — we do the complex stuff so others don't have to, without anyone noticing we exist.",
+		"manifestoP3Pre": "What I love most is helping other engineers solve problems ",
 		"manifestoP3Amber": ":)",
-		"manifestoP4": "TL;DR: if we can make the best path the easiest path, with the best tools, for everyone — our platform mission is accomplished.",
+		"manifestoP4": "If we can make the best path the easiest path, with the best tools, for everyone — our platform mission is accomplished.",
 		"sig": "— gd",
 		"sigDate": "last edited: today",
 		"roles": [
@@ -114,7 +114,7 @@
 			{
 				"tag": "ROLE 02",
 				"name": "SRE",
-				"text": "SRE is the engineer who treats operations as software: SLO before code, toil measured in hours, incident turning into postmortem and postmortem into real change. On-call is an excellent way to learn how systems actually work, find improvement opportunities and observability gaps."
+				"text": "SRE is the engineer who treats operations as software: SLO before code, toil measured in hours, incident turning into postmortem and postmortem into real change. On-call is where you learn how the system really works — and where observability shows the holes."
 			},
 			{
 				"tag": "ROLE 03",
@@ -125,7 +125,7 @@
 	},
 	"ping": {
 		"chrome": "CHALLENGES.txt",
-		"intro": "Platform is teamwork. If you want to swap notes, bring a talk to your team, or you've got a project that needs an extra brain — the inbox is open.",
+		"intro": "Platform is teamwork — the inbox is open.",
 		"prompt": "$ ping gd ↗",
 		"ctas": [
 			{
@@ -164,39 +164,39 @@
 			},
 			"idp-hub-mcps": {
 				"title": "CNCF Campinas - Turning your Developer Portal into an MCP Hub",
-				"description": "Slides from my CNCF Campinas talk on how we turned Backstage into an MCP hub: Actions Registry, OAuth, the current limits of this AI layer in the Developer Portal, and the path to an AI Marketplace of MCPs, Skills, Subagents and Rules."
+				"description": "Backstage as an MCP hub: Actions Registry, OAuth and the road to a marketplace of MCPs, Skills and Subagents."
 			},
 			"idp-portals": {
-				"title": "DevOps Summit Bluepprint 2025 - SCALING ENGINEERING WITH INTERNAL DEVELOPER PORTALS (IDPs): NAVIGABILITY, AUTONOMY AND GOVERNANCE",
-				"description": "Slides from my talk at DevOps Summit Bluepprint 2025 in São Paulo"
+				"title": "DevOps Summit Blueprint 2025 - SCALING ENGINEERING WITH INTERNAL DEVELOPER PORTALS (IDPs): NAVIGABILITY, AUTONOMY AND GOVERNANCE",
+				"description": "Scaling engineering with Internal Developer Portals: navigability, autonomy and governance."
 			},
 			"flaky-to-confident": {
 				"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
-				"description": "Tech Talk on QuintoAndar's channel about applying GenAI to the release validation loop — using test data for actionable insights, fast root-cause on failures, and immediate fix suggestions."
+				"description": "GenAI on the release validation loop: test data → root-cause → instant fix suggestions."
 			},
 			"cursor-mcp-db": {
 				"title": "Platform Days 2025 - Bringing the database into the IDE with Cursor and MCP: production queries without fear",
-				"description": "Code & slides from my Platform Days 2025 talk in São Paulo"
+				"description": "Cursor + MCP postgres: production queries without fear, straight from the IDE."
 			},
 			"incident-mcps": {
 				"title": "DevPR Config 2025 - 10-year special - Building your incident assistant with MCPs",
-				"description": "Code & slides from my DevPR Config 2025 talk in Paraná"
+				"description": "Building an incident assistant: pager + MCP + runbooks + genai."
 			},
 			"rag-idp": {
 				"title": "Platform Days 2025 - Building a RAG with data from your Internal Developer Portal",
-				"description": "Slides from my Platform Days SP 2025 talk"
+				"description": "RAG on your IDP data: answers about your own infra."
 			},
 			"qa-idp": {
 				"title": "Discover QuintoAndar's IDP - Platform Talks",
-				"description": "Talk on QuintoAndar's Internal Developer Portal at Platform Talks"
+				"description": "QuintoAndar's IDP case: Backstage in production."
 			},
 			"comunidade-backstage": {
 				"title": "Comunidade DevOps - Backstage - building your Internal Developer Portal",
-				"description": "Walkthrough of what you gain with an IDP, plus some of the Backstage experience."
+				"description": "What an IDP buys you: self-service, paved roads, dev experience."
 			},
 			"backstage-tf": {
 				"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
-				"description": "Slides from my DevopsDays SP 2024 talk"
+				"description": "Backstage Scaffolder + Terraform: a paved road for IaC."
 			},
 			"tech-leadership-rocks": {
 				"title": "Tech Leadership Rocks - Developer platforms with Victor Fonseca, Gabriel Dantas, Leo Vieira and Caio Queiroz",
@@ -204,7 +204,7 @@
 			},
 			"idp-backstage": {
 				"title": "Tech Talk - How we built the developer portal with Backstage.io",
-				"description": "Tech Talk on QuintoAndar's channel covering how we use Backstage.io"
+				"description": "Building a dev portal with Backstage: QuintoAndar's case."
 			},
 			"carreira-sre": {
 				"title": "SRE careers: with Daniel Requena (SRE at iFood), Gabriel Dantas (SRE at QuintoAndar) and Bruno Pereira",
@@ -216,41 +216,7 @@
 			},
 			"jornada-devops": {
 				"title": "DevOps Journey: History and Practice",
-				"description": "Slides from a talk for Senac students on DevOps culture and Platform Engineering"
-			}
-		},
-		"home": {
-			"idp-portals": {
-				"title": "Scaling engineering with Internal Developer Portals: navigability, autonomy and governance",
-				"preview": "idp.scale = navigability + autonomy + governance"
-			},
-			"flaky-to-confident": {
-				"title": "Building with AI: from flaky to confident releases",
-				"preview": "flaky_tests → genai → root-cause → suggested-fix"
-			},
-			"cursor-mcp-db": {
-				"title": "Bringing the database into the IDE with Cursor + MCP",
-				"preview": "$ cursor + mcp postgres → prod queries, no fear"
-			},
-			"incident-mcps": {
-				"title": "Building your incident assistant with MCPs",
-				"preview": "oncall.assistant = pager + mcp + runbooks + 🤖"
-			},
-			"rag-idp": {
-				"title": "Building a RAG with data from your Internal Developer Portal",
-				"preview": "rag(idp.catalog) → answers about your own infra"
-			},
-			"qa-idp": {
-				"title": "Discover QuintoAndar's IDP",
-				"preview": "idp.case = quintoandar / backstage"
-			},
-			"backstage-tf": {
-				"title": "Backstage 💙 Terraform",
-				"preview": "backstage.scaffolder + terraform = paved road"
-			},
-			"idp-backstage": {
-				"title": "How we built our developer portal using Backstage.io",
-				"preview": "backstage.io → dev portal at QA"
+				"description": "DevOps culture and Platform Engineering: history and practice."
 			}
 		}
 	},
@@ -290,7 +256,7 @@
 				"prompt": "maker · 3d printing · sustainable hobby",
 				"tagline": "filament craft — made-to-order pieces + own line.",
 				"bodyP1": "3D printing brand running on a Bambu Lab A1 mini. Orders (custom Funkos, keychains, trophies, sensory toys) come via WhatsApp; in parallel, the Funkos Santos line lives in the catalog.",
-				"bodyP2": "Metric: sustainable hobby — operation pays for ≥50% of any reinvestment."
+				"bodyP2": "Metric: sustainable hobby — the printer pays for its own filament."
 			},
 			{
 				"tag": "FAITH",
@@ -305,7 +271,7 @@
 				"name": "DeployOu",
 				"prompt": "store · tech-themed t-shirts",
 				"tagline": "brazilian dev humor — DevOps puns on cotton.",
-				"bodyP1": "T-shirt brand via Reserva INK (no inventory management). Brazilian dev humor: Kubernetes, SRE, Cloud Native puns. Direct, ironic, complicit tone — talks to people who get the joke without explanation.",
+				"bodyP1": "T-shirt brand via Reserva INK (no inventory management). Brazilian dev humor: Kubernetes, SRE, Cloud Native puns.",
 				"bodyP2": "Audience: devs, SREs, platform engineers — folks who laugh at their own field. Autopilot mode operation."
 			}
 		]
@@ -323,7 +289,7 @@
 		"footerEntries": "entries",
 		"footerNote": "· feed synced straight from medium/@_gdantas",
 		"readmePrompt": "cat README.txt",
-		"readmeBody": "Everything here is pulled at build time from the medium/@_gdantas RSS feed. Topics: AI ops, dev platform, observability, incident agents, RAG over infra. Every new Medium post shows up in this list automatically."
+		"readmeBody": "Pulled at build time from the medium/@_gdantas RSS feed."
 	},
 	"timeline": {
 		"section": { "label": "01", "title": "git log --career", "sub": "commits that matter" },

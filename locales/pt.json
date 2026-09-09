@@ -71,7 +71,7 @@
 	},
 	"hero": {
 		"role": "platform engineer",
-		"bioP1": "6+ anos fazendo plataforma de dev. Faço parte do time de Engenharia de Plataforma do Grupo QuintoAndar, focado no nosso IDP (by Backstage.io) e na criação de ferramental pra melhorar a experiência e a produtividade dos times de desenvolvimento.",
+		"bioP1": "6+ anos construindo plataforma de dev. Trabalho no time de Engenharia de Plataforma do QuintoAndar — construo o IDP (Backstage) e o ferramental que faz dev commitar sem abrir ticket.",
 		"quote": "\"So others may live.\" — U.S. Coast Guard Rescue Swimmer",
 		"uptimeLabel": "UPTIME",
 		"statusLabel": "STATUS",
@@ -99,10 +99,10 @@
 		"manifestoP1Post": ". Geralmente, quanto menos somos percebidos e mais produtivos os times estão, melhor está sendo o nosso trabalho.",
 		"manifestoP2Pre": "O primeiro time de plataforma em que trabalhei tinha o lema ",
 		"manifestoP2Amber": "\"So Others May Live\"",
-		"manifestoP2Post": ": fazemos coisas complexas pra que outros não precisem, vamos onde outros não iriam, pra fazer aquilo que não fariam — sem ninguém notar que a gente existe.",
-		"manifestoP3Pre": "Isso é exatamente o trabalho de plataforma — que no fundo se liga com toda a cultura DevOps. No fim do dia, o que eu mais gosto é ajudar outras pessoas de tecnologia a resolver problemas ",
+		"manifestoP2Post": ": fazemos coisas complexas pra que outros não precisem — sem ninguém notar que a gente existe.",
+		"manifestoP3Pre": "O que eu mais gosto é ajudar outras pessoas de tecnologia a resolver problemas ",
 		"manifestoP3Amber": ":)",
-		"manifestoP4": "Em resumo: se conseguimos deixar o melhor caminho, com as melhores ferramentas, o mais fácil pra todos — nossa missão de plataforma está cumprida.",
+		"manifestoP4": "Se conseguimos deixar o melhor caminho, com as melhores ferramentas, o mais fácil pra todos — nossa missão de plataforma está cumprida.",
 		"sig": "— gd",
 		"sigDate": "last edited: today",
 		"roles": [
@@ -114,7 +114,7 @@
 			{
 				"tag": "ROLE 02",
 				"name": "SRE",
-				"text": "SRE é o engenheiro que trata operação como software: SLO antes do código, toil medido em horas, incidente que vira postmortem e postmortem que vira mudança real. Plantão é uma excelente forma de aprender como os sistemas funcionam, encontrar oportunidades de melhoria e os gaps de observabilidade."
+				"text": "SRE é o engenheiro que trata operação como software: SLO antes do código, toil medido em horas, incidente que vira postmortem e postmortem que vira mudança real. Plantão é onde se aprende como o sistema funciona de verdade — e onde a observabilidade mostra os buracos."
 			},
 			{
 				"tag": "ROLE 03",
@@ -125,7 +125,7 @@
 	},
 	"ping": {
 		"chrome": "CHALLENGES.txt",
-		"intro": "Plataforma é trabalho coletivo. Se você quer trocar figurinha, levar uma talk pro seu time, ou tem um projeto que precisa de uma cabeça extra — a inbox tá aberta.",
+		"intro": "Plataforma é trabalho coletivo — a inbox tá aberta.",
 		"prompt": "$ ping gd ↗",
 		"ctas": [
 			{
@@ -164,39 +164,39 @@
 			},
 			"idp-hub-mcps": {
 				"title": "CNCF Campinas - Transformando seu Developer Portal em um HUB de MCP's",
-				"description": "Slides da apresentação que fiz no CNCF Campinas sobre como transformamos o Backstage em um hub de MCPs: Actions Registry, OAuth, os limites atuais dessa camada de IA no Developer Portal e o caminho até um AI Marketplace de MCPs, Skills, Subagents e Rules."
+				"description": "Backstage como hub de MCPs: Actions Registry, OAuth e o caminho até um marketplace de MCPs, Skills e Subagents."
 			},
 			"idp-portals": {
-				"title": "DevOps Summit Bluepprint 2025 - ESCALANDO ENGENHARIA COM PORTAIS INTERNOS (IDP's): NAVEGABILIDADE, AUTONOMIA E GOVERNANÇA",
-				"description": "Slides da apresentação que fiz no DevOps Summit Bluepprint 2025 no SP"
+				"title": "DevOps Summit Blueprint 2025 - ESCALANDO ENGENHARIA COM PORTAIS INTERNOS (IDP's): NAVEGABILIDADE, AUTONOMIA E GOVERNANÇA",
+				"description": "Escalando engenharia com Internal Developer Portals: navegabilidade, autonomia e governança."
 			},
 			"flaky-to-confident": {
 				"title": "QuintoAndar Tech Talks | Building with AI: From Flaky to Confident Releases",
-				"description": "Tech Talk no canal do QuintoAndar sobre como aplicar GenAI ao ciclo de validação de releases, explorando como usar dados gerados por testes para produzir insights acionáveis, identificar rapidamente a causa raiz de falhas e obter sugestões de correção imediatas."
+				"description": "Aplicando GenAI ao ciclo de validação de releases: dados de testes → root-cause → sugestões de correção imediatas."
 			},
 			"cursor-mcp-db": {
 				"title": "Platform Days 2025 - Trazendo o banco de dados para dentro da IDE com Cursor e MCP: Consultas em produção sem medo",
-				"description": "Código & Slides da apresentação que fiz no Platform Days 2025 no SP"
+				"description": "Cursor + MCP postgres: consultas em produção sem medo, direto da IDE."
 			},
 			"incident-mcps": {
 				"title": "DevPR Config 2025 - especial 10 anos - Criando seu Assistente de Incidentes com MCP's",
-				"description": "Código & Slides da apresentação que fiz no DevPR Config 2025 no Paraná"
+				"description": "Construindo um assistente de incidentes: pager + MCP + runbooks + genai."
 			},
 			"rag-idp": {
 				"title": "Platform Days 2025 - Construindo um RAG com dados do seu Internal Developer Portal",
-				"description": "Slides da apresentação que fiz no Platform Days SP 2025"
+				"description": "RAG com dados do seu IDP: respostas sobre a própria infra."
 			},
 			"qa-idp": {
 				"title": "Discover QuintoAndar's IDP - Platform Talks",
-				"description": "Apresentação sobre o Internal Developer Portal do QuintoAndar no Platform Talks"
+				"description": "O case do IDP do QuintoAndar: Backstage em produção."
 			},
 			"comunidade-backstage": {
 				"title": "Comunidade DevOps - Backstage - construindo seu Internal Developer Portal",
-				"description": "Conteúdo explicando sobre os ganhos de uma IDP e contando um pouco sobre a experiência com Backstage."
+				"description": "Ganhos de uma IDP: self-service, paved roads, dev experience."
 			},
 			"backstage-tf": {
 				"title": "DevopsDays SP 2024 - Backstage 💙 Terraform",
-				"description": "Slides da apresentação que fiz no DevopsDays SP 2024"
+				"description": "Backstage Scaffolder + Terraform: paved road pra IaC."
 			},
 			"tech-leadership-rocks": {
 				"title": "Tech Leadership Rocks - Plataforma de desenvolvedores com Victor Fonseca, Gabriel Dantas, Leo Vieira e Caio Queiroz",
@@ -204,7 +204,7 @@
 			},
 			"idp-backstage": {
 				"title": "Tech Talk -  Como desenvolvemos o developer portal usando o Backstage.io",
-				"description": "Tech Talk no canal do QuintoAndar onde apresentamos um pouco sobre o uso do Backstage.io no QuintoAndar"
+				"description": "Desenvolvendo um portal de dev com Backstage: o case do QuintoAndar."
 			},
 			"carreira-sre": {
 				"title": "Carreira SRE: com Daniel Requena SRE no Ifood, Gabriel Dantas SRE no Quinto Andar e Bruno Pereira",
@@ -216,41 +216,7 @@
 			},
 			"jornada-devops": {
 				"title": "Jornada DevOps: História e Prática",
-				"description": "Slides da apresentação que fiz para alunos do Senac, sobre Cultura DevOps e Engenharia de Plataforma"
-			}
-		},
-		"home": {
-			"idp-portals": {
-				"title": "Escalando engenharia com Internal Developer Portals: navegabilidade, autonomia e governança",
-				"preview": "idp.scale = navegabilidade + autonomia + governança"
-			},
-			"flaky-to-confident": {
-				"title": "Building with AI: de releases instáveis a releases confiáveis",
-				"preview": "flaky_tests → genai → root-cause → suggested-fix"
-			},
-			"cursor-mcp-db": {
-				"title": "Trazendo o banco de dados para dentro da IDE com Cursor + MCP",
-				"preview": "$ cursor + mcp postgres → consultas em prod sem medo"
-			},
-			"incident-mcps": {
-				"title": "Criando seu Assistente de Incidentes com MCPs",
-				"preview": "oncall.assistant = pager + mcp + runbooks + 🤖"
-			},
-			"rag-idp": {
-				"title": "Construindo um RAG com dados do seu Internal Developer Portal",
-				"preview": "rag(idp.catalog) → respostas sobre a sua própria infra"
-			},
-			"qa-idp": {
-				"title": "Conheça o IDP do QuintoAndar",
-				"preview": "idp.case = quintoandar / backstage"
-			},
-			"backstage-tf": {
-				"title": "Backstage 💙 Terraform",
-				"preview": "backstage.scaffolder + terraform = paved road"
-			},
-			"idp-backstage": {
-				"title": "Como desenvolvemos o developer portal usando o Backstage.io",
-				"preview": "backstage.io → portal de devs no QA"
+				"description": "Cultura DevOps e Engenharia de Plataforma: história e prática."
 			}
 		}
 	},
@@ -290,7 +256,7 @@
 				"prompt": "maker · impressão 3D · hobby sustentável",
 				"tagline": "craft em filamento — peças sob encomenda + linha própria.",
 				"bodyP1": "Marca de impressão 3D rodando em Bambu Lab A1 mini. Encomendas (Funkos personalizados, chaveiros, trofeus, brinquedos sensoriais) entram via WhatsApp; em paralelo, linha própria Funkos Santos no catálogo.",
-				"bodyP2": "Métrica: hobby sustentável — operação se paga em ≥50% de qualquer reinvestimento."
+				"bodyP2": "Métrica: hobby sustentável — a impressora paga o próprio filamento."
 			},
 			{
 				"tag": "FAITH",
@@ -305,7 +271,7 @@
 				"name": "DeployOu",
 				"prompt": "loja · camisetas tech-themed",
 				"tagline": "dev humor brasileiro — trocadilhos de DevOps em algodão.",
-				"bodyP1": "Marca de camisetas via Reserva INK (sem gestão de estoque). Foco em humor de dev br: trocadilhos de Kubernetes, SRE, Cloud Native. Tom direto, irônico, cúmplice — fala com quem entende a piada sem precisar explicar.",
+				"bodyP1": "Marca de camisetas via Reserva INK (sem gestão de estoque). Foco em humor de dev br: trocadilhos de Kubernetes, SRE, Cloud Native.",
 				"bodyP2": "Audiência: devs, SREs, platform engineers — gente que ri da própria área. Operação em modo autopilot."
 			}
 		]
@@ -323,7 +289,7 @@
 		"footerEntries": "entries",
 		"footerNote": "· feed sincronizado direto do medium/@_gdantas",
 		"readmePrompt": "cat README.txt",
-		"readmeBody": "Tudo aqui é puxado em tempo de build do feed RSS do medium/@_gdantas. Tópicos: AI ops, plataforma de dev, observabilidade, agentes pra incidente, RAG sobre infra. Cada post novo no Medium aparece nessa lista automaticamente."
+		"readmeBody": "Puxado em tempo de build do feed RSS do medium/@_gdantas."
 	},
 	"timeline": {
 		"section": { "label": "01", "title": "git log --career", "sub": "commits que importam" },

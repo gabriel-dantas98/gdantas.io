@@ -1,6 +1,5 @@
 // Resolve title/description de talks via locales, com fallback pro
-// presentations.json. Mesmo padrão do HomePage (`talks.home.<slug>`).
-// Catálogo completo: `talks.items.<slug>.{title,description}`.
+// presentations.json. Catálogo completo: `talks.items.<slug>.{title,description}`.
 
 export function resolveTalkCopy(
 	t: (key: string) => string,
