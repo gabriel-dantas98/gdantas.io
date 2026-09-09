@@ -56,11 +56,12 @@ function SidequestsPageInner() {
 
 	return (
 		<OperatorPage
-			title="gdantas ─ ls ~/.sidequests"
-			description="Projetos paralelos e hobbies do Gabriel — impressão 3D (3Dantas), trabalho voluntário (Novarum) e loja de camisetas tech (DeployOu)."
+			title={t('seo.sidequests.title')}
+			description={t('seo.sidequests.description')}
 			active="/sidequests">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('sidequests.section.label')}
 					title={t('sidequests.section.title')}
 					sub={t('sidequests.section.sub')}

@@ -1,0 +1,23 @@
+# Search and real-time grounding are allowed; model training is not.
+User-agent: *
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+
+# Search and user-requested grounding crawlers.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Allow: /
+
+# Training-focused crawlers are intentionally separate.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+Disallow: /
+
+Sitemap: https://gdantas.com.br/sitemap.xml

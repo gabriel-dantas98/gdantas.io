@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -20,14 +21,17 @@ import {
 	Sec,
 	PlatformBg,
 	HeroIconRain,
-	TalkPreview,
+	TalkCard,
 	MobileMenuDrawer,
-	type Talk,
 } from '~/components/Operator';
 import { LangSwitcher } from '~/components/Operator/LangSwitcher';
 import styles from '../../pages/home.module.css';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT, withLocale } from '~/lib/i18n';
 import { BootSplash } from '~/components/Boot/BootSplash';
+import type { TalkSummary } from '~/lib/talks';
+import { getTalkSummaries } from '~/lib/talks-static-props';
+import { StructuredData } from '~/components/Seo/StructuredData';
+import { buildPerson, buildWebSite } from '~/lib/structured-data';
 
 // Topology/ClusterGrid/Marquee são below-the-fold + carregam GSAP timelines
 // pesadas. Dynamic SSR-off mantém esses chunks fora do critical path.
@@ -45,128 +49,6 @@ const Marquee = dynamic(
 	() => import('~/components/Operator/Marquee').then((m) => m.Marquee),
 	{ ssr: false, loading: () => <div style={{ height: 56 }} /> },
 );
-
-// Talks que aparecem na home — `04 ls ~/talks`. A lista completa com previews
-// embeddados (YouTube/Canva/Slides/PDF/Spotify) vive em /presentations e usa
-// `data/presentations.json` como fonte.
-const TALKS: Talk[] = [
-	{
-		date: '2025-12-02',
-		event: 'DevOps Summit BP',
-		loc: 'São Paulo · BR',
-		kind: 'slides',
-		slug: 'idp-portals',
-		title: 'Escalando engenharia com Internal Developer Portals: navegabilidade, autonomia e governança',
-		preview: 'idp.scale = navigability + autonomy + governance',
-		slides: 64,
-		canvaEmbed: 'https://www.canva.com/design/DAG1K_yOuwc/HOCw_nGAM77blCVRM9XRNw/view?embed',
-		href: 'https://www.canva.com/design/DAG1K_yOuwc/HOCw_nGAM77blCVRM9XRNw/edit',
-		links: [['canva', 'slides ↗']],
-	},
-	{
-		date: '2025-11-25',
-		event: 'QuintoAndar Tech Talks',
-		loc: 'Online',
-		kind: 'video',
-		slug: 'flaky-to-confident',
-		runtime: '32:17',
-		title: 'Building with AI: from flaky to confident releases',
-		preview: 'flaky_tests → genai → root-cause → suggested-fix',
-		youtubeId: 'uJ4BVndB6FU',
-		href: 'https://www.youtube.com/watch?v=uJ4BVndB6FU',
-		links: [['youtube', 'watch ↗']],
-	},
-	{
-		date: '2025-11-18',
-		event: 'Platform Days',
-		loc: 'São Paulo · BR',
-		kind: 'slides+code',
-		slug: 'cursor-mcp-db',
-		title: 'Trazendo o banco de dados para dentro da IDE com Cursor + MCP',
-		preview: '$ cursor + mcp postgres → consultas em prod sem medo',
-		slides: 38,
-		pdfUrl: 'https://drive.google.com/file/d/1Jk8cweq_AKYDymIbmPwheR5PBAmRxODh/preview',
-		href: 'https://github.com/gfranco9/Platform-Days-Database-MCP',
-		links: [
-			['drive', 'slides ↗'],
-			['github', 'repo ↗'],
-		],
-	},
-	{
-		date: '2025-08-24',
-		event: 'DevPR Config · 10 anos',
-		loc: 'Maringá · PR',
-		kind: 'slides+code',
-		slug: 'incident-mcps',
-		title: 'Criando seu Assistente de Incidentes com MCPs',
-		preview: 'oncall.assistant = pager + mcp + runbooks + 🤖',
-		slides: 42,
-		slidesEmbed:
-			'https://docs.google.com/presentation/d/1caZhQFIXv2K4e1ljIR9I85Xv51vegV3-S64tanx4Q4M/embed?start=false&loop=false&delayms=3000',
-		href: 'https://docs.google.com/presentation/d/1caZhQFIXv2K4e1ljIR9I85Xv51vegV3-S64tanx4Q4M',
-		links: [
-			['gdocs', 'slides ↗'],
-			['github', 'repo ↗'],
-		],
-	},
-	{
-		date: '2025-06-10',
-		event: 'Platform Days',
-		loc: 'São Paulo · BR',
-		kind: 'slides+code',
-		slug: 'rag-idp',
-		title: 'Construindo um RAG com dados do seu Internal Developer Portal',
-		preview: 'rag(idp.catalog) → answers about your own infra',
-		slides: 56,
-		slidesEmbed:
-			'https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk/embed?start=false&loop=false&delayms=3000',
-		href: 'https://docs.google.com/presentation/d/1JAKOJF8vri4hrO1z1IBOaAATrHyrMkxcThGcoq4bXxk',
-		links: [
-			['gdocs', 'slides ↗'],
-			['github', 'repo ↗'],
-		],
-	},
-	{
-		date: '2025-05-16',
-		event: 'Platform Talks',
-		loc: 'Online',
-		kind: 'video',
-		slug: 'qa-idp',
-		title: "Discover QuintoAndar's IDP",
-		preview: 'idp.case = quintoandar / backstage',
-		youtubeId: 'KUsXbWtMXzc',
-		runtime: '24:00',
-		href: 'https://www.youtube.com/watch?v=KUsXbWtMXzc',
-		links: [['youtube', 'watch ↗']],
-	},
-	{
-		date: '2024-10-01',
-		event: 'DevopsDays SP',
-		loc: 'São Paulo · BR',
-		kind: 'slides',
-		slug: 'backstage-tf',
-		title: 'Backstage 💙 Terraform',
-		preview: 'backstage.scaffolder + terraform = paved road',
-		slides: 47,
-		slidesEmbed:
-			'https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8/embed?start=false&loop=false&delayms=3000',
-		href: 'https://docs.google.com/presentation/d/1y6YO9QQjlpEsgxMAOMtUvVcA0OznyMycgAR0EQYAaI8',
-		links: [['gdocs', 'slides ↗']],
-	},
-	{
-		date: '2023-07-12',
-		event: 'QuintoAndar Tech Talk',
-		loc: 'Online',
-		kind: 'video',
-		slug: 'idp-backstage',
-		title: 'Como desenvolvemos o developer portal usando o Backstage.io',
-		preview: 'backstage.io → portal de devs no QA',
-		youtubeId: 'Y57gUwb1v3g',
-		runtime: '28:00',
-		href: 'https://www.youtube.com/watch?v=Y57gUwb1v3g',
-		links: [['youtube', 'watch ↗']],
-	},
-];
 
 // Stack tiles — quero como dataset pra fácil edição. Renderiza no `02 cat ~/.stack`.
 const STACK: Array<[string, string]> = [
@@ -193,18 +75,30 @@ const CONTACTS = [
 	{ url: 'https://medium.com/@_gdantas', label: 'medium/@_gdantas' },
 ];
 
-export function HomePage({ locale = 'pt' }: { locale?: 'pt' | 'en' } = {}) {
+interface HomePageProps {
+	talks: TalkSummary[];
+}
+
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => ({
+	props: { talks: getTalkSummaries() },
+});
+
+export function HomePage({ talks, locale = 'pt' }: HomePageProps & { locale?: 'pt' | 'en' }) {
 	return (
 		<I18nProvider locale={locale}>
 			<BootSplash />
-			<HomePageInner />
+			<HomePageInner talks={talks} />
 		</I18nProvider>
 	);
 }
 
-function HomePageInner() {
+function HomePageInner({ talks }: HomePageProps) {
 	const t = useT();
-	const seo = useSeoProps();
+	const { locale } = useI18n();
+	const seo = useSeoProps({
+		title: t('seo.home.title'),
+		description: t('seo.home.description'),
+	});
 	const heroRef = useReveal({ stagger: 0.08, delay: 0.1, y: 22 });
 	const topoRef = useReveal({ stagger: 0.05, y: 30, scroll: true });
 	const stackRef = useReveal({ stagger: 0.04, y: 14, scroll: true });
@@ -284,6 +178,7 @@ function HomePageInner() {
 	return (
         <>
             <NextSeo {...seo} />
+			<StructuredData data={[buildPerson(locale), buildWebSite(locale)]} />
             <Head>
 				<style>{`html, body { background: ${OP.bg}; scroll-behavior: smooth; } body { font-family: ${OP.sans}; color: ${OP.fg}; margin: 0; }`}</style>
 			</Head>
@@ -398,10 +293,10 @@ function HomePageInner() {
 								<Cursor />
 							</Prompt>
 						</div>
-						<div
+						<h1
 							className={`${styles.heroTitle} ${styles.amberGlow}`}
 							style={{
-								marginTop: 18,
+								margin: '18px 0 0',
 								fontSize: 88,
 								lineHeight: 0.96,
 								fontWeight: 500,
@@ -422,7 +317,7 @@ function HomePageInner() {
 								}}>
 								/ {t('hero.role')}
 							</span>
-						</div>
+						</h1>
 						<div className={styles.heroGrid}>
 							<div
 								style={{
@@ -694,91 +589,17 @@ function HomePageInner() {
 						sub={t('sections.talks.sub')}
 					/>
 					<div className={styles.talksGrid} style={{ marginTop: 28 }}>
-						{TALKS.map((rawTk) => {
-							// Talks são listadas estaticamente em PT no array TALKS, mas
-							// title/preview têm chaves por slug em locales/* pra suporte EN.
-							// Fallback pro original quando a chave não existe.
-							const i18nTitle = t(`talks.home.${rawTk.slug}.title`);
-							const i18nPreview = t(`talks.home.${rawTk.slug}.preview`);
-							const tk = {
-								...rawTk,
-								title: i18nTitle.startsWith('talks.home.') ? rawTk.title : i18nTitle,
-								preview: i18nPreview.startsWith('talks.home.') ? rawTk.preview : i18nPreview,
-							};
-							return (
-							<a
-								key={tk.slug}
-								href={`/presentations#${tk.slug}`}
-								className={styles.tiltCard}
-								onClick={() => posthog.capture('talk_card_clicked', { talk_slug: tk.slug, talk_title: tk.title, talk_event: tk.event })}
-								style={{
-									background: OP.bg2,
-									border: `1px solid ${OP.rule}`,
-									display: 'flex',
-									flexDirection: 'column',
-									textDecoration: 'none',
-									color: 'inherit',
-								}}
-								onMouseMove={(e) => {
-									const r = e.currentTarget.getBoundingClientRect();
-									const px = (e.clientX - r.left) / r.width - 0.5;
-									const py = (e.clientY - r.top) / r.height - 0.5;
-									e.currentTarget.style.transform = `perspective(1200px) rotateX(${-py * 6}deg) rotateY(${px * 8}deg) translateZ(6px)`;
-									e.currentTarget.style.borderColor = OP.amber;
-								}}
-								onMouseLeave={(e) => {
-									e.currentTarget.style.transform =
-										'perspective(1200px) rotateX(0) rotateY(0) translateZ(0)';
-									e.currentTarget.style.borderColor = OP.rule;
-								}}>
-								<TalkPreview talk={tk} />
-								<div
-									style={{
-										padding: '20px 22px 22px',
-										flex: 1,
-										display: 'flex',
-										flexDirection: 'column',
-									}}>
-									<div
-										style={{
-											display: 'flex',
-											justifyContent: 'space-between',
-											fontSize: 11,
-											color: OP.dim,
-											letterSpacing: '0.08em',
-											textTransform: 'uppercase',
-										}}>
-										<span>{tk.event}</span>
-										<span>{tk.loc}</span>
-									</div>
-									<div style={{ fontSize: 17, lineHeight: 1.4, marginTop: 10 }}>
-										{tk.title}
-									</div>
-									<div
-										style={{
-											marginTop: 16,
-											paddingTop: 14,
-											borderTop: `1px solid ${OP.rule}`,
-											display: 'flex',
-											gap: 14,
-											fontSize: 12,
-											flexWrap: 'wrap',
-										}}>
-										{tk.links.map(([k, label]) => (
-											<span key={k} style={{ color: OP.amber }}>
-												<span style={{ color: OP.dim }}>./</span>
-												{k} <span style={{ color: OP.dim }}>{label}</span>
-											</span>
-										))}
-									</div>
-								</div>
-							</a>
-							);
-						})}
+						{talks.map((talk) => (
+							<TalkCard
+								key={talk.slug}
+								talk={talk}
+								analyticsEvent="talk_card_clicked"
+							/>
+						))}
 					</div>
 					<div style={{ marginTop: 22, fontSize: 13, color: OP.dim }}>
 						<Prompt path="~/talks">ls --all</Prompt>{' '}
-						<Link href="/presentations" style={{ color: OP.amber, textDecoration: 'none' }}>
+						<Link href={withLocale('/talks', locale)} style={{ color: OP.amber, textDecoration: 'none' }}>
 							↗ all talks
 						</Link>
 					</div>

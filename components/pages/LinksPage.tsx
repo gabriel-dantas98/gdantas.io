@@ -4,7 +4,8 @@ import posthog from 'posthog-js';
 
 import { OP, Sec, Prompt, OperatorPage, useReveal } from '~/components/Operator';
 import linktreeData from '~/data/linktree.json';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 interface LinkItem {
 	title: string;
@@ -46,14 +47,24 @@ export function LinksPage({ links, locale = 'pt' }: LinksProps & { locale?: 'pt'
 
 function LinksPageInner({ links }: { links: LinkItem[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 16 });
+	const path = locale === 'en' ? '/en/links' : '/links';
 	return (
 		<OperatorPage
-			title="gdantas ─ ls ~/.links"
-			description="Linktree: talks, GitHub, LinkedIn, Medium, projetos do Gabriel Dantas."
+			title={t('seo.links.title')}
+			description={t('seo.links.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.links.title'),
+				description: t('seo.links.description'),
+				items: links.map((link) => ({ name: link.title, url: link.url })),
+			})}
 			active="/">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label={t('links.section.label')}
 					title={t('links.section.title')}
 					sub={t('links.section.sub')}

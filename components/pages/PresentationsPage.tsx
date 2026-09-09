@@ -10,7 +10,9 @@ import {
 	useReveal,
 } from '~/components/Operator';
 import type { PresentationItem, PresentationsProps } from '~/lib/presentations-static-props';
-import { I18nProvider, useT } from '~/lib/i18n';
+import { I18nProvider, useI18n, useT } from '~/lib/i18n';
+import { resolveTalkCopy } from '~/lib/talk-copy';
+import { buildCollectionPage } from '~/lib/structured-data';
 
 export function PresentationsPage({
 	presentations,
@@ -25,15 +27,40 @@ export function PresentationsPage({
 
 function PresentationsPageInner({ presentations }: { presentations: PresentationItem[] }) {
 	const t = useT();
+	const { locale } = useI18n();
 	const ref = useReveal({ stagger: 0.05, y: 18 });
+	const path = locale === 'en' ? '/en/presentations' : '/presentations';
+	const collectionItems = presentations.flatMap((presentation) => {
+		const url =
+			presentation.contentUrl ||
+			presentation.url ||
+			(presentation.slug ? `${path}#${presentation.slug}` : undefined);
+		if (!url) return [];
+		return [
+			{
+				name: resolveTalkCopy(t, presentation.slug, {
+					title: presentation.title,
+					description: presentation.description,
+				}).title,
+				url,
+			},
+		];
+	});
 	return (
 		<OperatorPage
-			title="gdantas ─ presentations"
-			description="Apresentações com preview embeddado — slides, vídeos, podcasts."
-			active="/talks"
-		>
+			title={t('seo.presentations.title')}
+			description={t('seo.presentations.description')}
+			structuredData={buildCollectionPage({
+				locale,
+				path,
+				name: t('seo.presentations.title'),
+				description: t('seo.presentations.description'),
+				items: collectionItems,
+			})}
+			active="/talks">
 			<div ref={ref}>
 				<Sec
+					as="h1"
 					label="01"
 					title="ls ~/talks --preview"
 					sub="cada talk com preview embeddado"
@@ -48,6 +75,10 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 				>
 					{presentations.map((p, i) => {
 						const contentLink = p.contentUrl || p.url;
+						const copy = resolveTalkCopy(t, p.slug, {
+							title: p.title,
+							description: p.description,
+						});
 						return (
 							<article
 								key={`${p.title}-${i}`}
@@ -90,7 +121,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												lineHeight: 1.35,
 											}}
 										>
-											{p.title}
+											{copy.title}
 										</h3>
 										<p
 											style={{
@@ -102,7 +133,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												maxWidth: 720,
 											}}
 										>
-											{p.description}
+											{copy.description}
 										</p>
 									</div>
 									<div style={{ display: 'flex', gap: 10, flexShrink: 0 }}>
@@ -113,7 +144,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												rel="noreferrer noopener"
 												onClick={() =>
 													posthog.capture('presentation_played', {
-														title: p.title,
+														title: copy.title,
 														preview_type: p.preview?.type,
 													})
 												}
@@ -137,7 +168,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 												rel="noreferrer noopener"
 												onClick={() =>
 													posthog.capture('presentation_src_opened', {
-														title: p.title,
+														title: copy.title,
 													})
 												}
 												style={{
@@ -155,7 +186,7 @@ function PresentationsPageInner({ presentations }: { presentations: Presentation
 										)}
 									</div>
 								</header>
-								<PresentationPreview presentation={p} />
+								<PresentationPreview presentation={p} title={copy.title} />
 							</article>
 						);
 					})}

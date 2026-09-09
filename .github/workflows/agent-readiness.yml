@@ -1,0 +1,53 @@
+name: Advisory agent readiness scan
+
+on:
+    schedule:
+        - cron: '17 11 * * 1'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    scan:
+        name: Scan deployed static signals
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: yarn
+
+            - name: Install dependencies
+              run: yarn install --immutable
+
+            - name: Run advisory public scan
+              continue-on-error: true
+              run: yarn ai:scan https://gdantas.com.br artifacts/agent-readiness
+
+            - name: Append advisory report to job summary
+              if: always()
+              shell: bash
+              run: |
+                  mkdir -p artifacts/agent-readiness
+                  report="$(find artifacts/agent-readiness -type f -name '*.md' 2>/dev/null | sort | tail -n 1)"
+                  if [ -z "$report" ]; then
+                    report="artifacts/agent-readiness/ai-readiness-workflow-${{ github.run_id }}.md"
+                    printf '%s\n' '# Advisory AI readiness scan' '' '> Warning: scanner execution did not produce a report.' > "$report"
+                    printf '%s\n' '{"warning":"scanner execution did not produce a report"}' > "artifacts/agent-readiness/ai-readiness-workflow-${{ github.run_id }}.json"
+                  fi
+                  cat "$report" >> "$GITHUB_STEP_SUMMARY"
+
+            - name: Upload advisory reports
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: agent-readiness-${{ github.run_id }}
+                  path: artifacts/agent-readiness
+                  if-no-files-found: warn
+                  retention-days: 30

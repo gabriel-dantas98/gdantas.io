@@ -5,6 +5,8 @@ import posthog from 'posthog-js';
 import { OP, OperatorPage, PresentationPreview, Prompt } from '~/components/Operator';
 import { I18nProvider, useI18n, useT, withLocale } from '~/lib/i18n';
 import type { TalkPageProps } from '~/lib/talk-static-props';
+import { resolveTalkCopy } from '~/lib/talk-copy';
+import { getTalkSocialImagePath } from '~/lib/talks';
 
 const SITE_URL = 'https://gdantas.com.br';
 
@@ -23,17 +25,23 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 	const t = useT();
 	const { locale } = useI18n();
 	const slug = presentation.slug!;
+	const copy = resolveTalkCopy(t, slug, {
+		title: presentation.title,
+		description: presentation.description,
+	});
 	const path = withLocale(`/talks/${slug}`, locale);
+	const socialImage = `${SITE_URL}${getTalkSocialImagePath(slug, locale)}`;
 	const contentLink = presentation.contentUrl || presentation.url;
 	const previewType = presentation.preview?.type || 'talk';
 	const meta = [presentation.date, presentation.location].filter(Boolean).join(' · ');
 	const jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'PresentationDigitalDocument',
-		name: presentation.title,
-		description: presentation.description,
+		name: copy.title,
+		description: copy.description,
 		datePublished: presentation.date,
 		url: `${SITE_URL}${path}`,
+		image: socialImage,
 		contentUrl: contentLink,
 		inLanguage: locale === 'en' ? 'en' : 'pt-BR',
 		author: {
@@ -45,10 +53,11 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 
 	return (
 		<OperatorPage
-			title={`${presentation.title} ─ gdantas`}
-			description={presentation.description}
+			title={`${copy.title} ─ gdantas`}
+			description={copy.description}
 			active="/talks"
 			openGraphType="article"
+			socialImage={socialImage}
 			jsonLd={jsonLd}
 		>
 			<article>
@@ -99,7 +108,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 							color: OP.fg,
 						}}
 					>
-						{presentation.title}
+						{copy.title}
 					</h1>
 					<p
 						style={{
@@ -111,7 +120,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 							maxWidth: 800,
 						}}
 					>
-						{presentation.description}
+						{copy.description}
 					</p>
 				</header>
 
@@ -126,7 +135,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 							rel="noreferrer noopener"
 							onClick={() =>
 								posthog.capture('presentation_played', {
-									title: presentation.title,
+									title: copy.title,
 									talk_slug: slug,
 									preview_type: presentation.preview?.type,
 								})
@@ -152,7 +161,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 							rel="noreferrer noopener"
 							onClick={() =>
 								posthog.capture('presentation_src_opened', {
-									title: presentation.title,
+									title: copy.title,
 									talk_slug: slug,
 								})
 							}
@@ -173,7 +182,7 @@ function TalkPageInner({ presentation }: TalkPageProps) {
 
 				<div style={{ marginTop: 32 }}>
 					{presentation.preview ? (
-						<PresentationPreview presentation={presentation} />
+						<PresentationPreview presentation={presentation} title={copy.title} />
 					) : (
 						<div
 							style={{

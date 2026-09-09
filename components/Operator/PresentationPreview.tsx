@@ -5,7 +5,13 @@ import { Elements as BlogElements } from '~/components/Blog/Styles';
 import type { PresentationItem } from '~/lib/presentations-static-props';
 import { OP } from './tokens';
 
-export function PresentationPreview({ presentation }: { presentation: PresentationItem }) {
+export function PresentationPreview({
+	presentation,
+	title = presentation.title,
+}: {
+	presentation: PresentationItem;
+	title?: string;
+}) {
 	if (!presentation.preview) return null;
 	const frame: React.CSSProperties = {
 		width: '100%',
@@ -49,7 +55,7 @@ export function PresentationPreview({ presentation }: { presentation: Presentati
 					<iframe
 						style={frame}
 						src={presentation.preview.slidesEmbedUrl}
-						title={presentation.title}
+						title={title}
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
 						loading="lazy"
@@ -63,7 +69,7 @@ export function PresentationPreview({ presentation }: { presentation: Presentati
 					<iframe
 						style={frame}
 						src={`https://www.youtube-nocookie.com/embed/${presentation.preview.youtubeId}`}
-						title={presentation.title}
+						title={title}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
@@ -78,7 +84,7 @@ export function PresentationPreview({ presentation }: { presentation: Presentati
 					<iframe
 						style={frame}
 						src={presentation.preview.spotifyEmbedUrl}
-						title={`${presentation.title} - Spotify`}
+						title={`${title} - Spotify`}
 						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 						allowFullScreen
 						loading="lazy"
@@ -92,7 +98,7 @@ export function PresentationPreview({ presentation }: { presentation: Presentati
 					<iframe
 						style={frame}
 						src={presentation.preview.canvaEmbedUrl}
-						title={presentation.title}
+						title={title}
 						allowFullScreen
 						allow="clipboard-write"
 						referrerPolicy="strict-origin-when-cross-origin"
@@ -107,7 +113,7 @@ export function PresentationPreview({ presentation }: { presentation: Presentati
 					<iframe
 						style={frame}
 						src={presentation.preview.pdfUrl}
-						title={presentation.title}
+						title={title}
 						allowFullScreen
 						referrerPolicy="strict-origin-when-cross-origin"
 						loading="lazy"
