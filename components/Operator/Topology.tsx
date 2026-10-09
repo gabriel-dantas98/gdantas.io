@@ -19,7 +19,7 @@ const SATELLITES: Satellite[] = [
 	{ id: 'k8s', label: 'kubernetes', angle: -120, kind: 'orchestration' },
 	{ id: 'aws', label: 'aws · multi-region', angle: -80, kind: 'cloud' },
 	{ id: 'tf', label: 'terraform · opentofu', angle: -40, kind: 'iac' },
-	{ id: 'obs', label: 'lgtm · prom · thanos · otel', angle: 0, kind: 'observability' },
+	{ id: 'obs', label: 'lgtm · prom · thanos · OpenTelemetry', angle: 0, kind: 'observability' },
 	{ id: 'idp', label: 'backstage.io', angle: 40, kind: 'portal' },
 	{ id: 'gitops', label: 'argocd · atlantis', angle: 80, kind: 'gitops' },
 	{ id: 'ai', label: 'cursor · claude code · langgraph · mcps', angle: 120, kind: 'ai-agents' },

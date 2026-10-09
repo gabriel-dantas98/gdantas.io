@@ -3,6 +3,7 @@
 		"home": "./home",
 		"about": "./about",
 		"career": "./career",
+		"cv": "./cv",
 		"doctrine": "./doctrine",
 		"talks": "./talks",
 		"projects": "./projects",
@@ -31,6 +32,10 @@
 		"doctrine": {
 			"title": "gdantas ─ cat ~/.doctrine",
 			"description": "Principles and operating roles. So others may live."
+		},
+		"cv": {
+			"title": "gdantas ─ cv",
+			"description": "Public CV for Gabriel Dantas Gomes — DevOps, SRE, Platform Engineering and Developer Experience."
 		},
 		"links": {
 			"title": "gdantas ─ ls ~/.links",
@@ -261,7 +266,7 @@
 		"shot": "F1.8 · SP/BR",
 		"p1Pre": "",
 		"p1Bold": "SRE at QuintoAndar",
-		"p1Mid": " for 5+ years. I work on observability (Grafana, Prometheus, Thanos, OTel, ELK) and DevEx through ",
+		"p1Mid": " for 5+ years. I work on observability (Grafana, Prometheus, Thanos, OpenTelemetry, ELK) and DevEx through ",
 		"p1Bold2": "Backstage",
 		"p1Post": ". Before that I interned through ops, devops and infra. 6+ years in.",
 		"p2Pre": "The U.S. Coast Guard Rescue Swimmers' motto is ",
@@ -269,7 +274,7 @@
 		"p2Post": ". Platform is similar. We do the boring work so the product team can do theirs without tripping over yaml.",
 		"facts": [
 			{ "k": "$ uname", "v": "gdantas · platform engineer · devex" },
-			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · otel · thanos" },
+			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · OpenTelemetry · thanos" },
 			{ "k": "$ impact", "v": "−70% onboarding · IDP self-service · AI ops · RAG over infra" },
 			{ "k": "$ creds", "v": "Exam Contributor · Certified Backstage Associate" },
 			{ "k": "$ edu", "v": "FIAP · CS BSc + ML Eng grad + MBA AI Eng & Multi-agents" },

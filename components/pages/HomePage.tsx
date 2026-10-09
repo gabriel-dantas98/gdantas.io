@@ -59,7 +59,7 @@ const STACK: Array<[string, string]> = [
 	['portal', 'Backstage.io'],
 	['languages', 'Go · Python · TS'],
 	['ai', 'Cursor SDK · Claude Code API · LangGraph · MCPs'],
-	['observability', 'LGTM Stack · Prometheus · Thanos · OTel'],
+	['observability', 'LGTM Stack · Prometheus · Thanos · OpenTelemetry'],
 	['data', 'Vector DBs · Postgres'],
 ];
 
@@ -117,6 +117,7 @@ function HomePageInner({ talks }: HomePageProps) {
 	const topbarLinks: Array<[string, string]> = [
 		[t('nav.about'), '/about'],
 		[t('nav.career'), '/timeline'],
+		[t('nav.cv'), '/cv'],
 		[t('nav.doctrine'), '/doctrine'],
 		[t('nav.talks'), '/talks'],
 		[t('nav.projects'), '/projects'],

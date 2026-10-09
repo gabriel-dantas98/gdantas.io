@@ -20,6 +20,6 @@ export const HERO_ICONS = [
 
 export const TOPICS = [
 	'platform engineering', 'backstage', 'idp', 'kubernetes', 'observability',
-	'otel', 'paved roads', 'devex', 'sre', 'sli/slo', 'incident response',
+	'OpenTelemetry', 'paved roads', 'devex', 'sre', 'sli/slo', 'incident response',
 	'go', 'python', 'k8s', 'aws',
 ];
