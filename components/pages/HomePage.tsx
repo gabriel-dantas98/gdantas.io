@@ -59,7 +59,7 @@ const STACK: Array<[string, string]> = [
 	['portal', 'Backstage.io'],
 	['languages', 'Go · Python · TS'],
 	['ai', 'Cursor SDK · Claude Code API · LangGraph · MCPs'],
-	['observability', 'LGTM Stack · Prometheus · Thanos · OTel'],
+	['observability', 'LGTM Stack · Prometheus · Thanos · OpenTelemetry'],
 	['data', 'Vector DBs · Postgres'],
 ];
 

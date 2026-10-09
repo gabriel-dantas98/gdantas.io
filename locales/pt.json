@@ -266,7 +266,7 @@
 		"shot": "F1.8 · SP/BR",
 		"p1Pre": "",
 		"p1Bold": "SRE no QuintoAndar",
-		"p1Mid": " há 5+ anos. Mexo com observabilidade (Grafana, Prometheus, Thanos, OTel, ELK) e DevEx com ",
+		"p1Mid": " há 5+ anos. Mexo com observabilidade (Grafana, Prometheus, Thanos, OpenTelemetry, ELK) e DevEx com ",
 		"p1Bold2": "Backstage",
 		"p1Post": ". Antes disso fui estagiário em ops, devops e infra. Soma 6+ anos.",
 		"p2Pre": "O lema dos Rescue Swimmers da U.S. Coast Guard é ",
@@ -274,7 +274,7 @@
 		"p2Post": ". Plataforma é parecido. A gente faz o trabalho chato pra que o time de produto consiga fazer o trabalho deles sem tropeçar em yaml.",
 		"facts": [
 			{ "k": "$ uname", "v": "gdantas · platform engineer · devex" },
-			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · otel · thanos" },
+			{ "k": "$ stack", "v": "k8s · aws · backstage · terraform/opentofu · argocd · cursor sdk · claude code api · langgraph · mcps · lgtm · OpenTelemetry · thanos" },
 			{ "k": "$ impact", "v": "−70% onboarding · IDP self-service · AI ops · RAG sobre infra" },
 			{ "k": "$ creds", "v": "Exam Contributor · Certified Backstage Associate" },
 			{ "k": "$ edu", "v": "FIAP · Eng. Comp + pós ML Eng + MBA AI Eng & Multi-agents" },
