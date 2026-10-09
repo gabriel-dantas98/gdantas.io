@@ -3,6 +3,7 @@
 		"home": "./home",
 		"about": "./about",
 		"career": "./career",
+		"cv": "./cv",
 		"doctrine": "./doctrine",
 		"talks": "./talks",
 		"projects": "./projects",
@@ -31,6 +32,10 @@
 		"doctrine": {
 			"title": "gdantas ─ cat ~/.doctrine",
 			"description": "Principles and operating roles. So others may live."
+		},
+		"cv": {
+			"title": "gdantas ─ cv",
+			"description": "Public CV for Gabriel Dantas Gomes — DevOps, SRE, Platform Engineering and Developer Experience."
 		},
 		"links": {
 			"title": "gdantas ─ ls ~/.links",

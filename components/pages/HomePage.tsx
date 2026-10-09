@@ -117,6 +117,7 @@ function HomePageInner({ talks }: HomePageProps) {
 	const topbarLinks: Array<[string, string]> = [
 		[t('nav.about'), '/about'],
 		[t('nav.career'), '/timeline'],
+		[t('nav.cv'), '/cv'],
 		[t('nav.doctrine'), '/doctrine'],
 		[t('nav.talks'), '/talks'],
 		[t('nav.projects'), '/projects'],
