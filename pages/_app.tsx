@@ -15,6 +15,7 @@ import { buildAiReferralEvent } from '~/lib/ai-referrals';
 import { ensureGsap } from '~/lib/gsap-loader';
 import { fontVars } from '~/lib/fonts';
 import { I18nProvider, detectLocaleFromPath, withLocale } from '~/lib/i18n';
+import { registerSiteWebMcpTools } from '~/lib/webmcp';
 import { Theme } from '~/types';
 
 NProgress.configure({
@@ -52,6 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		// GSAP via dynamic import — substitui o <Script> CDN bloqueante.
 		// Chamado uma vez aqui; hooks Operator esperam window.gsap via retry.
 		ensureGsap();
+		registerSiteWebMcpTools();
 
 		// i18n: na 1ª visita sem preferência salva, se o browser prefere EN e
 		// o usuário caiu numa rota PT, manda pro mirror /en/<path>. Preferência
