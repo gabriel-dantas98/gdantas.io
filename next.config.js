@@ -75,23 +75,8 @@ const config = {
 	reactStrictMode: true,
 	swcMinify: true,
 	productionBrowserSourceMaps: true,
-	webpack: (config, { dev, isServer }) => {
-		// TODO: Temp disabled as since upgrading `next` to v12.2.3 production builds fail & this seems to be the cause
-		// Replace React with Preact only in client production build
-		// if (!dev && !isServer) {
-		// 	Object.assign(config.resolve.alias, {
-		// 		react: 'preact/compat',
-		// 		'react-dom/test-utils': 'preact/test-utils',
-		// 		'react-dom': 'preact/compat',
-		// 	});
-		// }
-
+	webpack: (config, { isServer }) => {
 		config.plugins.push(new WindiCSS());
-
-		config.module.rules.push({
-			test: /\.(glsl|vs|fs|frag|vert)$/,
-			use: ['ts-shader-loader'],
-		});
 
 		// remark-prism transitively imports jsdom → https-proxy-agent → net/tls.
 		// Those are Node-only modules that end up in the client bundle when

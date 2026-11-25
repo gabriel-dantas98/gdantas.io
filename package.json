@@ -65,9 +65,7 @@
     "next-seo": "^4.28.1",
     "next-themes": "^0.1.1",
     "nprogress": "^0.2.0",
-    "ogl-typescript": "^0.1.40",
     "posthog-js": "^1.373.5",
-    "preact": "^10.10.0",
     "react": "18",
     "react-dom": "18",
     "react-hot-toast": "^2.1.1",
@@ -103,7 +101,6 @@
     "node-fetch": "^3.2.10",
     "prettier": "^2.4.1",
     "serve": "^14.2.6",
-    "ts-shader-loader": "^1.0.6",
     "tsx": "^4.22.2",
     "typescript": "^4.4.3",
     "windicss-webpack-plugin": "^1.6.10"
