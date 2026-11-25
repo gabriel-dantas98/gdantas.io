@@ -53,6 +53,16 @@ function lookup(dict: any, key: string): string | undefined {
 	return typeof cur === 'string' ? cur : undefined;
 }
 
+export function translate(locale: Locale, key: string): string {
+	const hit = lookup(DICTS[locale], key) ?? lookup(DICTS.pt, key);
+	if (hit !== undefined) return hit;
+	if (process.env.NODE_ENV !== 'production') {
+		// eslint-disable-next-line no-console
+		console.warn(`[i18n] missing key: ${key}`);
+	}
+	return key;
+}
+
 export function detectLocaleFromPath(path: string): Locale {
 	return path.startsWith('/en') ? 'en' : 'pt';
 }
@@ -82,20 +92,7 @@ export function I18nProvider({ locale: forced, children }: ProviderProps) {
 	const router = useRouter();
 	const locale: Locale = forced || detectLocaleFromPath(router.asPath);
 
-	const t = useCallback(
-		(key: string): string => {
-			const hit = lookup(DICTS[locale], key);
-			if (hit !== undefined) return hit;
-			const fallback = lookup(DICTS.pt, key);
-			if (fallback !== undefined) return fallback;
-			if (process.env.NODE_ENV !== 'production') {
-				// eslint-disable-next-line no-console
-				console.warn(`[i18n] missing key: ${key}`);
-			}
-			return key;
-		},
-		[locale],
-	);
+	const t = useCallback((key: string) => translate(locale, key), [locale]);
 
 	const mirrorPath = useCallback(
 		(target: Locale) => withLocale(router.asPath, target),

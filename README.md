@@ -47,6 +47,31 @@ npm run build
 yarn build
 ```
 
+## WebMCP local smoke test
+
+With the project dependencies installed, run the harness with a Chromium build that
+supports WebMCP and its DevTools Protocol domain:
+
+```bash
+WEBMCP_CHROMIUM_PATH=/usr/bin/chromium node scripts/webmcp-smoke.mjs
+```
+
+Set `WEBMCP_CHROMIUM_PATH` to your browser executable. Omit it to use Playwright's
+installed Chromium. The harness serves a fixture on a random loopback port,
+registers an echo tool, discovers and invokes it through Chromium, and checks the
+response. It runs independently of the Next.js server and external services.
+
+To verify the site's read-only `list_talks` tool in both languages, start
+`yarn dev` in another terminal and pass the local site URL:
+
+```bash
+WEBMCP_CHROMIUM_PATH=/usr/bin/chromium WEBMCP_SITE_URL=http://127.0.0.1:3000/ \
+  node scripts/webmcp-smoke.mjs
+```
+
+The tool accepts an optional `locale` of `pt` or `en`. It defaults to the
+current page language and returns the public talk catalog with canonical links.
+
 ## 📄 License
 
 MIT © [Ben Dixon](https://github.com/gabriel-dantas98/gdantas.io/blob/main/LICENSE)

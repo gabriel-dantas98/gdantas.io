@@ -81,7 +81,8 @@ jobs:
 
   e2e:
     name: Playwright E2E
-    runs-on: ubuntu-latest
+    # Playwright 1.60 supports Ubuntu 24.04 for browser dependency installation.
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     needs: validate
     steps:
