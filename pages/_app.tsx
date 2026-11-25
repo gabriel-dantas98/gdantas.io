@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		// GSAP via dynamic import — substitui o <Script> CDN bloqueante.
 		// Chamado uma vez aqui; hooks Operator esperam window.gsap via retry.
 		ensureGsap();
-		registerSiteWebMcpTools();
+		void registerSiteWebMcpTools();
 
 		// i18n: na 1ª visita sem preferência salva, se o browser prefere EN e
 		// o usuário caiu numa rota PT, manda pro mirror /en/<path>. Preferência
