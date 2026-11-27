@@ -3493,9 +3493,7 @@ __metadata:
     next-themes: ^0.1.1
     node-fetch: ^3.2.10
     nprogress: ^0.2.0
-    ogl-typescript: ^0.1.40
     posthog-js: ^1.373.5
-    preact: ^10.10.0
     prettier: ^2.4.1
     react: 18
     react-dom: 18
@@ -3512,7 +3510,6 @@ __metadata:
     rss-parser: ^3.13.0
     serve: ^14.2.6
     swr: ^1.0.1
-    ts-shader-loader: ^1.0.6
     tsparticles: ^2.3.4
     tsx: ^4.22.2
     typescript: ^4.4.3
@@ -4584,7 +4581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^1.0.1, json5@npm:^1.0.2":
+"json5@npm:^1.0.2":
   version: 1.0.2
   resolution: "json5@npm:1.0.2"
   dependencies:
@@ -4655,17 +4652,6 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ~0.4.0
   checksum: 12c5021c859bd0f5248561bf139121f0358285ec545ebf48bb3d346820d5c61a4309535c7f387ed7d84361cf821e124ce346c6b7cef8ee09a67c1473b46d0fc4
-  languageName: node
-  linkType: hard
-
-"loader-utils@npm:^1.1.0":
-  version: 1.4.2
-  resolution: "loader-utils@npm:1.4.2"
-  dependencies:
-    big.js: ^5.2.2
-    emojis-list: ^3.0.0
-    json5: ^1.0.1
-  checksum: eb6fb622efc0ffd1abdf68a2022f9eac62bef8ec599cf8adb75e94d1d338381780be6278534170e99edc03380a6d29bc7eb1563c89ce17c5fed3a0b17f1ad804
   languageName: node
   linkType: hard
 
@@ -5300,13 +5286,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ogl-typescript@npm:^0.1.40":
-  version: 0.1.40
-  resolution: "ogl-typescript@npm:0.1.40"
-  checksum: db07b6a8f281822f4dbd6354766836144ab7b4130e445c283d4c9307d8121060e0a0c33d383bb372ea8649452e109d245cc6d30ba7b7ea970d137e6a1cf623f0
-  languageName: node
-  linkType: hard
-
 "on-headers@npm:~1.1.0":
   version: 1.1.0
   resolution: "on-headers@npm:1.1.0"
@@ -5567,13 +5546,6 @@ __metadata:
     query-selector-shadow-dom: ^1.0.1
     web-vitals: ^5.1.0
   checksum: 6ee8836a9912a683358fcc137c9c8176a549178016bec570ff9de55563f5f3720211173f74f195239dcfe63aa38c6642760b3efda895463b608280ee3711dc37
-  languageName: node
-  linkType: hard
-
-"preact@npm:^10.10.0":
-  version: 10.29.1
-  resolution: "preact@npm:10.29.1"
-  checksum: dfd4855f1bf8bcc75fbd3c5dae77fc8cd79f45d54a2f91e899d0daa4a9ba418c7a7d37c9498fd395a88f09cef12c603ced9b1eb9f7688216119dfdf26cd58a60
   languageName: node
   linkType: hard
 
@@ -6866,15 +6838,6 @@ __metadata:
   version: 0.2.0
   resolution: "ts-easing@npm:0.2.0"
   checksum: e67ee862acca3b2e2718e736f31999adcef862d0df76d76a0e138588728d8a87dfec9978556044640bd0e90203590ad88ac2fe8746d0e9959b8d399132315150
-  languageName: node
-  linkType: hard
-
-"ts-shader-loader@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "ts-shader-loader@npm:1.0.6"
-  dependencies:
-    loader-utils: ^1.1.0
-  checksum: 458e4ccf8731816d2069f2b809899e54a21722e927ec6ee57824e2114b27908da4830a7d66b6805e447819da8cb202a4ceecb01a3cf5efdc03ecaafd6f925de1
   languageName: node
   linkType: hard
 
