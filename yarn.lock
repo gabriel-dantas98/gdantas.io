@@ -3481,7 +3481,6 @@ __metadata:
     eslint-config-next: 13
     gray-matter: ^4.0.3
     gsap: 3.12.5
-    inter-ui: ^3.19.3
     is-web-crawler: ^1.1.0
     js-yaml: ^4.1.1
     motion: ^10.7.2
@@ -4032,13 +4031,6 @@ __metadata:
   dependencies:
     css-in-js-utils: ^3.1.0
   checksum: 07a72573dfdac5e08fa18f5ce71d922861716955e230175ac415db227d9ed49443c764356cb407a92f4c85b30ebf39604165260b4dfbf3196b7736d7332c5c06
-  languageName: node
-  linkType: hard
-
-"inter-ui@npm:^3.19.3":
-  version: 3.19.3
-  resolution: "inter-ui@npm:3.19.3"
-  checksum: 74435e742e9829402cf15ac08aa48541c93e96d7528a29ba3bc2a14b059ccd3f330ddba8b1c96f06bfdda46b0c7e1a406db22a309045b3412b66ec4dcb5efa2a
   languageName: node
   linkType: hard
 
