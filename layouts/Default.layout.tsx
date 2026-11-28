@@ -1,12 +1,9 @@
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
-import Particles from 'react-particles';
-import { loadFull } from 'tsparticles';
 import { Navbar } from '~/components';
 import { usePersistantState, useSeoProps } from '~/lib';
 
 import type { WithChildren, WithProps } from '~/types';
-import { useCallback } from 'react';
 
 const Background = dynamic(() =>
 	import('~/components/Background/Standard.component').then(({ Standard }) => Standard),

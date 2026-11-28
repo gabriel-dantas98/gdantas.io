@@ -25,7 +25,8 @@ export default defineConfig({
 			},
 			colors,
 			fontFamily: {
-				sans: ['Inter', ...defaultTheme.fontFamily.sans],
+				// Alinha com IBM Plex Sans self-hosted em lib/fonts.ts (var no <body>).
+				sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
 			},
 			keyframes: {
 				wave: {

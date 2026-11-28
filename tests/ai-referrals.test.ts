@@ -119,7 +119,7 @@ test('StrictMode remount captures the AI referral only once per document', async
 	const originalResolveFilename = NodeModule._resolveFilename;
 	NodeModule._resolveFilename = (request: string, ...args: unknown[]) =>
 		request === 'windi.css'
-			? require.resolve('inter-ui/inter.css')
+			? require.resolve('nprogress/nprogress.css')
 			: originalResolveFilename.call(NodeModule, request, ...args);
 	const googleFontsPath = require.resolve('next/font/google');
 	const originalGoogleFonts = require.cache[googleFontsPath];
